@@ -31,6 +31,7 @@
     --locked-soft:#FBEAE4;
     --line:#DDE3EF;
     --line-dark:rgba(255,255,255,0.10);
+    --ease:cubic-bezier(.16,1,.3,1);
   }
   *{box-sizing:border-box; margin:0; padding:0;}
   html{scroll-behavior:smooth;}
@@ -44,6 +45,18 @@
     line-height:1.6;
     -webkit-font-smoothing:antialiased;
     text-rendering:optimizeLegibility;
+    position:relative;
+  }
+  body::after{
+    content:'';
+    position:fixed; inset:0; z-index:9999; pointer-events:none;
+    opacity:.035; mix-blend-mode:overlay;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+  .reveal{ opacity:0; transform:translateY(26px); transition:opacity .9s var(--ease), transform .9s var(--ease); }
+  .reveal.is-visible{ opacity:1; transform:translateY(0); }
+  @media (prefers-reduced-motion: reduce){
+    .reveal{ opacity:1 !important; transform:none !important; transition:none !important; }
   }
   h1,h2,h3{
     font-family:'Manrope', sans-serif;
@@ -93,11 +106,11 @@
     padding:12px 24px; border-radius:10px;
     font-weight:600; font-size:14.5px; font-family:'IBM Plex Sans',sans-serif;
     border:1px solid transparent;
-    transition:background .16s ease, border-color .16s ease, transform .12s ease, box-shadow .16s ease;
+    transition:background .22s var(--ease), border-color .22s var(--ease), transform .18s var(--ease), box-shadow .22s var(--ease);
     cursor:pointer;
   }
   .btn-primary{ background:var(--primary); color:#fff; box-shadow:0 1px 0 rgba(255,255,255,0.14) inset; }
-  .btn-primary:hover{ background:var(--primary-deep); }
+  .btn-primary:hover{ background:var(--primary-deep); transform:translateY(-1px); box-shadow:0 10px 24px -10px rgba(42,92,224,0.5); }
   .btn-primary:active{ transform:scale(0.98); }
   .btn-ghost{ border-color:var(--line); color:var(--ink); background:transparent; }
   .btn-ghost:hover{ border-color:var(--ink); }
@@ -107,8 +120,12 @@
   .btn-amber:hover{ background:var(--amber-deep); color:#fff; }
 
   /* ---------- HERO ---------- */
-  .hero{ padding:104px 0 116px; overflow:hidden; }
-  .hero-grid{ display:grid; grid-template-columns:1.08fr 0.92fr; gap:76px; align-items:center; }
+  .hero{ padding:104px 0 116px; overflow:hidden; position:relative; }
+  .hero-mesh{ position:absolute; inset:0; z-index:0; overflow:hidden; pointer-events:none; }
+  .hero-mesh span{ position:absolute; border-radius:50%; filter:blur(80px); }
+  .hero-mesh .m1{ width:460px; height:460px; background:var(--primary); opacity:.16; top:-200px; left:-140px; }
+  .hero-mesh .m2{ width:380px; height:380px; background:var(--amber); opacity:.14; bottom:-180px; right:-100px; }
+  .hero-grid{ position:relative; z-index:1; display:grid; grid-template-columns:1.08fr 0.92fr; gap:76px; align-items:center; }
   .eyebrow{ display:inline-flex; align-items:center; gap:9px; font-size:13.5px; color:var(--steel); margin-bottom:26px; font-weight:500; letter-spacing:0.01em; }
   .eyebrow .dot{ width:6px; height:6px; border-radius:50%; background:var(--amber); box-shadow:0 0 0 4px rgba(217,164,65,0.16); }
   h1.hero-head{ font-size:60px; margin-bottom:26px; }
@@ -130,6 +147,9 @@
       0 1px 0 rgba(255,255,255,0.7) inset,
       0 40px 80px -36px rgba(20,25,46,0.34),
       0 10px 28px -14px rgba(20,25,46,0.16);
+    transition:transform .35s var(--ease);
+    transform-style:preserve-3d;
+    will-change:transform;
   }
   .phone-card .row1{ display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:18px; }
   .phone-card .customer{ font-weight:600; font-size:15px; }
@@ -188,6 +208,9 @@
   /* ---------- HOW IT WORKS ---------- */
   .steps{ display:grid; grid-template-columns:repeat(3,1fr); gap:0; border-top:1px solid var(--line); margin-top:52px; }
   .step{ padding:36px 30px 6px 0; border-right:1px solid var(--line); }
+  .step.reveal:nth-child(1){ transition-delay:0s; }
+  .step.reveal:nth-child(2){ transition-delay:.1s; }
+  .step.reveal:nth-child(3){ transition-delay:.2s; }
   .step:last-child{ border-right:none; padding-right:0; }
   .step .ic{ width:42px; height:42px; border-radius:11px; background:var(--paper-2); border:1px solid var(--line); display:flex; align-items:center; justify-content:center; margin-bottom:22px; }
   .step .ic svg{ width:20px; height:20px; color:var(--ink); }
@@ -239,6 +262,12 @@
   .features{ display:grid; grid-template-columns:repeat(3,1fr); gap:1px; background:var(--line); border:1px solid var(--line); border-radius:18px; overflow:hidden; margin-top:52px; }
   .feature{ background:var(--paper); padding:34px 30px; transition:background .18s ease; }
   .feature:hover{ background:#fff; }
+  .feature.reveal:nth-child(1){ transition-delay:0s; }
+  .feature.reveal:nth-child(2){ transition-delay:.06s; }
+  .feature.reveal:nth-child(3){ transition-delay:.12s; }
+  .feature.reveal:nth-child(4){ transition-delay:.18s; }
+  .feature.reveal:nth-child(5){ transition-delay:.24s; }
+  .feature.reveal:nth-child(6){ transition-delay:.3s; }
   .feature .ic{ width:38px; height:38px; border-radius:10px; background:#fff; border:1px solid var(--line); display:flex; align-items:center; justify-content:center; margin-bottom:20px; }
   .feature:hover .ic{ border-color:var(--primary); }
   .feature .ic svg{ width:18px; height:18px; color:var(--ink); }
@@ -249,6 +278,9 @@
   .trust-grid{ display:grid; grid-template-columns:1fr 0.86fr; gap:64px; align-items:center; margin-top:26px; }
   .trust-item{ display:flex; gap:16px; margin-bottom:28px; }
   .trust-item:last-child{ margin-bottom:0; }
+  .trust-item.reveal:nth-child(1){ transition-delay:0s; }
+  .trust-item.reveal:nth-child(2){ transition-delay:.1s; }
+  .trust-item.reveal:nth-child(3){ transition-delay:.2s; }
   .trust-item .mark{ width:32px; height:32px; border-radius:9px; background:var(--active-soft); color:var(--active); display:flex; align-items:center; justify-content:center; flex-shrink:0; }
   .trust-item .mark svg{ width:16px; height:16px; }
   .trust-item h4{ font-size:15.5px; font-weight:700; margin-bottom:6px; }
@@ -284,7 +316,12 @@
   .pricing-list .pl-item .ic svg{ width:11px; height:11px; }
 
   /* ---------- FINAL CTA ---------- */
-  .cta-band{ background:linear-gradient(160deg, var(--primary) 0%, var(--primary-deep) 100%); color:#fff; padding:120px 0; text-align:center; }
+  .cta-band{ background:linear-gradient(160deg, var(--primary) 0%, var(--primary-deep) 100%); color:#fff; padding:120px 0; text-align:center; position:relative; overflow:hidden; }
+  .cta-mesh{ position:absolute; inset:0; z-index:0; pointer-events:none; }
+  .cta-mesh span{ position:absolute; border-radius:50%; filter:blur(90px); }
+  .cta-mesh .m1{ width:420px; height:420px; background:#FCE7B8; opacity:.14; top:-160px; right:-80px; }
+  .cta-mesh .m2{ width:360px; height:360px; background:#fff; opacity:.08; bottom:-180px; left:-100px; }
+  .cta-band .wrap{ position:relative; z-index:1; }
   .cta-band .kicker{ color:#FCE7B8; }
   .cta-band h2{ color:#fff; font-size:38px; max-width:580px; margin:0 auto 30px; }
   .cta-row{ display:flex; gap:14px; justify-content:center; margin-bottom:30px; }
@@ -339,6 +376,7 @@
 </header>
 
 <section class="hero">
+  <div class="hero-mesh"><span class="m1"></span><span class="m2"></span></div>
   <div class="wrap hero-grid">
     <div>
       <div class="eyebrow"><span class="dot"></span>For mobile phone shops selling on installment</div>
@@ -405,26 +443,26 @@
 
 <section class="band">
   <div class="wrap">
-    <div class="band-narrow">
+    <div class="band-narrow reveal">
       <span class="kicker">The problem</span>
       <h2>Trust doesn't collect payments.</h2>
       <p class="desc">Most shops selling phones on installment have one enforcement tool: asking nicely, then threatening repossession. LockPilot gives you a system instead — the phone enforces the agreement the customer already signed.</p>
     </div>
 
     <div class="steps" id="how">
-      <div class="step">
+      <div class="step reveal">
         <div class="ic"><svg viewBox="0 0 24 24" fill="none"><path d="M4 8V5a1 1 0 0 1 1-1h3M20 8V5a1 1 0 0 0-1-1h-3M4 16v3a1 1 0 0 0 1 1h3M20 16v3a1 1 0 0 1-1 1h-3" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/><rect x="9.2" y="9.2" width="5.6" height="5.6" rx="1" stroke="currentColor" stroke-width="1.6"/></svg></div>
         <span class="num mono">01</span>
         <h3>Provision at sale</h3>
         <p>Scan a QR code before handing the phone over. LockPilot registers as the device's owner and links it to the customer's installment plan — takes under a minute at the counter.</p>
       </div>
-      <div class="step">
+      <div class="step reveal">
         <div class="ic"><svg viewBox="0 0 24 24" fill="none"><rect x="5" y="3.5" width="14" height="17" rx="2" stroke="currentColor" stroke-width="1.6"/><path d="M8.5 8h7M8.5 12h7M8.5 16h4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg></div>
         <span class="num mono">02</span>
         <h3>Track every rupee</h3>
         <p>Installment schedule, payments, and running balance live in your dashboard. Record a payment on the spot and the customer's balance updates immediately.</p>
       </div>
-      <div class="step">
+      <div class="step reveal">
         <div class="ic"><svg viewBox="0 0 24 24" fill="none"><rect x="6" y="11" width="12" height="9" rx="2" stroke="currentColor" stroke-width="1.6"/><path d="M8.5 11V8a3.5 3.5 0 0 1 7 0v3" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/><circle cx="12" cy="15.3" r="1.2" fill="currentColor"/></svg></div>
         <span class="num mono">03</span>
         <h3>Enforcement runs itself</h3>
@@ -436,13 +474,13 @@
 
 <section class="dash-section" id="dashboard">
   <div class="wrap">
-    <div class="band-narrow">
+    <div class="band-narrow reveal">
       <span class="kicker">The dashboard</span>
       <h2>Your whole installment book, in one place.</h2>
       <p class="desc">Not just lock and unlock — a running picture of where your capital sits and what's coming back.</p>
     </div>
 
-    <div class="dash-mock">
+    <div class="dash-mock reveal">
       <div class="dash-titlebar">
         <span class="tf-dot"></span><span class="tf-dot"></span><span class="tf-dot"></span>
         <span class="tf-url">app.mylockpilot.com/dashboard</span>
@@ -475,37 +513,37 @@
 
 <section class="band">
   <div class="wrap">
-    <div class="band-narrow">
+    <div class="band-narrow reveal">
       <span class="kicker">Built in</span>
       <h2>Built for how a shop actually runs.</h2>
     </div>
     <div class="features">
-      <div class="feature">
+      <div class="feature reveal">
         <div class="ic"><svg viewBox="0 0 24 24" fill="none"><path d="M12 3.5l7 3v5.2c0 4.4-3 7.4-7 8.8-4-1.4-7-4.4-7-8.8V6.5l7-3z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><path d="M9 12.2l2 2 4-4.2" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
         <h3>Uninstall &amp; reset protection</h3>
         <p>A customer can't remove the app or wipe the phone while installments are outstanding. Both restrictions lift automatically the moment the phone is paid off.</p>
       </div>
-      <div class="feature">
+      <div class="feature reveal">
         <div class="ic"><svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="8.2" stroke="currentColor" stroke-width="1.6"/><path d="M12 7.5V12l3 2" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
         <h3>Grace-period locking</h3>
         <p>Set your own grace period per shop. Customers get reminders before anything locks — enforcement is the last step, not the first.</p>
       </div>
-      <div class="feature">
+      <div class="feature reveal">
         <div class="ic"><svg viewBox="0 0 24 24" fill="none"><rect x="6" y="4" width="12" height="16" rx="2" stroke="currentColor" stroke-width="1.6"/><path d="M9.5 4V3a1 1 0 0 1 1-1h3a1 1 0 0 1 1 1v1" stroke="currentColor" stroke-width="1.6"/><path d="M9 10h6M9 13.5h6M9 17h4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg></div>
         <h3>Full audit trail</h3>
         <p>Every lock, unlock, and payment is logged with who recorded it and when — so a dispute is a five-second lookup, not a guessing game.</p>
       </div>
-      <div class="feature">
+      <div class="feature reveal">
         <div class="ic"><svg viewBox="0 0 24 24" fill="none"><rect x="6" y="11" width="12" height="9" rx="2" stroke="currentColor" stroke-width="1.6"/><path d="M8.5 11V8a3.5 3.5 0 0 1 6.6-1.6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg></div>
         <h3>Manual override, always</h3>
         <p>A prominent unlock button sits in your dashboard at all times. Automatic enforcement never leaves you without a way to fix a mistake.</p>
       </div>
-      <div class="feature">
+      <div class="feature reveal">
         <div class="ic"><svg viewBox="0 0 24 24" fill="none"><path d="M4 16l5-5 3.5 3.5L20 7" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/><path d="M15 7h5v5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
         <h3>Per-device profit tracking</h3>
         <p>Cost price against sale price, per device and in aggregate — you always know your margin, not just your revenue.</p>
       </div>
-      <div class="feature">
+      <div class="feature reveal">
         <div class="ic"><svg viewBox="0 0 24 24" fill="none"><path d="M12 21s6-5.5 6-10.2A6 6 0 0 0 6 10.8C6 15.5 12 21 12 21z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><circle cx="12" cy="10.5" r="2.2" stroke="currentColor" stroke-width="1.6"/></svg></div>
         <h3>Multi-branch ready</h3>
         <p>Run more than one location under a single account, with staff permissions scoped to each branch.</p>
@@ -516,7 +554,7 @@
 
 <section class="band" id="trust">
   <div class="wrap">
-    <div class="band-narrow">
+    <div class="band-narrow reveal">
       <span class="kicker">Trust &amp; transparency</span>
       <h2>Built to be seen, not hidden.</h2>
       <p class="desc">A lock screen that hides who's behind it feels like spyware. One that names the shop and gives a number to call feels like an overdue bill — because that's what it is.</p>
@@ -524,21 +562,21 @@
 
     <div class="trust-grid">
       <div>
-        <div class="trust-item">
+        <div class="trust-item reveal">
           <div class="mark"><svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.6"/><path d="M8 12.3l2.5 2.5L16 9.5" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
           <div>
             <h4>Disclosed at the point of sale</h4>
             <p>Your sale agreement states plainly that the app is installed, what it can do, and when — signed by the customer, in Urdu and English.</p>
           </div>
         </div>
-        <div class="trust-item">
+        <div class="trust-item reveal">
           <div class="mark"><svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.6"/><path d="M8 12.3l2.5 2.5L16 9.5" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
           <div>
             <h4>No access to personal data</h4>
             <p>LockPilot reads device lock state and payment status only. No messages, photos, contacts, or location — ever.</p>
           </div>
         </div>
-        <div class="trust-item">
+        <div class="trust-item reveal">
           <div class="mark"><svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.6"/><path d="M8 12.3l2.5 2.5L16 9.5" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
           <div>
             <h4>Named, not anonymous</h4>
@@ -547,7 +585,7 @@
         </div>
       </div>
 
-      <div class="lock-stage">
+      <div class="lock-stage reveal">
         <div class="lockscreen-mock">
           <svg class="ic" viewBox="0 0 24 24" fill="none"><rect x="5" y="11" width="14" height="10" rx="2" stroke="#fff" stroke-width="1.6"/><path d="M8 11V7a4 4 0 0 1 8 0v4" stroke="#fff" stroke-width="1.6" stroke-linecap="round"/></svg>
           <h4>Payment overdue</h4>
@@ -561,12 +599,12 @@
 
 <section class="band" id="pricing">
   <div class="wrap">
-    <div class="band-narrow">
+    <div class="band-narrow reveal">
       <span class="kicker">Pricing</span>
       <h2>One plan to start.</h2>
       <p class="desc">Priced for shops running a real installment book — not a side hustle. Talk to us before you commit; we'll size it to how many devices you actually carry.</p>
     </div>
-    <div class="pricing-card">
+    <div class="pricing-card reveal">
       <div class="pc-left">
         <div class="amount">Rs 25,000<span> / month</span></div>
         <div class="cap">Everything you need to run enforcement and collections from day one.</div>
@@ -584,7 +622,8 @@
 </section>
 
 <section class="cta-band" id="demo">
-  <div class="wrap">
+  <div class="cta-mesh"><span class="m1"></span><span class="m2"></span></div>
+  <div class="wrap reveal">
     <span class="kicker">Get started</span>
     <h2>See it lock and unlock a real phone, in person.</h2>
     <div class="cta-row">
@@ -613,6 +652,41 @@
     <div class="mono">mylockpilot.com</div>
   </div>
 </footer>
+
+<script>
+(function(){
+  var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var revealEls = document.querySelectorAll('.reveal');
+
+  if(reduceMotion || !('IntersectionObserver' in window)){
+    revealEls.forEach(function(el){ el.classList.add('is-visible'); });
+  } else {
+    var io = new IntersectionObserver(function(entries){
+      entries.forEach(function(entry){
+        if(entry.isIntersecting){
+          entry.target.classList.add('is-visible');
+          io.unobserve(entry.target);
+        }
+      });
+    }, { threshold:0.15, rootMargin:'0px 0px -40px 0px' });
+    revealEls.forEach(function(el){ io.observe(el); });
+  }
+
+  var stage = document.querySelector('.stage');
+  var card = document.querySelector('.phone-card');
+  if(stage && card && !reduceMotion && window.matchMedia('(pointer: fine)').matches){
+    stage.addEventListener('mousemove', function(e){
+      var r = stage.getBoundingClientRect();
+      var x = (e.clientX - r.left) / r.width - 0.5;
+      var y = (e.clientY - r.top) / r.height - 0.5;
+      card.style.transform = 'perspective(1000px) rotateY(' + (x * 10).toFixed(2) + 'deg) rotateX(' + (-y * 10).toFixed(2) + 'deg)';
+    });
+    stage.addEventListener('mouseleave', function(){
+      card.style.transform = 'perspective(1000px) rotateY(0deg) rotateX(0deg)';
+    });
+  }
+})();
+</script>
 
 </body>
 </html>
