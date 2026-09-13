@@ -1,0 +1,594 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LockPilot — Installment enforcement & CRM for mobile phone shops</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@500;700;800&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#F2F4F0;
+    --paper-2:#EAEDE7;
+    --ink:#14192E;
+    --steel:#4A5568;
+    --steel-soft:#7A8496;
+    --amber:#D9A441;
+    --amber-deep:#B9862A;
+    --active:#2F7A52;
+    --active-soft:#E4F0E8;
+    --locked:#B4472C;
+    --locked-soft:#F5E6E1;
+    --line:#DBDED4;
+    --radius:14px;
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  html{scroll-behavior:smooth;}
+  body{
+    background:
+      radial-gradient(circle at 1.5px 1.5px, rgba(20,25,46,0.05) 1px, transparent 0) 0 0/22px 22px,
+      var(--paper);
+    color:var(--ink);
+    font-family:'IBM Plex Sans', sans-serif;
+    line-height:1.55;
+    -webkit-font-smoothing:antialiased;
+  }
+  h1,h2,h3{
+    font-family:'Manrope', sans-serif;
+    font-weight:800;
+    letter-spacing:-0.02em;
+    line-height:1.08;
+    color:var(--ink);
+  }
+  .mono{ font-family:'IBM Plex Mono', monospace; }
+  a{ color:inherit; text-decoration:none; }
+  .wrap{ max-width:1180px; margin:0 auto; padding:0 32px; }
+  img,svg{ display:block; max-width:100%; }
+
+  /* focus visibility */
+  a:focus-visible, button:focus-visible{
+    outline:2px solid var(--ink); outline-offset:3px;
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    *{ animation-duration:0.001ms !important; animation-iteration-count:1 !important; transition-duration:0.001ms !important; }
+  }
+
+  /* ---------- NAV ---------- */
+  header{
+    position:sticky; top:0; z-index:50;
+    background:rgba(242,244,240,0.86);
+    backdrop-filter:blur(10px);
+    border-bottom:1px solid var(--line);
+  }
+  .nav{
+    display:flex; align-items:center; justify-content:space-between;
+    padding:18px 0;
+  }
+  .brand{
+    display:flex; align-items:center; gap:9px;
+    font-family:'Manrope', sans-serif; font-weight:800; font-size:19px;
+  }
+  .brand .mark{
+    width:26px; height:26px; border-radius:7px;
+    background:var(--ink);
+    display:flex; align-items:center; justify-content:center;
+    flex-shrink:0;
+  }
+  .brand .mark svg{ width:14px; height:14px; }
+  .nav-links{ display:flex; align-items:center; gap:34px; font-size:15px; color:var(--steel); }
+  .nav-links a:hover{ color:var(--ink); }
+  .btn{
+    display:inline-flex; align-items:center; justify-content:center;
+    padding:11px 22px; border-radius:9px;
+    font-weight:600; font-size:14.5px;
+    border:1px solid transparent;
+    transition:background .15s ease, border-color .15s ease, transform .1s ease;
+    cursor:pointer;
+  }
+  .btn-primary{ background:var(--ink); color:var(--paper); }
+  .btn-primary:hover{ background:#232a47; }
+  .btn-primary:active{ transform:scale(0.98); }
+  .btn-ghost{ border-color:var(--line); color:var(--ink); background:transparent; }
+  .btn-ghost:hover{ border-color:var(--ink); }
+
+  /* ---------- HERO ---------- */
+  .hero{ padding:88px 0 96px; }
+  .hero-grid{
+    display:grid; grid-template-columns:1.05fr 0.95fr; gap:64px; align-items:center;
+  }
+  .eyebrow{
+    display:inline-flex; align-items:center; gap:8px;
+    font-size:14px; color:var(--steel); margin-bottom:22px;
+  }
+  .eyebrow .dot{ width:6px; height:6px; border-radius:50%; background:var(--amber); }
+  h1.hero-head{ font-size:56px; margin-bottom:24px; }
+  .hero p.lede{
+    font-size:18.5px; color:var(--steel); max-width:480px; margin-bottom:36px;
+  }
+  .hero-cta{ display:flex; gap:14px; margin-bottom:40px; }
+  .hero-note{ font-size:13.5px; color:var(--steel-soft); display:flex; align-items:center; gap:8px; }
+  .hero-note::before{ content:''; width:14px; height:1px; background:var(--line); }
+
+  /* phone status card */
+  .stage{
+    display:flex; justify-content:center; align-items:center;
+    position:relative;
+  }
+  .stage::before{
+    content:'';
+    position:absolute;
+    width:420px; height:420px;
+    background:radial-gradient(circle, rgba(217,164,65,0.16) 0%, rgba(217,164,65,0) 70%);
+    z-index:0;
+  }
+  .phone-card{
+    position:relative; z-index:1;
+    width:320px;
+    background:#fff;
+    border:1px solid var(--line);
+    border-radius:22px;
+    padding:26px;
+    box-shadow:
+      0 1px 0 rgba(255,255,255,0.6) inset,
+      0 32px 70px -32px rgba(20,25,46,0.32),
+      0 8px 24px -12px rgba(20,25,46,0.14);
+    transition:transform .4s ease;
+  }
+  .phone-card:hover{ transform:translateY(-4px); }
+  .phone-card .row1{
+    display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:18px;
+  }
+  .phone-card .customer{ font-weight:600; font-size:15px; }
+  .phone-card .model{ font-size:13px; color:var(--steel-soft); margin-top:2px; }
+  .status-chip{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:12px; padding:5px 10px; border-radius:100px;
+    display:inline-flex; align-items:center; gap:6px;
+    transition:background .3s ease, color .3s ease;
+  }
+  .status-chip .dot{ width:6px; height:6px; border-radius:50%; }
+
+  .phone-screen{
+    background:var(--ink);
+    background-image:radial-gradient(circle at 50% 0%, rgba(255,255,255,0.06), transparent 60%);
+    border-radius:16px;
+    aspect-ratio:9/14;
+    padding:22px 18px;
+    display:flex; flex-direction:column; justify-content:center; align-items:center;
+    text-align:center;
+    position:relative;
+    overflow:hidden;
+    transition:background-color .5s ease;
+  }
+  .phone-screen::after{
+    content:'';
+    position:absolute; top:14px; left:50%; transform:translateX(-50%);
+    width:46px; height:5px; border-radius:4px; background:rgba(255,255,255,0.14);
+  }
+  .phone-screen .icon{
+    width:40px; height:40px; margin-bottom:16px;
+    transition:opacity .25s ease;
+  }
+  .phone-screen .msg-title{
+    color:#fff; font-family:'Manrope',sans-serif; font-weight:700; font-size:16px; margin-bottom:8px;
+  }
+  .phone-screen .msg-sub{
+    color:#AEB4C4; font-size:12.5px; line-height:1.5;
+  }
+  .phone-screen .amt{
+    font-family:'IBM Plex Mono',monospace; font-size:22px; color:#fff; margin-top:14px;
+  }
+
+  .phone-card .meta{
+    display:flex; justify-content:space-between; margin-top:18px;
+    font-family:'IBM Plex Mono', monospace; font-size:12.5px; color:var(--steel-soft);
+  }
+
+  /* ---------- PROBLEM ---------- */
+  .band{ padding:76px 0; border-top:1px solid var(--line); }
+  .band-narrow{ max-width:640px; }
+  .band h2{ font-size:32px; margin-bottom:18px; }
+  .band p{ color:var(--steel); font-size:17px; }
+
+  /* ---------- HOW IT WORKS ---------- */
+  .steps{
+    display:grid; grid-template-columns:repeat(3,1fr); gap:0;
+    border-top:1px solid var(--line);
+    margin-top:44px;
+  }
+  .step{
+    padding:32px 28px 4px 0;
+    border-right:1px solid var(--line);
+    transition:padding-left .25s ease;
+  }
+  .step:hover{ padding-left:6px; }
+  .step:last-child{ border-right:none; padding-right:0; }
+  .step .num{
+    font-family:'IBM Plex Mono', monospace; font-size:13px; color:var(--amber-deep);
+    display:block; margin-bottom:14px;
+  }
+  .step h3{ font-size:19px; margin-bottom:10px; font-weight:700; }
+  .step p{ color:var(--steel); font-size:15px; }
+
+  /* ---------- DASHBOARD PREVIEW ---------- */
+  .dash-section{ background:var(--ink); color:var(--paper); padding:80px 0; }
+  .dash-section .band-narrow{ max-width:560px; }
+  .dash-section h2{ color:#fff; font-size:32px; margin-bottom:14px; }
+  .dash-section p{ color:#AEB4C4; font-size:16.5px; margin-bottom:48px;}
+
+  .dash-grid{
+    display:grid; grid-template-columns:repeat(4,1fr); gap:1px;
+    background:rgba(255,255,255,0.1);
+    border-radius:16px;
+    overflow:hidden;
+  }
+  .dash-card{ background:#1B2140; padding:26px 22px; }
+  .dash-card .label{ font-size:12.5px; color:#8991A8; margin-bottom:10px; }
+  .dash-card .value{ font-family:'IBM Plex Mono', monospace; font-size:24px; color:#fff; }
+  .dash-card .value.pos{ color:#6FCB9A; }
+  .dash-card .value.warn{ color:#E8A56E; }
+
+  /* ---------- FEATURES ---------- */
+  .features{
+    display:grid; grid-template-columns:repeat(3,1fr); gap:1px;
+    background:var(--line);
+    border:1px solid var(--line);
+    border-radius:16px;
+    overflow:hidden;
+    margin-top:44px;
+  }
+  .feature{ background:var(--paper); padding:30px 26px; transition:background .2s ease; }
+  .feature:hover{ background:#fff; }
+  .feature h3{ font-size:16.5px; margin-bottom:9px; font-weight:700; }
+  .feature p{ font-size:14.5px; color:var(--steel); }
+
+  /* ---------- TRUST ---------- */
+  .trust-grid{ display:grid; grid-template-columns:1fr 1fr; gap:56px; align-items:start; margin-top:20px; }
+  .trust-item{ display:flex; gap:16px; margin-bottom:26px; }
+  .trust-item .mark{
+    width:28px; height:28px; border-radius:50%;
+    background:var(--active-soft); color:var(--active);
+    display:flex; align-items:center; justify-content:center;
+    font-family:'IBM Plex Mono',monospace; font-size:13px; font-weight:600;
+    flex-shrink:0;
+  }
+  .trust-item h4{ font-size:15.5px; font-weight:700; margin-bottom:5px; }
+  .trust-item p{ font-size:14.5px; color:var(--steel); }
+
+  .lockscreen-mock{
+    background:var(--ink); border-radius:18px; padding:36px 28px;
+    text-align:center;
+  }
+  .lockscreen-mock .icon{ width:34px; height:34px; margin:0 auto 18px; }
+  .lockscreen-mock h4{ color:#fff; font-family:'Manrope',sans-serif; font-size:17px; margin-bottom:10px;}
+  .lockscreen-mock p{ color:#AEB4C4; font-size:13.5px; margin-bottom:20px; }
+  .lockscreen-mock .contact{
+    font-family:'IBM Plex Mono',monospace; color:var(--amber); font-size:13px;
+    border-top:1px solid rgba(255,255,255,0.12); padding-top:16px;
+  }
+
+  /* ---------- PRICING ---------- */
+  .pricing-card{
+    border:1px solid var(--line); border-radius:18px;
+    padding:44px; background:#fff;
+    display:grid; grid-template-columns:1fr auto; align-items:center; gap:40px;
+    margin-top:36px;
+    box-shadow:0 24px 48px -32px rgba(20,25,46,0.18);
+  }
+  .pricing-card .amount{
+    font-family:'IBM Plex Mono',monospace; font-size:34px; font-weight:500;
+  }
+  .pricing-card .amount span{ font-size:15px; color:var(--steel-soft); }
+  .pricing-card .cap{ font-size:14px; color:var(--steel); margin-top:6px; }
+
+  /* ---------- FINAL CTA ---------- */
+  .cta-band{
+    padding:90px 0; text-align:center; border-top:1px solid var(--line);
+  }
+  .cta-band h2{ font-size:36px; max-width:560px; margin:0 auto 26px; }
+  .cta-row{ display:flex; gap:14px; justify-content:center; }
+
+  footer{
+    border-top:1px solid var(--line); padding:40px 0;
+    font-size:13.5px; color:var(--steel-soft);
+  }
+  .foot-row{ display:flex; justify-content:space-between; align-items:flex-start; gap:24px; }
+  .foot-links{ display:flex; gap:26px; }
+  .foot-links a:hover{ color:var(--ink); }
+  .foot-tag{ margin-top:8px; max-width:280px; }
+
+  @media (max-width: 880px){
+    .hero-grid{ grid-template-columns:1fr; }
+    .stage{ order:-1; margin-bottom:12px; }
+    h1.hero-head{ font-size:38px; }
+    .steps{ grid-template-columns:1fr; }
+    .step{ border-right:none; border-bottom:1px solid var(--line); padding:28px 0; }
+    .step:first-child{ padding-top:0; }
+    .dash-grid{ grid-template-columns:repeat(2,1fr); }
+    .features{ grid-template-columns:1fr; }
+    .trust-grid{ grid-template-columns:1fr; gap:0;}
+    .pricing-card{ grid-template-columns:1fr; text-align:left; }
+    .nav-links{ display:none; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap nav">
+    <div class="brand"><span class="mark"><svg viewBox="0 0 128 128" xmlns="http://www.w3.org/2000/svg"><path d="M46 57V50a18 18 0 0 1 36 0v7" fill="none" stroke="#F2F4F0" stroke-width="8" stroke-linecap="round"/><rect x="35" y="61" width="58" height="44" rx="9" fill="#F2F4F0"/><circle cx="64" cy="82" r="6" fill="#D9A441"/></svg></span>LockPilot</div>
+    <nav class="nav-links">
+      <a href="#how">How it works</a>
+      <a href="#dashboard">Dashboard</a>
+      <a href="#trust">Trust</a>
+      <a href="#pricing">Pricing</a>
+    </nav>
+    <a href="#demo" class="btn btn-primary">Request a demo</a>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="wrap hero-grid">
+    <div>
+      <div class="eyebrow"><span class="dot"></span>For mobile phone shops selling on installment</div>
+      <h1 class="hero-head">Every phone you sell on qist, accounted for.</h1>
+      <p class="lede">LockPilot pairs a remote-lock Android app with a full installment CRM — so a missed payment gets enforced automatically, and every rupee out and back is tracked.</p>
+      <div class="hero-cta">
+        <a href="#demo" class="btn btn-primary">Request a demo</a>
+        <a href="#how" class="btn btn-ghost">See how it works</a>
+      </div>
+      <div class="hero-note">No card required to talk to us. We'll walk you through it on a real device.</div>
+    </div>
+
+    <div class="stage">
+      <div class="phone-card">
+        <div class="row1">
+          <div>
+            <div class="customer">Ali Raza</div>
+            <div class="model">iPhone 12 · Rs 3,500 / month</div>
+          </div>
+          <div class="status-chip" id="statusChip">
+            <span class="dot"></span><span id="statusText">Locked</span>
+          </div>
+        </div>
+        <div class="phone-screen">
+          <svg class="icon" id="stateIcon" viewBox="0 0 24 24" fill="none">
+            <rect x="5" y="11" width="14" height="10" rx="2" stroke="#fff" stroke-width="1.6"/>
+            <path id="shackle" d="M8 11V7a4 4 0 0 1 8 0v4" stroke="#fff" stroke-width="1.6" stroke-linecap="round"/>
+          </svg>
+          <div class="msg-title" id="msgTitle">Payment overdue</div>
+          <div class="msg-sub" id="msgSub">Contact Malik Mobiles<br>0300-1234567 to unlock</div>
+          <div class="amt" id="msgAmt">Rs 3,500 due</div>
+        </div>
+        <div class="meta">
+          <span>Installment 4/12</span>
+          <span id="dayCount">2 days overdue</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="band">
+  <div class="wrap">
+    <div class="band-narrow">
+      <h2>Trust doesn't collect payments.</h2>
+      <p>Most shops selling phones on installment have one enforcement tool: asking nicely, then threatening repossession. LockPilot gives you a system instead — the phone enforces the agreement the customer already signed.</p>
+    </div>
+
+    <div class="steps" id="how">
+      <div class="step">
+        <span class="num mono">01</span>
+        <h3>Provision at sale</h3>
+        <p>Scan a QR code before handing the phone over. LockPilot registers as the device's owner and links it to the customer's installment plan — takes under a minute at the counter.</p>
+      </div>
+      <div class="step">
+        <span class="num mono">02</span>
+        <h3>Track every rupee</h3>
+        <p>Installment schedule, payments, and running balance live in your dashboard. Record a payment on the spot and the customer's balance updates immediately.</p>
+      </div>
+      <div class="step">
+        <span class="num mono">03</span>
+        <h3>Enforcement runs itself</h3>
+        <p>Miss a payment past the grace period, the phone locks on its own. Pay, and it unlocks the same second — no phone calls, no chasing.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="dash-section" id="dashboard">
+  <div class="wrap">
+    <div class="band-narrow">
+      <h2>Your whole installment book, in one place.</h2>
+      <p>Not just lock and unlock — a running picture of where your capital sits and what's coming back.</p>
+    </div>
+    <div class="dash-grid">
+      <div class="dash-card">
+        <div class="label">Capital invested</div>
+        <div class="value">Rs 4.8M</div>
+      </div>
+      <div class="dash-card">
+        <div class="label">Collected this month</div>
+        <div class="value pos">Rs 612,000</div>
+      </div>
+      <div class="dash-card">
+        <div class="label">Outstanding receivables</div>
+        <div class="value">Rs 2.1M</div>
+      </div>
+      <div class="dash-card">
+        <div class="label">Overdue exposure</div>
+        <div class="value warn">Rs 84,000</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="band">
+  <div class="wrap">
+    <div class="band-narrow">
+      <h2>Built for how a shop actually runs.</h2>
+    </div>
+    <div class="features">
+      <div class="feature">
+        <h3>Uninstall & reset protection</h3>
+        <p>A customer can't remove the app or wipe the phone while installments are outstanding. Both restrictions lift automatically the moment the phone is paid off.</p>
+      </div>
+      <div class="feature">
+        <h3>Grace-period locking</h3>
+        <p>Set your own grace period per shop. Customers get reminders before anything locks — enforcement is the last step, not the first.</p>
+      </div>
+      <div class="feature">
+        <h3>Full audit trail</h3>
+        <p>Every lock, unlock, and payment is logged with who recorded it and when — so a dispute is a five-second lookup, not a guessing game.</p>
+      </div>
+      <div class="feature">
+        <h3>Manual override, always</h3>
+        <p>A prominent unlock button sits in your dashboard at all times. Automatic enforcement never leaves you without a way to fix a mistake.</p>
+      </div>
+      <div class="feature">
+        <h3>Per-device profit tracking</h3>
+        <p>Cost price against sale price, per device and in aggregate — you always know your margin, not just your revenue.</p>
+      </div>
+      <div class="feature">
+        <h3>Multi-branch ready</h3>
+        <p>Run more than one location under a single account, with staff permissions scoped to each branch.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="band" id="trust">
+  <div class="wrap">
+    <div class="band-narrow">
+      <h2>Built to be seen, not hidden.</h2>
+      <p>A lock screen that hides who's behind it feels like spyware. One that names the shop and gives a number to call feels like an overdue bill — because that's what it is.</p>
+    </div>
+
+    <div class="trust-grid">
+      <div>
+        <div class="trust-item">
+          <div class="mark">✓</div>
+          <div>
+            <h4>Disclosed at the point of sale</h4>
+            <p>Your sale agreement states plainly that the app is installed, what it can do, and when — signed by the customer, in Urdu and English.</p>
+          </div>
+        </div>
+        <div class="trust-item">
+          <div class="mark">✓</div>
+          <div>
+            <h4>No access to personal data</h4>
+            <p>LockPilot reads device lock state and payment status only. No messages, photos, contacts, or location — ever.</p>
+          </div>
+        </div>
+        <div class="trust-item">
+          <div class="mark">✓</div>
+          <div>
+            <h4>Named, not anonymous</h4>
+            <p>Every lock screen shows the shop's name and phone number, so the customer knows exactly who to call and why.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="lockscreen-mock">
+        <svg class="icon" viewBox="0 0 24 24" fill="none">
+          <rect x="5" y="11" width="14" height="10" rx="2" stroke="#fff" stroke-width="1.6"/>
+          <path d="M8 11V7a4 4 0 0 1 8 0v4" stroke="#fff" stroke-width="1.6" stroke-linecap="round"/>
+        </svg>
+        <h4>Payment overdue</h4>
+        <p>This phone is on an active installment plan with Malik Mobiles. Please contact the shop to make a payment and unlock your device.</p>
+        <div class="contact">Malik Mobiles &nbsp;·&nbsp; 0300-1234567</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="band" id="pricing">
+  <div class="wrap">
+    <div class="band-narrow">
+      <h2>One plan to start.</h2>
+      <p>Priced for shops running a real installment book — not a side hustle. Talk to us before you commit; we'll size it to how many devices you actually carry.</p>
+    </div>
+    <div class="pricing-card">
+      <div>
+        <div class="amount">Rs 25,000<span> / month</span></div>
+        <div class="cap">Up to 50 active devices · unlimited staff logins · full dashboard</div>
+      </div>
+      <a href="#demo" class="btn btn-primary">Talk to us</a>
+    </div>
+  </div>
+</section>
+
+<section class="cta-band" id="demo">
+  <div class="wrap">
+    <h2>See it lock and unlock a real phone, in person.</h2>
+    <div class="cta-row">
+      <a href="#" class="btn btn-primary">Request a demo</a>
+      <a href="#" class="btn btn-ghost">WhatsApp us</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap foot-row">
+    <div>
+      <div class="brand" style="font-size:15px;"><span class="mark"><svg viewBox="0 0 128 128" xmlns="http://www.w3.org/2000/svg"><path d="M46 57V50a18 18 0 0 1 36 0v7" fill="none" stroke="#F2F4F0" stroke-width="8" stroke-linecap="round"/><rect x="35" y="61" width="58" height="44" rx="9" fill="#F2F4F0"/><circle cx="64" cy="82" r="6" fill="#D9A441"/></svg></span>LockPilot</div>
+      <p class="foot-tag">Installment enforcement and CRM for mobile phone shops in Pakistan.</p>
+    </div>
+    <div class="foot-links">
+      <a href="#how">How it works</a>
+      <a href="#trust">Trust</a>
+      <a href="#pricing">Pricing</a>
+      <a href="#demo">Contact</a>
+    </div>
+    <div class="mono">mylockpilot.com</div>
+  </div>
+</footer>
+
+<script>
+  // Single orchestrated hero moment: phone flips from overdue/locked to paid/active, then loops.
+  const chip = document.getElementById('statusChip');
+  const statusText = document.getElementById('statusText');
+  const msgTitle = document.getElementById('msgTitle');
+  const msgSub = document.getElementById('msgSub');
+  const msgAmt = document.getElementById('msgAmt');
+  const dayCount = document.getElementById('dayCount');
+  const shackle = document.getElementById('shackle');
+  const screenEl = document.querySelector('.phone-screen');
+
+  const locked = {
+    chipBg: '#F5E6E1', chipColor: '#B4472C', text: 'Locked',
+    title: 'Payment overdue', sub: 'Contact Malik Mobiles<br>0300-1234567 to unlock',
+    amt: 'Rs 3,500 due', day: '2 days overdue',
+    shackleD: 'M8 11V7a4 4 0 0 1 8 0v4', screenBg: '#14192E'
+  };
+  const active = {
+    chipBg: '#E4F0E8', chipColor: '#2F7A52', text: 'Active',
+    title: 'Payment received', sub: 'Device unlocked automatically',
+    amt: 'Rs 0 due', day: 'On schedule',
+    shackleD: 'M8 11V9a4 4 0 0 1 8 0v2', screenBg: '#1B2E22'
+  };
+
+  let isLocked = true;
+  function paint(state){
+    chip.style.background = state.chipBg;
+    chip.style.color = state.chipColor;
+    chip.querySelector('.dot').style.background = state.chipColor;
+    statusText.textContent = state.text;
+    msgTitle.textContent = state.title;
+    msgSub.innerHTML = state.sub;
+    msgAmt.textContent = state.amt;
+    dayCount.textContent = state.day;
+    shackle.setAttribute('d', state.shackleD);
+    screenEl.style.background = state.screenBg;
+  }
+  paint(locked);
+
+  setInterval(() => {
+    isLocked = !isLocked;
+    paint(isLocked ? locked : active);
+  }, 3200);
+</script>
+
+</body>
+</html>
