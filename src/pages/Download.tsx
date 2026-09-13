@@ -5,7 +5,7 @@ import { APK_DOWNLOAD_URL } from "../config/config";
 
 export function Download() {
   return (
-    <section className="py-24 md:py-32">
+    <section className="py-16 md:py-20">
       <Container className="text-center">
         <SectionHeading
           eyebrow="Download"

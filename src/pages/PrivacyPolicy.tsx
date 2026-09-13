@@ -2,7 +2,7 @@ import { Container } from "../components/Container";
 
 export function PrivacyPolicy() {
   return (
-    <section className="py-20 md:py-28">
+    <section className="py-14 md:py-16">
       <Container className="max-w-[720px]">
         <h1 className="mb-8 font-heading text-[32px] font-extrabold text-navy">Privacy Policy</h1>
         <div className="flex flex-col gap-8 text-[15px] leading-relaxed text-slate">

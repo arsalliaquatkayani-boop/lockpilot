@@ -4,7 +4,7 @@ import { LeadForm } from "../components/LeadForm";
 
 export function EarlyAccess() {
   return (
-    <section className="py-20 md:py-28">
+    <section className="py-14 md:py-16">
       <Container className="max-w-[720px]">
         <SectionHeading
           eyebrow="Get started"

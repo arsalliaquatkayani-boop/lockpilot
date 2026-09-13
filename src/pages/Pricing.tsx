@@ -5,7 +5,7 @@ import { PricingCard } from "../components/PricingCard";
 
 export function Pricing() {
   return (
-    <section className="py-20 md:py-28">
+    <section className="py-14 md:py-16">
       <Container>
         <SectionHeading
           eyebrow="Pricing"

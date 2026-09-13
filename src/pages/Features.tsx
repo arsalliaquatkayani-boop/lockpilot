@@ -15,7 +15,7 @@ const supporting = featureItems.filter(
 export function Features() {
   return (
     <>
-      <section className="py-20 md:py-28">
+      <section className="py-14 md:py-16">
         <Container>
           <SectionHeading
             eyebrow="Features"
@@ -70,7 +70,7 @@ export function Features() {
       </section>
 
       {/* SUPPORTING GRID */}
-      <section className="border-t border-line py-24 md:py-32">
+      <section className="border-t border-line py-16 md:py-20">
         <Container>
           <Reveal>
             <SectionHeading eyebrow="Also included" title="The rest of the system." className="mb-14" />
@@ -87,7 +87,7 @@ export function Features() {
       </section>
 
       {/* ARCHITECTURE */}
-      <section className="border-t border-line bg-offwhite py-24 md:py-32">
+      <section className="border-t border-line bg-offwhite py-16 md:py-20">
         <Container>
           <Reveal>
             <SectionHeading eyebrow="How it fits together" title="The LockPilot ecosystem." className="mb-14" />
@@ -120,7 +120,7 @@ export function Features() {
       </section>
 
       {/* COMPARISON */}
-      <section className="border-t border-line py-24 md:py-32">
+      <section className="border-t border-line py-16 md:py-20">
         <Container>
           <Reveal>
             <SectionHeading eyebrow="Before & after" title="The last step is the only thing that changes." className="mb-14" />
@@ -132,7 +132,7 @@ export function Features() {
       </section>
 
       {/* TRUST / CONTROL */}
-      <section className="border-t border-line bg-navy py-24 text-white md:py-32">
+      <section className="border-t border-line bg-navy py-16 text-white md:py-20">
         <Container className="text-center">
           <Reveal>
             <div className="mx-auto mb-10 flex max-w-[640px] flex-wrap justify-center gap-x-10 gap-y-4 font-heading text-[22px] font-bold text-emerald md:text-[28px]">
@@ -150,7 +150,7 @@ export function Features() {
       </section>
 
       {/* SECURITY & PRIVACY */}
-      <section className="border-t border-line py-24 md:py-32">
+      <section className="border-t border-line py-16 md:py-20">
         <Container>
           <Reveal>
             <SectionHeading

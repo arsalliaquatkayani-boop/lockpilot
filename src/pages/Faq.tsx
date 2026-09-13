@@ -4,7 +4,7 @@ import { FAQAccordion } from "../components/FAQAccordion";
 
 export function Faq() {
   return (
-    <section className="py-20 md:py-28">
+    <section className="py-14 md:py-16">
       <Container>
         <SectionHeading
           eyebrow="FAQ"

@@ -63,7 +63,7 @@ export function Dashboard() {
       </section>
 
       {/* DEVICE MANAGEMENT */}
-      <section className="bg-navy pb-24 text-white md:pb-32">
+      <section className="bg-navy pb-16 text-white md:pb-20">
         <Container>
           <Reveal>
             <SectionHeading
@@ -80,7 +80,7 @@ export function Dashboard() {
       </section>
 
       {/* FINANCIAL INTELLIGENCE */}
-      <section className="border-b border-line py-24 md:py-32">
+      <section className="border-b border-line py-16 md:py-20">
         <Container>
           <Reveal>
             <SectionHeading
@@ -96,7 +96,7 @@ export function Dashboard() {
       </section>
 
       {/* LOCATION VISIBILITY */}
-      <section className="border-b border-line bg-offwhite py-24 md:py-32">
+      <section className="border-b border-line bg-offwhite py-16 md:py-20">
         <Container>
           <Reveal>
             <SectionHeading

@@ -18,7 +18,7 @@ export function Home() {
   return (
     <>
       {/* HERO */}
-      <section className="relative overflow-hidden pt-16 pb-24 md:pt-24 md:pb-32">
+      <section className="relative overflow-hidden pt-10 pb-10 md:pt-14 md:pb-16">
         <Container>
           <div className="grid items-center gap-16 lg:grid-cols-[1.05fr_0.95fr]">
             <div>
@@ -41,11 +41,12 @@ export function Home() {
               </p>
             </div>
 
-            <div className="relative">
-              <div className="relative aspect-[4/5] w-full overflow-hidden rounded-card border border-line">
+            <div className="relative pb-10 pr-6 md:pb-14 md:pr-10">
+              <div className="absolute -right-10 -top-10 h-56 w-56 rounded-full bg-emerald/10 blur-3xl" />
+              <div className="relative aspect-[4/3] w-full overflow-hidden rounded-card border border-line">
                 <ProductImage {...images.heroHandover} className="h-full w-full" label="Hero visual" />
               </div>
-              <div className="absolute -bottom-10 -left-8 hidden sm:block">
+              <div className="absolute -bottom-2 -right-2 hidden origin-bottom-right scale-[0.82] sm:block md:-bottom-4 md:-right-4">
                 <LockDemo />
               </div>
             </div>
@@ -58,7 +59,7 @@ export function Home() {
       </Container>
 
       {/* PROBLEM */}
-      <section className="border-b border-line py-24 md:py-32">
+      <section className="border-b border-line py-16 md:py-20">
         <Container>
           <Reveal>
             <SectionHeading
@@ -75,14 +76,17 @@ export function Home() {
       </section>
 
       {/* SIGNATURE DEVICE STATE */}
-      <section className="border-b border-line bg-offwhite py-24 md:py-32">
-        <Container className="flex flex-col items-center text-center">
+      <section className="relative overflow-hidden border-b border-line bg-navy-secondary py-16 md:py-20">
+        <div className="pointer-events-none absolute inset-0 [background-image:radial-gradient(circle_at_1px_1px,rgba(255,255,255,0.06)_1px,transparent_0)] [background-size:24px_24px]" />
+        <div className="pointer-events-none absolute left-1/2 top-1/2 h-[420px] w-[420px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-emerald/10 blur-[100px]" />
+        <Container className="relative flex flex-col items-center text-center">
           <Reveal>
             <SectionHeading
               eyebrow="How the device behaves"
               title="One system, five states."
               description="Every device in your portfolio moves through the same lifecycle — automatically."
               align="center"
+              tone="dark"
               className="mb-14"
             />
           </Reveal>
@@ -93,7 +97,7 @@ export function Home() {
       </section>
 
       {/* FEATURES PREVIEW */}
-      <section className="border-b border-line py-24 md:py-32">
+      <section className="border-b border-line py-16 md:py-20">
         <Container>
           <Reveal>
             <SectionHeading
@@ -117,7 +121,7 @@ export function Home() {
       </section>
 
       {/* DASHBOARD SHOWCASE PREVIEW */}
-      <section className="border-b border-navy bg-navy py-24 text-white md:py-32">
+      <section className="border-b border-navy bg-navy py-16 text-white md:py-20">
         <Container>
           <Reveal>
             <SectionHeading
@@ -148,7 +152,7 @@ export function Home() {
       </section>
 
       {/* RETAIL POSITIONING */}
-      <section className="border-b border-line py-24 md:py-32">
+      <section className="border-b border-line py-16 md:py-20">
         <Container className="grid items-center gap-14 lg:grid-cols-2">
           <Reveal className="order-2 lg:order-1">
             <SectionHeading
@@ -166,7 +170,7 @@ export function Home() {
       </section>
 
       {/* PRICING TEASER */}
-      <section className="border-b border-line py-24 md:py-32">
+      <section className="border-b border-line py-16 md:py-20">
         <Container>
           <Reveal>
             <SectionHeading eyebrow="Pricing" title="Simple pricing. Serious control." className="mb-10" />
@@ -178,7 +182,7 @@ export function Home() {
       </section>
 
       {/* FAQ TEASER */}
-      <section className="border-b border-line py-24 md:py-32">
+      <section className="border-b border-line py-16 md:py-20">
         <Container>
           <Reveal>
             <SectionHeading eyebrow="FAQ" title="Questions retailers actually ask." className="mb-10" />
@@ -198,7 +202,7 @@ export function Home() {
       </section>
 
       {/* FINAL CTA */}
-      <section className="relative overflow-hidden bg-navy py-28 text-center text-white">
+      <section className="relative overflow-hidden bg-navy py-20 text-center text-white">
         <div className="absolute inset-0 opacity-25">
           <ProductImage {...images.retailNightHandover} className="h-full w-full" label="Final CTA visual" />
         </div>

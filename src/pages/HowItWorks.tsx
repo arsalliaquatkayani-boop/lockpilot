@@ -34,7 +34,7 @@ const steps = [
 export function HowItWorks() {
   return (
     <>
-      <section className="py-20 md:py-28">
+      <section className="py-14 md:py-16">
         <Container>
           <SectionHeading
             eyebrow="How it works"
@@ -72,7 +72,7 @@ export function HowItWorks() {
         </Container>
       </section>
 
-      <section className="border-t border-line bg-offwhite py-24 md:py-32">
+      <section className="border-t border-line bg-offwhite py-16 md:py-20">
         <Container className="flex flex-col items-center text-center">
           <Reveal>
             <SectionHeading
