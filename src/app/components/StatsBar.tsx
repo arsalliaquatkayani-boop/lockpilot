@@ -22,14 +22,14 @@ export function StatsBar({ devices, payments }: { devices: Device[]; payments: P
     .filter((p) => p.paid_date === null)
     .reduce((sum, p) => sum + Number(p.amount), 0);
 
-  const stats = [
+  const stats: { label: string; value: string; tone?: "positive" | "danger" }[] = [
     { label: "Total Devices", value: String(totalDevices) },
     { label: "Active", value: String(activeDevices) },
     { label: "Locked", value: String(lockedDevices), tone: lockedDevices > 0 ? "danger" : undefined },
     { label: "Collected", value: formatPkr(collected), tone: "positive" },
     { label: "Outstanding", value: formatPkr(outstanding) },
     { label: "Overdue", value: formatPkr(overdue), tone: overdue > 0 ? "danger" : undefined },
-  ] as const;
+  ];
 
   return (
     <div className="mb-8 grid grid-cols-2 gap-px overflow-hidden rounded-card border border-line-dark bg-line-dark md:grid-cols-3 lg:grid-cols-6">
