@@ -10,7 +10,7 @@ export function Pricing() {
         <SectionHeading
           eyebrow="Pricing"
           title="Simple pricing. Serious control."
-          description="One plan, priced for a real installment book — not a side hustle."
+          description="Three tiers, sized for a real installment book — not a side hustle."
           className="mb-12"
         />
         <Reveal>

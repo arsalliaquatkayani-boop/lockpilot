@@ -1,19 +1,22 @@
 @import "tailwindcss";
 
 @theme {
-  --color-navy: #0B1F33;
-  --color-navy-deep: #071A2B;
-  --color-navy-secondary: #102A43;
-  --color-emerald: #16A34A;
-  --color-emerald-deep: #0F7A38;
-  --color-emerald-soft: #DCFCE7;
-  --color-offwhite: #F8FAFC;
-  --color-slate: #64748B;
-  --color-slate-light: #94A3B8;
-  --color-line: #E2E8F0;
+  /* Charcoal + one bold accent. Token names (navy/emerald) are kept for
+     minimal diff across components — navy now renders near-black, emerald
+     now renders vivid blue. */
+  --color-navy: #111113;
+  --color-navy-deep: #09090A;
+  --color-navy-secondary: #1C1C1F;
+  --color-emerald: #3860FF;
+  --color-emerald-deep: #2445D6;
+  --color-emerald-soft: #E8ECFF;
+  --color-offwhite: #FAFAF9;
+  --color-slate: #6B6B70;
+  --color-slate-light: #9A9A9F;
+  --color-line: #E6E5E2;
   --color-line-dark: rgba(255, 255, 255, 0.08);
-  --color-danger: #DC2626;
-  --color-danger-soft: #FEE2E2;
+  --color-danger: #D6432B;
+  --color-danger-soft: #FBEAE5;
 
   --font-heading: "Manrope", "Inter", ui-sans-serif, system-ui, sans-serif;
   --font-body: "Inter", ui-sans-serif, system-ui, sans-serif;

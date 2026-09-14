@@ -1,18 +1,57 @@
-export const pricingPlan = {
-  name: "LockPilot",
-  price: "Rs 25,000",
-  period: "/ month",
-  deviceCap: 50,
-  note: "Pre-launch pricing may be subject to change.",
-  includes: [
-    "Automatic lock/unlock",
-    "Customer management",
-    "Device management",
-    "Installment tracking",
-    "Financial dashboard",
-    "Overdue monitoring",
-    "Location visibility",
-    "Lock/unlock audit logs",
-    "Manual override",
-  ],
+export type PricingTier = {
+  id: string;
+  name: string;
+  price: string;
+  period: string;
+  deviceCap: number;
+  highlight?: boolean;
+  includes: string[];
 };
+
+export const pricingTiers: PricingTier[] = [
+  {
+    id: "starter",
+    name: "Starter",
+    price: "Rs 12,000",
+    period: "/ month",
+    deviceCap: 15,
+    includes: [
+      "Up to 15 active devices",
+      "Automatic lock/unlock",
+      "Customer & device management",
+      "Installment tracking",
+      "Manual override",
+    ],
+  },
+  {
+    id: "growth",
+    name: "Growth",
+    price: "Rs 25,000",
+    period: "/ month",
+    deviceCap: 50,
+    highlight: true,
+    includes: [
+      "Up to 50 active devices",
+      "Everything in Starter",
+      "Financial dashboard",
+      "Overdue monitoring",
+      "Lock/unlock audit logs",
+    ],
+  },
+  {
+    id: "pro",
+    name: "Pro",
+    price: "Rs 45,000",
+    period: "/ month",
+    deviceCap: 120,
+    includes: [
+      "Up to 120 active devices",
+      "Everything in Growth",
+      "Location visibility",
+      "Multi-branch support",
+      "Priority support",
+    ],
+  },
+];
+
+export const pricingNote = "Pre-launch pricing — tiers and figures above are a proposed starting structure and may change before general availability.";
