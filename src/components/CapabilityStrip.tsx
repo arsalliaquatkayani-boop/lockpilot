@@ -12,9 +12,9 @@ const capabilities = [
     ),
   },
   {
-    label: "Location Awareness",
+    label: "Factory-Reset Protection",
     icon: (
-      <path d="M10 17s5-4.7 5-8.7A5 5 0 0 0 5 8.3C5 12.3 10 17 10 17z M10 9.4a1.7 1.7 0 1 0 0-3.4 1.7 1.7 0 0 0 0 3.4z" stroke="currentColor" strokeWidth="1.5" strokeLinejoin="round" />
+      <path d="M10 3l6 2.5v4.2c0 4-2.6 6.6-6 7.3-3.4-.7-6-3.3-6-7.3V5.5L10 3z" stroke="currentColor" strokeWidth="1.5" strokeLinejoin="round" />
     ),
   },
   {

@@ -30,7 +30,8 @@ export function Home() {
               </h1>
               <p className="mb-9 max-w-[480px] text-[17.5px] leading-relaxed text-slate">
                 LockPilot helps mobile retailers protect installment sales with automated device
-                controls, payment tracking, location visibility, and real-time financial insight.
+                controls, payment tracking, factory-reset protection, and real-time financial
+                insight.
               </p>
               <div className="mb-6 flex flex-wrap gap-3.5">
                 <Button to="/early-access" variant="primary">Request Early Access</Button>

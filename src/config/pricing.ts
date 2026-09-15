@@ -47,11 +47,9 @@ export const pricingTiers: PricingTier[] = [
     includes: [
       "Up to 120 active devices",
       "Everything in Growth",
-      "Location visibility",
-      "Multi-branch support",
       "Priority support",
     ],
   },
 ];
 
-export const pricingNote = "Pre-launch pricing — tiers and figures above are a proposed starting structure and may change before general availability.";
+export const pricingNote = "Prices in Pakistani Rupees, billed monthly via bank transfer.";

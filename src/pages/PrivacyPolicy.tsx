@@ -7,44 +7,54 @@ export function PrivacyPolicy() {
         <h1 className="mb-8 font-heading text-[32px] font-extrabold text-navy">Privacy Policy</h1>
         <div className="flex flex-col gap-8 text-[15px] leading-relaxed text-slate">
           <p>
-            LockPilot is a pre-launch product. This policy describes, in plain terms, what data
-            the system is designed to handle once retailers are using it, and how we intend to
-            treat it.
+            LockPilot is in active development and has not yet launched commercially. This policy
+            describes, honestly and specifically, what data the system handles today. It will be
+            reviewed by a qualified lawyer before any shop is charged for the service.
           </p>
 
           <Section title="What we collect">
-            LockPilot is designed to handle: device lock/unlock state, payment and installment
-            records entered by the retailer, customer records entered by the retailer (name,
-            contact, city), and — where the device's Android permissions and connectivity allow
-            it — a last-known device location. LockPilot does not access messages, photos,
-            contacts, or call history on the device.
-          </Section>
-
-          <Section title="Who can see it">
-            Customer and device data belongs to the retailer's account. LockPilot does not sell
-            data or share it with third parties for advertising.
+            The system stores: shop and staff account details (name, login email); customer
+            records entered by shop staff (name, phone, city, address); device records (a label,
+            IMEI, and a pairing credential used only so the device can check its own lock status);
+            installment plan and payment records entered by staff; and a timestamped log of every
+            lock and unlock event, automatic or manual. LockPilot does not access messages,
+            photos, contacts, call history, or any other app's data on the customer's device.
           </Section>
 
           <Section title="Location data">
-            Location visibility depends on the device's permissions and connectivity, and is
-            shown as a last-known position rather than continuous live tracking. Retailers are
-            responsible for disclosing device monitoring to their customers at the point of sale.
+            Device location visibility is planned but not yet built into the product. This policy
+            will be updated with specifics — what is collected, how it is shown, and how a
+            retailer must disclose it to the customer — before that feature ships, not after.
+          </Section>
+
+          <Section title="Who can see it">
+            A shop's customer, device, and payment data is visible only to that shop's own staff
+            accounts, enforced at the database level. LockPilot's operator can access data only as
+            needed to run and support the service. Data is not sold, and is not shared with third
+            parties for advertising.
+          </Section>
+
+          <Section title="How data is protected">
+            Staff sign in with their own email and password; each shop's data is isolated from
+            every other shop's by server-side access rules, not just by the app's design. Devices
+            authenticate with a per-device credential that can only ever read that one device's
+            own lock status — never any other device's or shop's data.
           </Section>
 
           <Section title="Retention and deletion">
-            We intend to retain account data for as long as an account is active, and to support
-            deletion requests once account infrastructure exists. This section will be updated
-            with specifics before general availability.
+            Account data is retained for as long as an account is active. A shop owner who wants
+            their data deleted can request it; as the product matures, this will become a
+            self-service option rather than a manual request.
           </Section>
 
           <Section title="Contact">
-            This policy will be updated with a dedicated contact channel once LockPilot is
-            further along. For now, reach out through the early-access form.
+            This policy will be updated with a dedicated support channel before commercial launch.
+            For now, reach out through the early-access form.
           </Section>
 
           <p className="text-[13px] text-slate-light">
-            This is a draft policy for a pre-launch product and will be revised before general
-            availability.
+            This is a draft policy for a product still in development and has not been reviewed by
+            a lawyer. It will be revised, with legal review, before LockPilot is sold commercially.
           </p>
         </div>
       </Container>

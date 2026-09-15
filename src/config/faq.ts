@@ -46,12 +46,7 @@ export const faqItems: FaqItem[] = [
   {
     question: "Can I see device location?",
     answer:
-      "Location visibility depends on device permissions, connectivity, and the technical implementation on that device. Where available, you'll see a last-known location rather than a guaranteed live position.",
-  },
-  {
-    question: "Can I see location history?",
-    answer:
-      "Where technically available and properly permissioned on the device, a recent location history can be shown. This is not guaranteed on every device or in every configuration.",
+      "Device location is on the roadmap but not built yet. When it ships, visibility will depend on device permissions and connectivity, and will show a last-known location rather than a guaranteed live position.",
   },
   {
     question: "How is the Android app installed?",

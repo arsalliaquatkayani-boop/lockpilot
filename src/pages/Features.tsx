@@ -163,8 +163,8 @@ export function Features() {
             <div>
               <h3 className="mb-2.5 font-heading text-[16px] font-bold text-navy">Permission-aware location</h3>
               <p className="text-[14.5px] leading-relaxed text-slate">
-                Location visibility depends on Android permissions, device connectivity, and the
-                current implementation. When available, you see a last-known location — not a
+                On the roadmap, not yet built. Once shipped, visibility will depend on Android
+                permissions and device connectivity, showing a last-known location — not a
                 guaranteed live position.
               </p>
             </div>
