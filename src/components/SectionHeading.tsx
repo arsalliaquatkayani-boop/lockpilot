@@ -16,9 +16,12 @@ export function SectionHeading({
   className = "",
 }: SectionHeadingProps) {
   const alignClass = align === "center" ? "text-center mx-auto items-center" : "text-left";
-  const titleColor = tone === "dark" ? "text-white" : "text-navy";
-  const descColor = tone === "dark" ? "text-slate-light" : "text-slate";
-  const eyebrowColor = tone === "dark" ? "text-emerald" : "text-emerald-deep";
+  // The whole site is dark now ("The Vault") — tone just picks how bright
+  // the title reads: "dark" for the deepest-black panels, "light" everywhere
+  // else on the warm near-black base.
+  const titleColor = tone === "dark" ? "text-white" : "text-offwhite";
+  const descColor = "text-slate";
+  const eyebrowColor = "text-emerald";
 
   return (
     <div className={`flex flex-col gap-4 max-w-[620px] ${alignClass} ${className}`}>

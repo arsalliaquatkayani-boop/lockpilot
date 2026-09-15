@@ -27,7 +27,7 @@ export function Features() {
             <Reveal>
               <div className="grid items-center gap-12 lg:grid-cols-2">
                 <div>
-                  <h3 className="mb-3 font-heading text-[26px] font-bold text-navy">
+                  <h3 className="mb-3 font-heading text-[26px] font-bold text-offwhite">
                     {editorial[0].title}
                   </h3>
                   <p className="max-w-[440px] text-[15.5px] leading-relaxed text-slate">
@@ -41,7 +41,7 @@ export function Features() {
             <Reveal delay={80}>
               <div className="grid items-center gap-12 lg:grid-cols-2 lg:[&>*:first-child]:order-2">
                 <div>
-                  <h3 className="mb-3 font-heading text-[26px] font-bold text-navy">
+                  <h3 className="mb-3 font-heading text-[26px] font-bold text-offwhite">
                     {editorial[1].title}
                   </h3>
                   <p className="max-w-[440px] text-[15.5px] leading-relaxed text-slate">
@@ -55,7 +55,7 @@ export function Features() {
             <Reveal delay={160}>
               <div className="grid items-center gap-12 lg:grid-cols-2">
                 <div>
-                  <h3 className="mb-3 font-heading text-[26px] font-bold text-navy">
+                  <h3 className="mb-3 font-heading text-[26px] font-bold text-offwhite">
                     {editorial[2].title}
                   </h3>
                   <p className="max-w-[440px] text-[15.5px] leading-relaxed text-slate">
@@ -75,10 +75,14 @@ export function Features() {
           <Reveal>
             <SectionHeading eyebrow="Also included" title="The rest of the system." className="mb-14" />
           </Reveal>
-          <div className="grid gap-px overflow-hidden rounded-card border border-line bg-line md:grid-cols-3">
+          <div className="grid gap-5 md:grid-cols-3">
             {supporting.map((f, i) => (
-              <Reveal key={f.id} delay={i * 60} className="bg-white p-8">
-                <h3 className="mb-2.5 font-heading text-[16.5px] font-bold text-navy">{f.title}</h3>
+              <Reveal
+                key={f.id}
+                delay={i * 60}
+                className="rounded-card border border-line bg-navy-secondary p-8 transition-all duration-300 hover:-translate-y-1 hover:border-emerald/40"
+              >
+                <h3 className="mb-2.5 font-heading text-[16.5px] font-bold text-offwhite">{f.title}</h3>
                 <p className="text-[14.5px] leading-relaxed text-slate">{f.description}</p>
               </Reveal>
             ))}
@@ -87,23 +91,23 @@ export function Features() {
       </section>
 
       {/* ARCHITECTURE */}
-      <section className="border-t border-line bg-offwhite py-16 md:py-20">
+      <section className="border-t border-line bg-navy-secondary py-16 md:py-20">
         <Container>
           <Reveal>
-            <SectionHeading eyebrow="How it fits together" title="The LockPilot ecosystem." className="mb-14" />
+            <SectionHeading eyebrow="How it fits together" title="The LockPilot ecosystem." tone="dark" className="mb-14" />
           </Reveal>
           <Reveal delay={100}>
             <div className="grid gap-6 md:grid-cols-2">
-              <div className="rounded-card border border-line bg-white p-8">
-                <h3 className="mb-4 font-heading text-[17px] font-bold text-navy">LockPilot Android App</h3>
+              <div className="rounded-card border border-line bg-navy-deep p-8">
+                <h3 className="mb-4 font-heading text-[17px] font-bold text-offwhite">LockPilot Android App</h3>
                 <ul className="flex flex-col gap-2.5 text-[14.5px] text-slate">
                   <li>Device status</li>
                   <li>Lock / unlock</li>
                   <li>Protection</li>
                 </ul>
               </div>
-              <div className="rounded-card border border-line bg-white p-8">
-                <h3 className="mb-4 font-heading text-[17px] font-bold text-navy">LockPilot Web Dashboard</h3>
+              <div className="rounded-card border border-line bg-navy-deep p-8">
+                <h3 className="mb-4 font-heading text-[17px] font-bold text-offwhite">LockPilot Web Dashboard</h3>
                 <ul className="flex flex-col gap-2.5 text-[14.5px] text-slate">
                   <li>Customers</li>
                   <li>Devices</li>
@@ -132,7 +136,7 @@ export function Features() {
       </section>
 
       {/* TRUST / CONTROL */}
-      <section className="border-t border-line bg-navy py-16 text-white md:py-20">
+      <section className="border-t border-line bg-navy-secondary py-16 md:py-20">
         <Container className="text-center">
           <Reveal>
             <div className="mx-auto mb-10 flex max-w-[640px] flex-wrap justify-center gap-x-10 gap-y-4 font-heading text-[22px] font-bold text-emerald md:text-[28px]">
@@ -141,7 +145,7 @@ export function Features() {
               <span>Accountable</span>
               <span>Controlled</span>
             </div>
-            <p className="mx-auto max-w-[560px] text-[15.5px] text-slate-light">
+            <p className="mx-auto max-w-[560px] text-[15.5px] text-slate">
               Retailers keep full visibility and control over their installment portfolio at every
               stage — enforcement runs automatically, but nothing happens outside your view.
             </p>
@@ -161,7 +165,7 @@ export function Features() {
           </Reveal>
           <Reveal delay={100} className="grid gap-8 md:grid-cols-2">
             <div>
-              <h3 className="mb-2.5 font-heading text-[16px] font-bold text-navy">Permission-aware location</h3>
+              <h3 className="mb-2.5 font-heading text-[16px] font-bold text-offwhite">Permission-aware location</h3>
               <p className="text-[14.5px] leading-relaxed text-slate">
                 On the roadmap, not yet built. Once shipped, visibility will depend on Android
                 permissions and device connectivity, showing a last-known location — not a
@@ -169,20 +173,20 @@ export function Features() {
               </p>
             </div>
             <div>
-              <h3 className="mb-2.5 font-heading text-[16px] font-bold text-navy">Auditable events</h3>
+              <h3 className="mb-2.5 font-heading text-[16px] font-bold text-offwhite">Auditable events</h3>
               <p className="text-[14.5px] leading-relaxed text-slate">
                 Every lock, unlock, and status change is logged with a timestamp and trigger, so
                 account activity stays reviewable rather than opaque.
               </p>
             </div>
             <div>
-              <h3 className="mb-2.5 font-heading text-[16px] font-bold text-navy">Controlled account access</h3>
+              <h3 className="mb-2.5 font-heading text-[16px] font-bold text-offwhite">Controlled account access</h3>
               <p className="text-[14.5px] leading-relaxed text-slate">
                 Only your shop's account can view or act on your devices and customer records.
               </p>
             </div>
             <div>
-              <h3 className="mb-2.5 font-heading text-[16px] font-bold text-navy">No overclaiming</h3>
+              <h3 className="mb-2.5 font-heading text-[16px] font-bold text-offwhite">No overclaiming</h3>
               <p className="text-[14.5px] leading-relaxed text-slate">
                 We don't claim security certifications or compliance approvals we don't currently
                 hold. If that changes, we'll say so explicitly, here.
@@ -202,10 +206,10 @@ function AuditLogSnippet() {
     { event: "Manual unlock", device: "LP-1118", time: "Yesterday", trigger: "Retailer override" },
   ];
   return (
-    <div className="rounded-card border border-line bg-white p-2 text-[13px]">
+    <div className="rounded-card border border-line bg-navy-secondary p-2 text-[13px]">
       {rows.map((r) => (
         <div key={r.device + r.time} className="flex items-center justify-between border-b border-line px-3 py-3 last:border-none">
-          <span className="font-medium text-navy">{r.event}</span>
+          <span className="font-medium text-offwhite">{r.event}</span>
           <span className="font-mono text-slate-light">{r.device}</span>
           <span className="text-slate-light">{r.trigger}</span>
           <span className="font-mono text-slate-light">{r.time}</span>
@@ -225,9 +229,9 @@ function FinancialSnippet() {
   return (
     <div className="grid grid-cols-2 gap-px overflow-hidden rounded-card border border-line bg-line">
       {rows.map((r) => (
-        <div key={r.label} className="bg-white p-5">
+        <div key={r.label} className="bg-navy-secondary p-5">
           <div className="mb-1.5 text-[12px] text-slate-light">{r.label}</div>
-          <div className="font-mono text-[17px] text-navy">{r.value}</div>
+          <div className="font-mono text-[17px] tabular-nums text-offwhite">{r.value}</div>
         </div>
       ))}
     </div>

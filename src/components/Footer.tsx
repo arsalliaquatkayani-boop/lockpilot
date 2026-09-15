@@ -9,11 +9,11 @@ export function Footer() {
     <footer className="border-t border-line py-12 text-[13.5px] text-slate">
       <Container className="flex flex-col md:flex-row md:items-start md:justify-between gap-8">
         <div className="max-w-[280px]">
-          <div className="flex items-center gap-2.5 font-heading font-extrabold text-[15px] text-navy mb-2">
-            <span className="flex h-6 w-6 items-center justify-center rounded-sm bg-navy">
+          <div className="flex items-center gap-2.5 font-heading font-extrabold text-[15px] text-offwhite mb-2">
+            <span className="flex h-6 w-6 items-center justify-center rounded-sm border border-emerald/60 bg-navy-secondary">
               <svg viewBox="0 0 128 128" className="h-3 w-3">
-                <path d="M46 59V48a18 18 0 0 1 36 0v11" fill="none" stroke={brand.colors.white} strokeWidth="7" strokeLinecap="round" />
-                <rect x="35" y="59" width="58" height="44" rx="9" fill={brand.colors.white} />
+                <path d="M46 59V48a18 18 0 0 1 36 0v11" fill="none" stroke={brand.colors.offwhite} strokeWidth="7" strokeLinecap="round" />
+                <rect x="35" y="59" width="58" height="44" rx="9" fill={brand.colors.offwhite} />
                 <circle cx="64" cy="80" r="6" fill={brand.colors.emerald} />
                 <rect x="61" y="80" width="6" height="13" rx="3" fill={brand.colors.emerald} />
               </svg>
@@ -23,16 +23,16 @@ export function Footer() {
           <p>{SITE.tagline}</p>
         </div>
 
-        <nav className="flex flex-wrap gap-x-6 gap-y-2">
+        <nav className="flex flex-wrap gap-x-6 gap-y-2 font-mono text-[12.5px]">
           {primaryNav.map((item) => (
-            <Link key={item.path} to={item.path} className="hover:text-navy">
+            <Link key={item.path} to={item.path} className="hover:text-emerald">
               {item.label}
             </Link>
           ))}
-          <Link to="/app/login" className="hover:text-navy">Login</Link>
-          <Link to="/early-access" className="hover:text-navy">Request Early Access</Link>
-          <Link to="/legal/privacy" className="hover:text-navy">Privacy</Link>
-          <Link to="/legal/terms" className="hover:text-navy">Terms</Link>
+          <Link to="/app/login" className="hover:text-emerald">Login</Link>
+          <Link to="/early-access" className="hover:text-emerald">Request Early Access</Link>
+          <Link to="/legal/privacy" className="hover:text-emerald">Privacy</Link>
+          <Link to="/legal/terms" className="hover:text-emerald">Terms</Link>
         </nav>
 
         <div className="font-mono text-slate-light">

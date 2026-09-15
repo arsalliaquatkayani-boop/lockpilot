@@ -26,11 +26,11 @@ const demoRows: DeviceRow[] = [
 ];
 
 const statusStyle: Record<Status, string> = {
-  Active: "bg-emerald-soft text-emerald-deep",
-  "Due Soon": "bg-amber-100 text-amber-700",
+  Active: "bg-emerald/15 text-emerald",
+  "Due Soon": "bg-amber-500/15 text-amber-400",
   Overdue: "bg-danger-soft text-danger",
-  Locked: "bg-navy text-white",
-  Paid: "bg-line text-slate",
+  Locked: "border border-danger text-danger",
+  Paid: "bg-white/10 text-slate",
 };
 
 const filters: Array<"All" | Status> = ["All", "Active", "Due Soon", "Overdue", "Locked", "Paid"];

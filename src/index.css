@@ -1,29 +1,32 @@
 @import "tailwindcss";
 
 @theme {
-  /* Warm charcoal + amber/gold accent. Token names (navy/emerald) are kept
-     for minimal diff across components — navy now renders warm near-black
-     (brown undertone, not blue), emerald now renders gold/amber. */
-  --color-navy: #1C1815;
+  /* "The Vault" — dark, authoritative, gold-as-engraved-metal. The site is
+     dark by default now (body itself is near-black); navy/navy-deep/
+     navy-secondary are shades of that dark, not a light-mode "text color"
+     anymore. offwhite is the warm paper tone used sparingly for light
+     panels (the ledger-table style cards), not the page base. */
+  --color-navy: #1A1512;
   --color-navy-deep: #100D0A;
-  --color-navy-secondary: #2B241E;
+  --color-navy-secondary: #211B16;
   --color-emerald: #D9A441;
   --color-emerald-deep: #AD7E28;
+  --color-emerald-bright: #F0C670;
   --color-emerald-soft: #F8EDD9;
-  --color-offwhite: #FBF8F3;
-  --color-slate: #756A5D;
-  --color-slate-light: #A69884;
-  --color-line: #E9E1D3;
-  --color-line-dark: rgba(255, 255, 255, 0.08);
-  --color-danger: #C6432E;
-  --color-danger-soft: #FAEAE3;
+  --color-offwhite: #F5EEDD;
+  --color-slate: #B7A98F;
+  --color-slate-light: #8A7C64;
+  --color-line: rgba(217, 164, 65, 0.22);
+  --color-line-dark: rgba(217, 164, 65, 0.22);
+  --color-danger: #D0684F;
+  --color-danger-soft: rgba(208, 104, 79, 0.14);
 
-  --font-heading: "Manrope", "Inter", ui-sans-serif, system-ui, sans-serif;
-  --font-body: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-heading: "Archivo", ui-sans-serif, system-ui, sans-serif;
+  --font-body: "Work Sans", ui-sans-serif, system-ui, sans-serif;
   --font-mono: "IBM Plex Mono", ui-monospace, monospace;
 
   --radius-card: 12px;
-  --radius-sm: 8px;
+  --radius-sm: 6px;
   --radius-pill: 999px;
 
   --ease-signature: cubic-bezier(0.16, 1, 0.3, 1);
@@ -35,14 +38,15 @@ html {
 
 body {
   font-family: var(--font-body);
-  color: var(--color-navy);
-  background: var(--color-offwhite);
+  color: var(--color-offwhite);
+  background: var(--color-navy-deep);
   -webkit-font-smoothing: antialiased;
 }
 
 h1, h2, h3, h4 {
   font-family: var(--font-heading);
-  letter-spacing: -0.02em;
+  font-weight: 800;
+  letter-spacing: -0.01em;
 }
 
 @media (prefers-reduced-motion: reduce) {

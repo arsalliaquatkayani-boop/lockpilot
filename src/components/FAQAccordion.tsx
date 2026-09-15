@@ -5,7 +5,7 @@ export function FAQAccordion() {
     <div className="border-t border-line">
       {faqItems.map((item) => (
         <details key={item.question} className="group border-b border-line py-5">
-          <summary className="flex cursor-pointer list-none items-center justify-between gap-4 font-heading text-[16.5px] font-bold text-navy">
+          <summary className="flex cursor-pointer list-none items-center justify-between gap-4 font-heading text-[16.5px] font-bold text-offwhite">
             {item.question}
             <span className="flex-shrink-0 font-mono text-[20px] leading-none text-slate-light transition-transform duration-200 group-open:rotate-45 group-open:text-emerald">
               +

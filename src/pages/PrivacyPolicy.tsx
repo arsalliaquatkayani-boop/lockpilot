@@ -4,7 +4,7 @@ export function PrivacyPolicy() {
   return (
     <section className="py-14 md:py-16">
       <Container className="max-w-[720px]">
-        <h1 className="mb-8 font-heading text-[32px] font-extrabold text-navy">Privacy Policy</h1>
+        <h1 className="mb-8 font-heading text-[32px] font-extrabold text-offwhite">Privacy Policy</h1>
         <div className="flex flex-col gap-8 text-[15px] leading-relaxed text-slate">
           <p>
             LockPilot is in active development and has not yet launched commercially. This policy
@@ -65,7 +65,7 @@ export function PrivacyPolicy() {
 function Section({ title, children }: { title: string; children: string }) {
   return (
     <div>
-      <h2 className="mb-2 font-heading text-[17px] font-bold text-navy">{title}</h2>
+      <h2 className="mb-2 font-heading text-[17px] font-bold text-offwhite">{title}</h2>
       <p>{children}</p>
     </div>
   );

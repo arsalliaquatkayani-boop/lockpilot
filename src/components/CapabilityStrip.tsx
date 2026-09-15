@@ -36,10 +36,10 @@ export function CapabilityStrip() {
     <div className="grid grid-cols-2 gap-6 border-y border-line py-8 md:grid-cols-5">
       {capabilities.map((c) => (
         <div key={c.label} className="flex flex-col items-center gap-2.5 text-center">
-          <svg viewBox="0 0 20 20" fill="none" className="h-6 w-6 text-emerald-deep">
+          <svg viewBox="0 0 20 20" fill="none" className="h-6 w-6 text-emerald">
             {c.icon}
           </svg>
-          <span className="text-[13px] font-medium text-navy">{c.label}</span>
+          <span className="font-mono text-[12.5px] font-medium text-slate">{c.label}</span>
         </div>
       ))}
     </div>

@@ -53,7 +53,7 @@ export function HowItWorks() {
                 >
                   <div>
                     <span className="mb-3 block font-mono text-[13px] text-slate-light">{step.num}</span>
-                    <h3 className="mb-3 font-heading text-[26px] font-bold text-navy">{step.title}</h3>
+                    <h3 className="mb-3 font-heading text-[26px] font-bold text-offwhite">{step.title}</h3>
                     <p className="max-w-[440px] text-[15.5px] leading-relaxed text-slate">{step.body}</p>
                   </div>
                   <div className="flex justify-center">
@@ -72,13 +72,14 @@ export function HowItWorks() {
         </Container>
       </section>
 
-      <section className="border-t border-line bg-offwhite py-16 md:py-20">
+      <section className="border-t border-line bg-navy-secondary py-16 md:py-20">
         <Container className="flex flex-col items-center text-center">
           <Reveal>
             <SectionHeading
               eyebrow="The signature interaction"
               title="The system handles the enforcement. You handle the business."
               align="center"
+              tone="dark"
               className="mb-14"
             />
           </Reveal>
