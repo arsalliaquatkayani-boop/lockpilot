@@ -3,13 +3,18 @@ import { supabase } from "../../lib/supabase";
 import type { Customer, Device } from "../../lib/types";
 import { useAuth } from "../../context/AuthContext";
 import { buildPaymentSchedule } from "../lib/schedule";
+import { Button } from "../../components/Button";
 
-const statusStyles: Record<Device["status"], string> = {
-  active: "text-emerald",
-  locked: "text-danger",
-  paid_off: "text-slate-light",
-  inactive: "text-slate-light",
+const statusPillStyles: Record<Device["status"], string> = {
+  active: "bg-emerald/15 text-emerald-bright",
+  locked: "border border-danger text-danger",
+  paid_off: "bg-white/10 text-slate",
+  inactive: "bg-white/10 text-slate",
 };
+
+const inputClass =
+  "w-full rounded-sm border border-line bg-navy px-3 py-2.5 text-[13.5px] text-offwhite outline-none placeholder:text-slate-light focus:border-emerald";
+const labelClass = "mb-1.5 block font-mono text-[11.5px] uppercase tracking-wide text-slate";
 
 export function DevicesPanel({
   devices,
@@ -146,162 +151,184 @@ export function DevicesPanel({
   }
 
   return (
-    <div className="rounded-card border border-line-dark bg-navy-deep p-5">
-      <div className="mb-4 flex items-center justify-between">
-        <h2 className="text-[15px] font-semibold text-white">Devices</h2>
-        <button
-          onClick={() => setShowForm((v) => !v)}
-          className="rounded-sm border border-white/25 px-3 py-1.5 text-[13px] text-white hover:border-white/60"
-        >
+    <div className="rounded-card border border-line bg-navy-secondary p-6">
+      <div className="mb-5 flex items-center justify-between">
+        <h2 className="font-heading text-[17px] font-extrabold text-white">Devices</h2>
+        <Button variant={showForm ? "ghost-dark" : "secondary"} size="sm" onClick={() => setShowForm((v) => !v)}>
           {showForm ? "Cancel" : "Add device + plan"}
-        </button>
+        </Button>
       </div>
 
       {showForm && (
-        <form onSubmit={handleSubmit} className="mb-5 grid gap-3 border-b border-line-dark pb-5 md:grid-cols-3">
-          <select
-            required
-            value={customerId}
-            onChange={(e) => setCustomerId(e.target.value)}
-            className="rounded-sm border border-line-dark bg-navy px-3 py-2 text-[13.5px] text-white outline-none focus:border-emerald"
-          >
-            <option value="">Select customer…</option>
-            {customers.map((c) => (
-              <option key={c.id} value={c.id}>
-                {c.full_name}
-              </option>
-            ))}
-          </select>
-          <input
-            required
-            placeholder="Device label (e.g. Samsung A54)"
-            value={deviceLabel}
-            onChange={(e) => setDeviceLabel(e.target.value)}
-            className="rounded-sm border border-line-dark bg-navy px-3 py-2 text-[13.5px] text-white outline-none focus:border-emerald"
-          />
-          <input
-            placeholder="IMEI"
-            value={imei}
-            onChange={(e) => setImei(e.target.value)}
-            className="rounded-sm border border-line-dark bg-navy px-3 py-2 text-[13.5px] text-white outline-none focus:border-emerald"
-          />
-          <input
-            required
-            type="number"
-            min="0"
-            placeholder="Total amount (Rs)"
-            value={totalAmount}
-            onChange={(e) => setTotalAmount(e.target.value)}
-            className="rounded-sm border border-line-dark bg-navy px-3 py-2 text-[13.5px] text-white outline-none focus:border-emerald"
-          />
-          <input
-            type="number"
-            min="0"
-            placeholder="Down payment (Rs)"
-            value={downPayment}
-            onChange={(e) => setDownPayment(e.target.value)}
-            className="rounded-sm border border-line-dark bg-navy px-3 py-2 text-[13.5px] text-white outline-none focus:border-emerald"
-          />
-          <input
-            required
-            type="number"
-            min="0"
-            placeholder="Installment amount (Rs)"
-            value={installmentAmount}
-            onChange={(e) => setInstallmentAmount(e.target.value)}
-            className="rounded-sm border border-line-dark bg-navy px-3 py-2 text-[13.5px] text-white outline-none focus:border-emerald"
-          />
-          <input
-            required
-            type="number"
-            min="1"
-            placeholder="Number of installments"
-            value={installmentCount}
-            onChange={(e) => setInstallmentCount(e.target.value)}
-            className="rounded-sm border border-line-dark bg-navy px-3 py-2 text-[13.5px] text-white outline-none focus:border-emerald"
-          />
-          <select
-            value={frequency}
-            onChange={(e) => setFrequency(e.target.value as "weekly" | "monthly")}
-            className="rounded-sm border border-line-dark bg-navy px-3 py-2 text-[13.5px] text-white outline-none focus:border-emerald"
-          >
-            <option value="monthly">Monthly</option>
-            <option value="weekly">Weekly</option>
-          </select>
-          <input
-            required
-            type="date"
-            value={startDate}
-            onChange={(e) => setStartDate(e.target.value)}
-            className="rounded-sm border border-line-dark bg-navy px-3 py-2 text-[13.5px] text-white outline-none focus:border-emerald"
-          />
+        <form onSubmit={handleSubmit} className="mb-6 grid gap-4 border-b border-line pb-6 md:grid-cols-3">
+          <div>
+            <label className={labelClass}>Customer</label>
+            <select
+              required
+              value={customerId}
+              onChange={(e) => setCustomerId(e.target.value)}
+              className={inputClass}
+            >
+              <option value="">Select customer…</option>
+              {customers.map((c) => (
+                <option key={c.id} value={c.id}>
+                  {c.full_name}
+                </option>
+              ))}
+            </select>
+          </div>
+          <div>
+            <label className={labelClass}>Device</label>
+            <input
+              required
+              placeholder="e.g. Samsung A54"
+              value={deviceLabel}
+              onChange={(e) => setDeviceLabel(e.target.value)}
+              className={inputClass}
+            />
+          </div>
+          <div>
+            <label className={labelClass}>IMEI</label>
+            <input
+              placeholder="Optional"
+              value={imei}
+              onChange={(e) => setImei(e.target.value)}
+              className={inputClass}
+            />
+          </div>
+          <div>
+            <label className={labelClass}>Total Amount (Rs)</label>
+            <input
+              required
+              type="number"
+              min="0"
+              value={totalAmount}
+              onChange={(e) => setTotalAmount(e.target.value)}
+              className={inputClass}
+            />
+          </div>
+          <div>
+            <label className={labelClass}>Down Payment (Rs)</label>
+            <input
+              type="number"
+              min="0"
+              value={downPayment}
+              onChange={(e) => setDownPayment(e.target.value)}
+              className={inputClass}
+            />
+          </div>
+          <div>
+            <label className={labelClass}>Installment Amount (Rs)</label>
+            <input
+              required
+              type="number"
+              min="0"
+              value={installmentAmount}
+              onChange={(e) => setInstallmentAmount(e.target.value)}
+              className={inputClass}
+            />
+          </div>
+          <div>
+            <label className={labelClass}>Number of Installments</label>
+            <input
+              required
+              type="number"
+              min="1"
+              value={installmentCount}
+              onChange={(e) => setInstallmentCount(e.target.value)}
+              className={inputClass}
+            />
+          </div>
+          <div>
+            <label className={labelClass}>Frequency</label>
+            <select
+              value={frequency}
+              onChange={(e) => setFrequency(e.target.value as "weekly" | "monthly")}
+              className={inputClass}
+            >
+              <option value="monthly">Monthly</option>
+              <option value="weekly">Weekly</option>
+            </select>
+          </div>
+          <div>
+            <label className={labelClass}>Start Date</label>
+            <input
+              required
+              type="date"
+              value={startDate}
+              onChange={(e) => setStartDate(e.target.value)}
+              className={inputClass}
+            />
+          </div>
 
           {error && <div className="text-[13px] text-danger md:col-span-3">{error}</div>}
-          <button
-            type="submit"
-            disabled={submitting}
-            className="rounded-sm bg-emerald px-4 py-2 text-[13.5px] font-semibold text-white hover:bg-emerald-deep disabled:opacity-60 md:col-span-3 md:w-fit"
-          >
-            {submitting ? "Saving…" : "Save device + plan"}
-          </button>
+          <div className="md:col-span-3">
+            <Button type="submit" variant="primary" size="sm" disabled={submitting}>
+              {submitting ? "Saving…" : "Save device + plan"}
+            </Button>
+          </div>
         </form>
       )}
 
       {devices.length === 0 ? (
-        <div className="text-[13.5px] text-slate-light">No devices yet.</div>
+        <div className="text-[13.5px] text-slate">No devices yet.</div>
       ) : (
         <div className="overflow-x-auto">
-          <table className="w-full text-[13.5px]">
+          <table className="w-full text-left text-[13.5px] text-slate">
             <thead>
-              <tr className="text-left text-slate-light">
-                <th className="pb-2 font-medium">Device</th>
-                <th className="pb-2 font-medium">Customer</th>
-                <th className="pb-2 font-medium">Status</th>
-                <th className="pb-2 font-medium" />
-                <th className="pb-2 font-medium" />
+              <tr className="border-b border-line text-[11px] uppercase tracking-wide text-slate/70">
+                <th className="pb-3 font-normal">Device</th>
+                <th className="pb-3 font-normal">Customer</th>
+                <th className="pb-3 font-normal">Status</th>
+                <th className="pb-3 font-normal" />
+                <th className="pb-3 font-normal" />
               </tr>
             </thead>
             <tbody>
               {devices.map((d) => (
                 <Fragment key={d.id}>
-                  <tr className="border-t border-line-dark text-white">
-                    <td className="py-2">{d.device_label ?? "—"}</td>
-                    <td className="py-2 text-slate-light">{customerName(d.customer_id)}</td>
-                    <td className={`py-2 font-medium ${statusStyles[d.status]}`}>{d.status}</td>
-                    <td className="py-2 text-right">
+                  <tr className="border-b border-line last:border-none">
+                    <td className="py-3 text-white">{d.device_label ?? "—"}</td>
+                    <td className="py-3">{customerName(d.customer_id)}</td>
+                    <td className="py-3">
+                      <span className={`rounded-pill px-2.5 py-1 font-mono text-[11px] ${statusPillStyles[d.status]}`}>
+                        {d.status}
+                      </span>
+                    </td>
+                    <td className="py-3 text-right">
                       {(d.status === "active" || d.status === "locked") && (
-                        <button
-                          onClick={() => handleToggleLock(d)}
+                        <Button
+                          variant="ghost-dark"
+                          size="sm"
                           disabled={togglingId === d.id}
-                          className="rounded-sm border border-white/25 px-3 py-1 text-[12.5px] text-white hover:border-white/60 disabled:opacity-60"
+                          onClick={() => handleToggleLock(d)}
                         >
                           {togglingId === d.id
                             ? "Working…"
                             : d.status === "locked"
                               ? "Unlock"
                               : "Lock"}
-                        </button>
+                        </Button>
                       )}
                     </td>
-                    <td className="py-2 text-right">
-                      <button
-                        onClick={() =>
-                          setPairingRevealId(pairingRevealId === d.id ? null : d.id)
-                        }
-                        className="rounded-sm border border-white/25 px-3 py-1 text-[12.5px] text-white hover:border-white/60"
+                    <td className="py-3 text-right">
+                      <Button
+                        variant="ghost-dark"
+                        size="sm"
+                        onClick={() => setPairingRevealId(pairingRevealId === d.id ? null : d.id)}
                       >
                         {pairingRevealId === d.id ? "Hide" : "Pair phone"}
-                      </button>
+                      </Button>
                     </td>
                   </tr>
                   {pairingRevealId === d.id && (
-                    <tr className="border-t border-line-dark">
-                      <td colSpan={5} className="bg-navy py-3">
-                        <div className="text-[12.5px] text-slate-light">
+                    <tr className="border-b border-line last:border-none">
+                      <td colSpan={5} className="bg-navy py-3 px-3 rounded-sm">
+                        <div className="text-[12.5px] text-slate">
                           Enter these two values into the "Pair this device" screen on the
                           customer's phone, once, during setup:
                         </div>
-                        <div className="mt-2 grid gap-1 font-mono text-[12.5px] text-white">
+                        <div className="mt-2 grid gap-1 font-mono text-[12.5px] text-offwhite">
                           <div>Device ID: {d.id}</div>
                           <div>Pairing code: {d.device_secret ?? "—"}</div>
                         </div>

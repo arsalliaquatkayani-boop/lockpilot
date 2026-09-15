@@ -44,7 +44,7 @@ export function Dashboard() {
   if (loading) {
     return (
       <AppLayout>
-        <div className="text-slate-light">Loading your shop's data…</div>
+        <div className="font-mono text-[13.5px] text-slate">Loading your shop's data…</div>
       </AppLayout>
     );
   }
@@ -52,7 +52,7 @@ export function Dashboard() {
   return (
     <AppLayout>
       {error && (
-        <div className="mb-6 rounded-sm border border-danger/40 bg-danger-soft/10 px-4 py-3 text-[13.5px] text-danger">
+        <div className="mb-6 rounded-sm border border-danger/40 bg-danger-soft px-4 py-3 text-[13.5px] text-danger">
           {error}
         </div>
       )}

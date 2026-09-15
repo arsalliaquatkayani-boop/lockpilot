@@ -32,13 +32,20 @@ export function StatsBar({ devices, payments }: { devices: Device[]; payments: P
   ];
 
   return (
-    <div className="mb-8 grid grid-cols-2 gap-px overflow-hidden rounded-card border border-line-dark bg-line-dark md:grid-cols-3 lg:grid-cols-6">
+    <div className="mb-8 grid grid-cols-2 gap-3 md:grid-cols-3 lg:grid-cols-6">
       {stats.map((s) => (
-        <div key={s.label} className="bg-navy-deep p-4">
-          <div className="mb-1 text-[12px] text-slate-light">{s.label}</div>
+        <div
+          key={s.label}
+          className={`rounded-card border bg-navy-secondary p-4 ${
+            s.tone === "danger" ? "border-danger/40" : "border-line"
+          }`}
+        >
+          <div className="mb-1.5 font-mono text-[10.5px] uppercase tracking-wide text-slate">
+            {s.label}
+          </div>
           <div
-            className={`text-[18px] font-semibold ${
-              s.tone === "positive" ? "text-emerald" : s.tone === "danger" ? "text-danger" : "text-white"
+            className={`font-heading text-[20px] font-extrabold tabular-nums ${
+              s.tone === "positive" ? "text-emerald-bright" : s.tone === "danger" ? "text-danger" : "text-white"
             }`}
           >
             {s.value}

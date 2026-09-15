@@ -2,6 +2,7 @@ import { useState } from "react";
 import { supabase } from "../../lib/supabase";
 import type { Customer, Device, InstallmentPlan, Payment } from "../../lib/types";
 import { useAuth } from "../../context/AuthContext";
+import { Button } from "../../components/Button";
 
 export function PaymentsPanel({
   payments,
@@ -47,21 +48,23 @@ export function PaymentsPanel({
   }
 
   return (
-    <div className="rounded-card border border-line-dark bg-navy-deep p-5">
-      <h2 className="mb-4 text-[15px] font-semibold text-white">Upcoming &amp; overdue payments</h2>
+    <div className="rounded-card border border-line bg-navy-secondary p-6">
+      <h2 className="mb-5 font-heading text-[17px] font-extrabold text-white">
+        Upcoming &amp; overdue payments
+      </h2>
 
       {pending.length === 0 ? (
-        <div className="text-[13.5px] text-slate-light">Nothing due — all caught up.</div>
+        <div className="text-[13.5px] text-slate">Nothing due — all caught up.</div>
       ) : (
         <div className="overflow-x-auto">
-          <table className="w-full text-[13.5px]">
+          <table className="w-full text-left text-[13.5px] text-slate">
             <thead>
-              <tr className="text-left text-slate-light">
-                <th className="pb-2 font-medium">Due date</th>
-                <th className="pb-2 font-medium">Customer</th>
-                <th className="pb-2 font-medium">Device</th>
-                <th className="pb-2 font-medium">Amount</th>
-                <th className="pb-2 font-medium" />
+              <tr className="border-b border-line text-[11px] uppercase tracking-wide text-slate/70">
+                <th className="pb-3 font-normal">Due Date</th>
+                <th className="pb-3 font-normal">Customer</th>
+                <th className="pb-3 font-normal">Device</th>
+                <th className="pb-3 font-normal">Amount</th>
+                <th className="pb-3 font-normal" />
               </tr>
             </thead>
             <tbody>
@@ -69,19 +72,24 @@ export function PaymentsPanel({
                 const { device, customer } = describe(p);
                 const overdue = p.due_date < today;
                 return (
-                  <tr key={p.id} className="border-t border-line-dark text-white">
-                    <td className={`py-2 ${overdue ? "text-danger" : ""}`}>{p.due_date}</td>
-                    <td className="py-2 text-slate-light">{customer}</td>
-                    <td className="py-2 text-slate-light">{device}</td>
-                    <td className="py-2">Rs {Number(p.amount).toLocaleString("en-PK")}</td>
-                    <td className="py-2 text-right">
-                      <button
-                        onClick={() => handleMarkPaid(p)}
+                  <tr key={p.id} className="border-b border-line last:border-none">
+                    <td className={`py-3 font-mono ${overdue ? "text-danger" : "text-white"}`}>
+                      {p.due_date}
+                    </td>
+                    <td className="py-3">{customer}</td>
+                    <td className="py-3">{device}</td>
+                    <td className="py-3 font-mono tabular-nums text-white">
+                      Rs {Number(p.amount).toLocaleString("en-PK")}
+                    </td>
+                    <td className="py-3 text-right">
+                      <Button
+                        variant="primary"
+                        size="sm"
                         disabled={markingId === p.id}
-                        className="rounded-sm bg-emerald px-3 py-1 text-[12.5px] font-semibold text-white hover:bg-emerald-deep disabled:opacity-60"
+                        onClick={() => handleMarkPaid(p)}
                       >
                         {markingId === p.id ? "Saving…" : "Mark paid"}
-                      </button>
+                      </Button>
                     </td>
                   </tr>
                 );
