@@ -4,7 +4,6 @@ import { Reveal } from "../components/Reveal";
 import { DashboardCard } from "../components/DashboardCard";
 import { DashboardChart } from "../components/DashboardChart";
 import { DeviceTable } from "../components/DeviceTable";
-import { DeviceLocationList } from "../components/DeviceLocationList";
 import { FinancialFlow } from "../components/FinancialFlow";
 
 const sidebarItems = [
@@ -13,7 +12,6 @@ const sidebarItems = [
   "Devices",
   "Payments",
   "Installment Plans",
-  "Locations",
   "Reports",
   "Event Logs",
   "Settings",
@@ -91,28 +89,6 @@ export function Dashboard() {
           </Reveal>
           <Reveal delay={100}>
             <FinancialFlow />
-          </Reveal>
-        </Container>
-      </section>
-
-      {/* LOCATION VISIBILITY */}
-      <section className="border-b border-line bg-offwhite py-16 md:py-20">
-        <Container>
-          <Reveal>
-            <SectionHeading
-              eyebrow="Location visibility"
-              title="Know where your devices are."
-              description="Device location visibility, not customer tracking — shown only where permissions and connectivity allow, using a last-known position."
-              className="mb-14"
-            />
-          </Reveal>
-          <Reveal delay={100}>
-            <DeviceLocationList />
-          </Reveal>
-          <Reveal delay={200} className="mt-6 max-w-[640px] text-[13.5px] text-slate">
-            Location availability depends on Android permissions, device connectivity, the
-            specific implementation, and the device's own settings. Where location cannot be
-            determined, the dashboard states that plainly rather than guessing.
           </Reveal>
         </Container>
       </section>
