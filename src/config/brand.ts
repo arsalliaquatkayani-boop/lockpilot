@@ -25,7 +25,7 @@ export const brand = {
     pill: "999px",
   },
   fonts: {
-    heading: "'Archivo', sans-serif",
+    heading: "'Bricolage Grotesque', sans-serif",
     body: "'Work Sans', sans-serif",
     mono: "'IBM Plex Mono', monospace",
   },
