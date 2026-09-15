@@ -43,11 +43,12 @@ export function Home() {
             </div>
 
             <div className="relative pb-10 pr-6 md:pb-14 md:pr-10">
-              <div className="absolute -right-10 -top-10 h-56 w-56 rounded-full bg-emerald/10 blur-3xl" />
-              <div className="relative aspect-[4/3] w-full overflow-hidden rounded-card border border-line">
+              <div className="absolute -right-10 -top-10 h-64 w-64 rounded-full bg-emerald/15 blur-[80px]" />
+              <div className="relative aspect-[4/3] w-full overflow-hidden rounded-card border border-line shadow-[0_30px_60px_-25px_rgba(28,24,21,0.35)]">
                 <ProductImage {...images.heroHandover} className="h-full w-full" label="Hero visual" />
+                <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-navy/25 via-transparent to-transparent" />
               </div>
-              <div className="absolute -bottom-2 -right-2 hidden origin-bottom-right scale-[0.82] sm:block md:-bottom-4 md:-right-4">
+              <div className="absolute -bottom-2 -right-2 hidden origin-bottom-right scale-[0.82] drop-shadow-[0_20px_35px_rgba(28,24,21,0.35)] sm:block md:-bottom-4 md:-right-4">
                 <LockDemo />
               </div>
             </div>
@@ -107,9 +108,14 @@ export function Home() {
               className="mb-14"
             />
           </Reveal>
-          <div className="grid gap-px overflow-hidden rounded-card border border-line bg-line md:grid-cols-3">
+          <div className="grid gap-5 md:grid-cols-3">
             {featureItems.slice(0, 6).map((f, i) => (
-              <Reveal key={f.id} delay={i * 60} className="bg-white p-8">
+              <Reveal
+                key={f.id}
+                delay={i * 60}
+                className="group rounded-card border border-line bg-white p-8 shadow-[0_2px_8px_-4px_rgba(28,24,21,0.08)] transition-all duration-300 hover:-translate-y-1 hover:border-emerald/40 hover:shadow-[0_20px_40px_-20px_rgba(28,24,21,0.25)]"
+              >
+                <div className="mb-4 h-9 w-9 rounded-sm bg-emerald-soft" />
                 <h3 className="mb-2.5 font-heading text-[16.5px] font-bold text-navy">{f.title}</h3>
                 <p className="text-[14.5px] leading-relaxed text-slate">{f.description}</p>
               </Reveal>
@@ -134,7 +140,7 @@ export function Home() {
             />
           </Reveal>
           <Reveal delay={100}>
-            <div className="overflow-hidden rounded-card border border-line-dark bg-navy-deep">
+            <div className="overflow-hidden rounded-card border border-line-dark bg-navy-deep shadow-[0_40px_80px_-30px_rgba(0,0,0,0.6)]">
               <div className="grid grid-cols-2 gap-px border-b border-line-dark bg-line-dark md:grid-cols-4">
                 <DashboardCard label="Total Capital Invested" value="Rs 2,450,000" />
                 <DashboardCard label="Total Collected" value="Rs 1,780,000" tone="positive" />
@@ -163,7 +169,7 @@ export function Home() {
             />
           </Reveal>
           <Reveal delay={100} className="order-1 lg:order-2">
-            <div className="aspect-[4/3] overflow-hidden rounded-card border border-line">
+            <div className="aspect-[4/3] overflow-hidden rounded-card border border-line shadow-[0_30px_60px_-25px_rgba(28,24,21,0.3)]">
               <ProductImage {...images.retailBoutiqueDaytime} className="h-full w-full" label="Retail context" />
             </div>
           </Reveal>

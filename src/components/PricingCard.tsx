@@ -8,14 +8,14 @@ export function PricingCard() {
         {pricingTiers.map((tier) => (
           <div
             key={tier.id}
-            className={`flex flex-col rounded-card border p-8 ${
+            className={`flex flex-col rounded-card border p-8 transition-all duration-300 ${
               tier.highlight
-                ? "border-navy bg-navy text-white shadow-[0_30px_60px_-36px_rgba(17,17,19,0.35)] md:-translate-y-3"
-                : "border-line bg-white"
+                ? "border-navy bg-navy text-white shadow-[0_30px_60px_-30px_rgba(17,17,19,0.5)] md:-translate-y-3"
+                : "border-line bg-white shadow-[0_2px_8px_-4px_rgba(28,24,21,0.08)] hover:-translate-y-1 hover:shadow-[0_20px_40px_-20px_rgba(28,24,21,0.2)]"
             }`}
           >
             {tier.highlight && (
-              <span className="mb-4 inline-block w-fit rounded-pill bg-emerald px-3 py-1 font-mono text-[11px] uppercase tracking-wide text-white">
+              <span className="mb-4 inline-block w-fit rounded-pill bg-emerald px-3 py-1 font-mono text-[11px] uppercase tracking-wide text-navy">
                 Most popular
               </span>
             )}

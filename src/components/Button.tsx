@@ -5,13 +5,13 @@ type Variant = "primary" | "secondary" | "ghost" | "ghost-dark";
 
 const variantClasses: Record<Variant, string> = {
   primary:
-    "bg-emerald text-white hover:bg-emerald-deep shadow-[0_1px_0_rgba(255,255,255,0.16)_inset]",
+    "bg-emerald text-navy shadow-[0_1px_0_rgba(255,255,255,0.35)_inset,0_10px_24px_-10px_rgba(217,164,65,0.65)] hover:bg-emerald-deep hover:-translate-y-px hover:shadow-[0_1px_0_rgba(255,255,255,0.35)_inset,0_14px_28px_-10px_rgba(217,164,65,0.75)]",
   secondary:
-    "bg-navy text-white hover:bg-navy-secondary",
+    "bg-navy text-white shadow-[0_10px_24px_-12px_rgba(28,24,21,0.7)] hover:bg-navy-secondary hover:-translate-y-px",
   ghost:
-    "bg-transparent text-navy border border-line hover:border-navy",
+    "bg-transparent text-navy border border-line hover:border-navy hover:bg-navy/[0.03]",
   "ghost-dark":
-    "bg-transparent text-white border border-white/25 hover:border-white/60",
+    "bg-transparent text-white border border-white/20 hover:border-white/50 hover:bg-white/5",
 };
 
 type ButtonProps = {
