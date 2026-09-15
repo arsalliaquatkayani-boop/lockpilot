@@ -13,14 +13,5 @@ export const primaryNav: NavItem[] = [
 ];
 
 export const navCtas = {
-  secondary: { label: "Download App", path: "/download" },
   primary: { label: "Request Early Access", path: "/early-access" },
 };
-
-export const footerLinks: NavItem[] = [
-  ...primaryNav,
-  { label: "Download App", path: "/download" },
-  { label: "Request Early Access", path: "/early-access" },
-  { label: "Privacy", path: "/legal/privacy" },
-  { label: "Terms", path: "/legal/terms" },
-];

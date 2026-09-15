@@ -218,7 +218,6 @@ export function Home() {
             </p>
             <div className="flex flex-wrap justify-center gap-3.5">
               <Button to="/early-access" variant="primary">Request Early Access</Button>
-              <Button to="/download" variant="ghost-dark">Download App</Button>
             </div>
           </Reveal>
         </Container>

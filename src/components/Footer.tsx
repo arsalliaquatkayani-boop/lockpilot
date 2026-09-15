@@ -28,7 +28,6 @@ export function Footer() {
               {item.label}
             </Link>
           ))}
-          <Link to="/download" className="hover:text-navy">Download App</Link>
           <Link to="/early-access" className="hover:text-navy">Request Early Access</Link>
           <Link to="/legal/privacy" className="hover:text-navy">Privacy</Link>
           <Link to="/legal/terms" className="hover:text-navy">Terms</Link>

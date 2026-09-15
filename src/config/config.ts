@@ -6,12 +6,8 @@ export const SITE = {
   domain: "mylockpilot.com",
   tagline: "Control every installment. Know every number.",
   description:
-    "LockPilot helps mobile shops in Pakistan manage installment phone sales with device protection, payment tracking, location visibility, and financial insight.",
+    "LockPilot helps mobile shops in Pakistan manage installment phone sales with device protection, payment tracking, and financial insight.",
 };
-
-// The real APK is not built yet. Once it exists, drop the file at
-// public/downloads/lockpilot.apk and this constant needs no other change.
-export const APK_DOWNLOAD_URL = "/downloads/lockpilot.apk";
 
 // Early-access form currently has no backend. Submissions are not stored
 // anywhere yet — this flag exists so the form's success state can be wired to

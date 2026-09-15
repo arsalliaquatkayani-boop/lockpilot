@@ -9,7 +9,6 @@ import { Features } from "./pages/Features";
 import { Dashboard } from "./pages/Dashboard";
 import { Pricing } from "./pages/Pricing";
 import { Faq } from "./pages/Faq";
-import { Download } from "./pages/Download";
 import { EarlyAccess } from "./pages/EarlyAccess";
 import { PrivacyPolicy } from "./pages/PrivacyPolicy";
 import { TermsOfService } from "./pages/TermsOfService";
@@ -43,7 +42,6 @@ export default function App() {
             <Route path="/dashboard" element={<Dashboard />} />
             <Route path="/pricing" element={<Pricing />} />
             <Route path="/faq" element={<Faq />} />
-            <Route path="/download" element={<Download />} />
             <Route path="/early-access" element={<EarlyAccess />} />
             <Route path="/legal/privacy" element={<PrivacyPolicy />} />
             <Route path="/legal/terms" element={<TermsOfService />} />
