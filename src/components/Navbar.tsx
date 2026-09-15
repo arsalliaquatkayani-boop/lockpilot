@@ -52,6 +52,9 @@ export function Navbar() {
         </nav>
 
         <div className="hidden lg:flex items-center gap-3">
+          <Button to={navCtas.login.path} variant="ghost">
+            {navCtas.login.label}
+          </Button>
           <Button to={navCtas.primary.path} variant="primary">
             {navCtas.primary.label}
           </Button>
@@ -97,6 +100,9 @@ export function Navbar() {
               </Link>
             ))}
             <div className="flex flex-col gap-3 mt-6">
+              <Button to={navCtas.login.path} variant="ghost" onClick={() => setDrawerOpen(false)} className="w-full">
+                {navCtas.login.label}
+              </Button>
               <Button to={navCtas.primary.path} variant="primary" onClick={() => setDrawerOpen(false)} className="w-full">
                 {navCtas.primary.label}
               </Button>

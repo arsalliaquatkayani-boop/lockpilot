@@ -13,5 +13,6 @@ export const primaryNav: NavItem[] = [
 ];
 
 export const navCtas = {
+  login: { label: "Login", path: "/app/login" },
   primary: { label: "Request Early Access", path: "/early-access" },
 };
