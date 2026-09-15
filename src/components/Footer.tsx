@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import { Container } from "./Container";
 import { primaryNav } from "../config/navigation";
 import { SITE, CURRENT_YEAR } from "../config/config";
+import { brand } from "../config/brand";
 
 export function Footer() {
   return (
@@ -11,10 +12,10 @@ export function Footer() {
           <div className="flex items-center gap-2.5 font-heading font-extrabold text-[15px] text-navy mb-2">
             <span className="flex h-6 w-6 items-center justify-center rounded-sm bg-navy">
               <svg viewBox="0 0 128 128" className="h-3 w-3">
-                <path d="M46 59V48a18 18 0 0 1 36 0v11" fill="none" stroke="#F8FAFC" strokeWidth="7" strokeLinecap="round" />
-                <rect x="35" y="59" width="58" height="44" rx="9" fill="#F8FAFC" />
-                <circle cx="64" cy="80" r="6" fill="#16A34A" />
-                <rect x="61" y="80" width="6" height="13" rx="3" fill="#16A34A" />
+                <path d="M46 59V48a18 18 0 0 1 36 0v11" fill="none" stroke={brand.colors.white} strokeWidth="7" strokeLinecap="round" />
+                <rect x="35" y="59" width="58" height="44" rx="9" fill={brand.colors.white} />
+                <circle cx="64" cy="80" r="6" fill={brand.colors.emerald} />
+                <rect x="61" y="80" width="6" height="13" rx="3" fill={brand.colors.emerald} />
               </svg>
             </span>
             LockPilot
