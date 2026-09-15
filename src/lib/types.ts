@@ -37,6 +37,7 @@ export type Device = {
   device_label: string | null;
   imei: string | null;
   android_device_id: string | null;
+  device_secret: string | null;
   cost_price: number | null;
   sale_price: number | null;
   status: DeviceStatus;

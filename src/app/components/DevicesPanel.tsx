@@ -1,4 +1,4 @@
-import { useState, type FormEvent } from "react";
+import { Fragment, useState, type FormEvent } from "react";
 import { supabase } from "../../lib/supabase";
 import type { Customer, Device } from "../../lib/types";
 import { useAuth } from "../../context/AuthContext";
@@ -25,6 +25,7 @@ export function DevicesPanel({
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [togglingId, setTogglingId] = useState<string | null>(null);
+  const [pairingRevealId, setPairingRevealId] = useState<string | null>(null);
 
   const [customerId, setCustomerId] = useState("");
   const [deviceLabel, setDeviceLabel] = useState("");
@@ -257,30 +258,57 @@ export function DevicesPanel({
                 <th className="pb-2 font-medium">Customer</th>
                 <th className="pb-2 font-medium">Status</th>
                 <th className="pb-2 font-medium" />
+                <th className="pb-2 font-medium" />
               </tr>
             </thead>
             <tbody>
               {devices.map((d) => (
-                <tr key={d.id} className="border-t border-line-dark text-white">
-                  <td className="py-2">{d.device_label ?? "—"}</td>
-                  <td className="py-2 text-slate-light">{customerName(d.customer_id)}</td>
-                  <td className={`py-2 font-medium ${statusStyles[d.status]}`}>{d.status}</td>
-                  <td className="py-2 text-right">
-                    {(d.status === "active" || d.status === "locked") && (
+                <Fragment key={d.id}>
+                  <tr className="border-t border-line-dark text-white">
+                    <td className="py-2">{d.device_label ?? "—"}</td>
+                    <td className="py-2 text-slate-light">{customerName(d.customer_id)}</td>
+                    <td className={`py-2 font-medium ${statusStyles[d.status]}`}>{d.status}</td>
+                    <td className="py-2 text-right">
+                      {(d.status === "active" || d.status === "locked") && (
+                        <button
+                          onClick={() => handleToggleLock(d)}
+                          disabled={togglingId === d.id}
+                          className="rounded-sm border border-white/25 px-3 py-1 text-[12.5px] text-white hover:border-white/60 disabled:opacity-60"
+                        >
+                          {togglingId === d.id
+                            ? "Working…"
+                            : d.status === "locked"
+                              ? "Unlock"
+                              : "Lock"}
+                        </button>
+                      )}
+                    </td>
+                    <td className="py-2 text-right">
                       <button
-                        onClick={() => handleToggleLock(d)}
-                        disabled={togglingId === d.id}
-                        className="rounded-sm border border-white/25 px-3 py-1 text-[12.5px] text-white hover:border-white/60 disabled:opacity-60"
+                        onClick={() =>
+                          setPairingRevealId(pairingRevealId === d.id ? null : d.id)
+                        }
+                        className="rounded-sm border border-white/25 px-3 py-1 text-[12.5px] text-white hover:border-white/60"
                       >
-                        {togglingId === d.id
-                          ? "Working…"
-                          : d.status === "locked"
-                            ? "Unlock"
-                            : "Lock"}
+                        {pairingRevealId === d.id ? "Hide" : "Pair phone"}
                       </button>
-                    )}
-                  </td>
-                </tr>
+                    </td>
+                  </tr>
+                  {pairingRevealId === d.id && (
+                    <tr className="border-t border-line-dark">
+                      <td colSpan={5} className="bg-navy py-3">
+                        <div className="text-[12.5px] text-slate-light">
+                          Enter these two values into the "Pair this device" screen on the
+                          customer's phone, once, during setup:
+                        </div>
+                        <div className="mt-2 grid gap-1 font-mono text-[12.5px] text-white">
+                          <div>Device ID: {d.id}</div>
+                          <div>Pairing code: {d.device_secret ?? "—"}</div>
+                        </div>
+                      </td>
+                    </tr>
+                  )}
+                </Fragment>
               ))}
             </tbody>
           </table>
