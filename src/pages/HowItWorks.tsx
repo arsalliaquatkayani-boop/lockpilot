@@ -3,21 +3,19 @@ import { SectionHeading } from "../components/SectionHeading";
 import { Reveal } from "../components/Reveal";
 import { DeviceStateAnimation } from "../components/DeviceStateAnimation";
 import { LockDemo } from "../components/LockDemo";
-import { ProductImage } from "../components/ProductImage";
-import { images } from "../config/images";
 
 const steps = [
   {
     num: "01",
     title: "Sell the phone",
     body: "Install LockPilot and register the device at the counter, at the moment of sale.",
-    image: images.retailNightHandover,
+    icon: "M6 4h9l3 3v13H6V4z M15 4v3h3 M9 12h6 M9 15h4",
   },
   {
     num: "02",
     title: "Create the installment plan",
     body: "Record the customer, the device, the payment schedule, and the amounts — all in your dashboard.",
-    image: images.retailLaptopFlag,
+    icon: "M4 6.5h16 M4 6.5V18a1.5 1.5 0 0 0 1.5 1.5h13A1.5 1.5 0 0 0 20 18V6.5 M8 3.5v4 M16 3.5v4 M8 12h3 M8 15.5h6",
   },
   {
     num: "03",
@@ -30,6 +28,18 @@ const steps = [
     body: "The device can automatically return to its normal state once the payment is recorded.",
   },
 ];
+
+function StepIllustration({ path }: { path: string }) {
+  return (
+    <div className="flex aspect-[4/3] w-full max-w-[440px] items-center justify-center rounded-card border border-line bg-navy-secondary">
+      <span className="flex h-20 w-20 items-center justify-center rounded-full border border-emerald/30 bg-emerald-soft text-emerald">
+        <svg viewBox="0 0 24 24" fill="none" className="h-9 w-9">
+          <path d={path} stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+        </svg>
+      </span>
+    </div>
+  );
+}
 
 export function HowItWorks() {
   return (
@@ -57,10 +67,8 @@ export function HowItWorks() {
                     <p className="max-w-[440px] text-[15.5px] leading-relaxed text-slate">{step.body}</p>
                   </div>
                   <div className="flex justify-center">
-                    {step.image ? (
-                      <div className="aspect-[4/3] w-full max-w-[440px] overflow-hidden rounded-card border border-line">
-                        <ProductImage {...step.image} className="h-full w-full" label={`Step ${step.num}`} />
-                      </div>
+                    {step.icon ? (
+                      <StepIllustration path={step.icon} />
                     ) : step.num === "03" || step.num === "04" ? (
                       <LockDemo />
                     ) : null}

@@ -9,8 +9,6 @@ import { DeviceControlVisual } from "../components/DeviceControlVisual";
 import { DashboardCard } from "../components/DashboardCard";
 import { DashboardChart } from "../components/DashboardChart";
 import { PricingCard } from "../components/PricingCard";
-import { ProductImage } from "../components/ProductImage";
-import { images } from "../config/images";
 import { faqItems } from "../config/faq";
 
 const icon = (path: string) => (
@@ -235,24 +233,6 @@ export function Home() {
       </section>
 
       {/* RETAIL POSITIONING */}
-      <section className="border-b border-line py-16 md:py-20">
-        <Container className="grid items-center gap-14 lg:grid-cols-2">
-          <Reveal className="order-2 lg:order-1">
-            <SectionHeading
-              eyebrow="Built for Pakistan's retailers"
-              title="Not a generic SaaS tool. Built around how an installment counter actually runs."
-              description="LockPilot is designed around the daily reality of installment retail in Pakistan — a busy counter, a paper ledger giving way to a dashboard, and a business that depends on getting paid on time."
-            />
-          </Reveal>
-          <Reveal delay={100} className="order-1 lg:order-2">
-            <div className="relative aspect-[4/3] overflow-hidden rounded-card border border-line shadow-[0_30px_60px_-25px_rgba(0,0,0,0.5)]">
-              <ProductImage {...images.retailBoutiqueDaytime} className="h-full w-full" label="Retail context" />
-              <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-navy-deep/50 via-transparent to-transparent" />
-            </div>
-          </Reveal>
-        </Container>
-      </section>
-
       {/* PRICING TEASER */}
       <section className="border-b border-line py-16 md:py-20">
         <Container>
@@ -286,17 +266,14 @@ export function Home() {
       </section>
 
       {/* FINAL CTA */}
-      <section className="relative overflow-hidden bg-navy-secondary py-20 text-center">
-        <div className="absolute inset-0 opacity-20">
-          <ProductImage {...images.retailNightHandover} className="h-full w-full" label="Final CTA visual" />
-        </div>
-        <div className="absolute inset-0 bg-gradient-to-t from-navy-secondary via-navy-secondary/95 to-navy-secondary/80" />
+      <section className="relative overflow-hidden bg-dark-navy py-20 text-center">
+        <div className="pointer-events-none absolute left-1/2 top-1/2 h-[420px] w-[420px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-emerald/[0.15] blur-[110px]" />
         <Container className="relative">
           <Reveal>
-            <h2 className="mx-auto mb-5 max-w-[600px] font-heading text-[34px] font-extrabold leading-tight text-offwhite md:text-[42px]">
+            <h2 className="mx-auto mb-5 max-w-[600px] font-heading text-[34px] font-extrabold leading-tight text-white md:text-[42px]">
               Your phones should enforce the plan.
             </h2>
-            <p className="mx-auto mb-9 max-w-[480px] text-[16px] text-slate">
+            <p className="mx-auto mb-9 max-w-[480px] text-[16px] text-white/65">
               Protect your devices. Track your money. Spend less time chasing overdue payments.
             </p>
             <div className="flex flex-wrap justify-center gap-3.5">
