@@ -25,6 +25,11 @@ export type Customer = {
   phone: string | null;
   city: string | null;
   address: string | null;
+  cnic_number: string | null;
+  cnic_front_path: string | null;
+  cnic_back_path: string | null;
+  guarantor_name: string | null;
+  guarantor_phone: string | null;
   created_at: string;
 };
 
