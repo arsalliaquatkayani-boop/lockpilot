@@ -20,7 +20,7 @@ const sidebarItems = [
 export function Dashboard() {
   return (
     <>
-      <section className="bg-navy py-20 text-white md:py-28">
+      <section className="bg-navy py-20 text-offwhite md:py-28">
         <Container>
           <SectionHeading
             eyebrow="The dashboard"
@@ -61,7 +61,7 @@ export function Dashboard() {
       </section>
 
       {/* DEVICE MANAGEMENT */}
-      <section className="bg-navy pb-16 text-white md:pb-20">
+      <section className="bg-navy pb-16 text-offwhite md:pb-20">
         <Container>
           <Reveal>
             <SectionHeading

@@ -1,32 +1,38 @@
 @import "tailwindcss";
 
 @theme {
-  /* "The Vault" — dark, authoritative, gold-as-engraved-metal. The site is
-     dark by default now (body itself is near-black); navy/navy-deep/
-     navy-secondary are shades of that dark, not a light-mode "text color"
-     anymore. offwhite is the warm paper tone used sparingly for light
-     panels (the ledger-table style cards), not the page base. */
-  --color-navy: #1A1512;
-  --color-navy-deep: #100D0A;
-  --color-navy-secondary: #211B16;
-  --color-emerald: #D9A441;
-  --color-emerald-deep: #AD7E28;
-  --color-emerald-bright: #F0C670;
-  --color-emerald-soft: #F8EDD9;
-  --color-offwhite: #F5EEDD;
-  --color-slate: #B7A98F;
-  --color-slate-light: #8A7C64;
-  --color-line: rgba(217, 164, 65, 0.22);
-  --color-line-dark: rgba(217, 164, 65, 0.22);
-  --color-danger: #D0684F;
-  --color-danger-soft: rgba(208, 104, 79, 0.14);
+  /* Light SaaS theme, matching the LockPilot reference built in Bolt.
+     Legacy token names are kept (navy/emerald/offwhite/slate/...) so every
+     existing component class still resolves — only the hex values changed,
+     from dark-gold "Vault" to light-blue. */
+  --color-navy: #F4F6F9;
+  --color-navy-deep: #F7F8FA;
+  --color-navy-secondary: #FFFFFF;
+  --color-emerald: #2174FF;
+  --color-emerald-deep: #0D61EB;
+  --color-emerald-bright: #4F94FF;
+  --color-emerald-soft: #EAF2FF;
+  --color-offwhite: #13213A;
+  --color-slate: #69758B;
+  --color-slate-light: #8B98A9;
+  --color-line: #DCE2EB;
+  --color-line-dark: #EEF1F6;
+  --color-danger: #C4515F;
+  --color-danger-soft: #FFE5E7;
 
-  --font-heading: "Bricolage Grotesque", ui-sans-serif, system-ui, sans-serif;
-  --font-body: "Work Sans", ui-sans-serif, system-ui, sans-serif;
-  --font-mono: "IBM Plex Mono", ui-monospace, monospace;
+  --color-warning: #B5762E;
+  --color-warning-soft: #FFF0DE;
+  --color-success: #27825B;
+  --color-success-soft: #E2F5EB;
+  --color-dark-navy: #07142C;
+  --color-dark: #0B1830;
+
+  --font-heading: "Manrope", ui-sans-serif, system-ui, sans-serif;
+  --font-body: "DM Sans", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "DM Sans", ui-sans-serif, system-ui, sans-serif;
 
   --radius-card: 12px;
-  --radius-sm: 6px;
+  --radius-sm: 8px;
   --radius-pill: 999px;
 
   --ease-signature: cubic-bezier(0.16, 1, 0.3, 1);
@@ -46,7 +52,7 @@ body {
 h1, h2, h3, h4 {
   font-family: var(--font-heading);
   font-weight: 800;
-  letter-spacing: -0.01em;
+  letter-spacing: -0.02em;
 }
 
 @media (prefers-reduced-motion: reduce) {

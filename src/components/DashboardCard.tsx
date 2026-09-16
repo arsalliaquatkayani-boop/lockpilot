@@ -1,10 +1,10 @@
 type Tone = "neutral" | "positive" | "warning" | "danger";
 
 const toneClass: Record<Tone, string> = {
-  neutral: "text-white",
+  neutral: "text-offwhite",
   positive: "text-emerald",
-  warning: "text-amber-400",
-  danger: "text-red-400",
+  warning: "text-warning",
+  danger: "text-danger",
 };
 
 export function DashboardCard({

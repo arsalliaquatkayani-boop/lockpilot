@@ -8,8 +8,8 @@ import { Button } from "../../components/Button";
 const statusPillStyles: Record<Device["status"], string> = {
   active: "bg-emerald/15 text-emerald-bright",
   locked: "border border-danger text-danger",
-  paid_off: "bg-white/10 text-slate",
-  inactive: "bg-white/10 text-slate",
+  paid_off: "bg-line/60 text-slate",
+  inactive: "bg-line/60 text-slate",
 };
 
 const inputClass =
@@ -153,7 +153,7 @@ export function DevicesPanel({
   return (
     <div className="rounded-card border border-line bg-navy-secondary p-6">
       <div className="mb-5 flex items-center justify-between">
-        <h2 className="font-heading text-[17px] font-extrabold text-white">Devices</h2>
+        <h2 className="font-heading text-[17px] font-extrabold text-offwhite">Devices</h2>
         <Button variant={showForm ? "ghost-dark" : "secondary"} size="sm" onClick={() => setShowForm((v) => !v)}>
           {showForm ? "Cancel" : "Add device + plan"}
         </Button>
@@ -288,7 +288,7 @@ export function DevicesPanel({
               {devices.map((d) => (
                 <Fragment key={d.id}>
                   <tr className="border-b border-line last:border-none">
-                    <td className="py-3 text-white">{d.device_label ?? "—"}</td>
+                    <td className="py-3 text-offwhite">{d.device_label ?? "—"}</td>
                     <td className="py-3">{customerName(d.customer_id)}</td>
                     <td className="py-3">
                       <span className={`rounded-pill px-2.5 py-1 font-mono text-[11px] ${statusPillStyles[d.status]}`}>

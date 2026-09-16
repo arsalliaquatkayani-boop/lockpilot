@@ -16,7 +16,7 @@ export function LeadForm() {
   if (submitted) {
     return (
       <div className="rounded-card border border-emerald-soft bg-emerald-soft/40 p-10 text-center">
-        <h3 className="font-heading text-[20px] font-bold text-navy mb-2">
+        <h3 className="font-heading text-[20px] font-bold text-offwhite mb-2">
           Thanks — your early-access request has been received.
         </h3>
         <p className="text-[14.5px] text-slate">We'll reach out on WhatsApp with next steps.</p>
@@ -33,7 +33,7 @@ export function LeadForm() {
         <Field label="City" name="city" required />
       </div>
       <div>
-        <label className="mb-1.5 block text-[13.5px] font-medium text-navy" htmlFor="volume">
+        <label className="mb-1.5 block text-[13.5px] font-medium text-offwhite" htmlFor="volume">
           Approx. phones sold on installments per month
         </label>
         <select
@@ -41,7 +41,7 @@ export function LeadForm() {
           name="volume"
           required
           defaultValue=""
-          className="w-full rounded-sm border border-line bg-white px-4 py-2.5 text-[14.5px] text-navy focus:outline-none focus:border-emerald"
+          className="w-full rounded-sm border border-line bg-white px-4 py-2.5 text-[14.5px] text-offwhite focus:outline-none focus:border-emerald"
         >
           <option value="" disabled>
             Select a range
@@ -73,7 +73,7 @@ function Field({
 }) {
   return (
     <div>
-      <label className="mb-1.5 block text-[13.5px] font-medium text-navy" htmlFor={name}>
+      <label className="mb-1.5 block text-[13.5px] font-medium text-offwhite" htmlFor={name}>
         {label}
       </label>
       <input
@@ -81,7 +81,7 @@ function Field({
         name={name}
         type={type}
         required={required}
-        className="w-full rounded-sm border border-line bg-white px-4 py-2.5 text-[14.5px] text-navy placeholder:text-slate-light focus:outline-none focus:border-emerald"
+        className="w-full rounded-sm border border-line bg-white px-4 py-2.5 text-[14.5px] text-offwhite placeholder:text-slate-light focus:outline-none focus:border-emerald"
       />
     </div>
   );

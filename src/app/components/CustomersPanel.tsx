@@ -52,7 +52,7 @@ export function CustomersPanel({
   return (
     <div className="rounded-card border border-line bg-navy-secondary p-6">
       <div className="mb-5 flex items-center justify-between">
-        <h2 className="font-heading text-[17px] font-extrabold text-white">Customers</h2>
+        <h2 className="font-heading text-[17px] font-extrabold text-offwhite">Customers</h2>
         <Button variant={showForm ? "ghost-dark" : "secondary"} size="sm" onClick={() => setShowForm((v) => !v)}>
           {showForm ? "Cancel" : "Add customer"}
         </Button>
@@ -101,7 +101,7 @@ export function CustomersPanel({
             <tbody>
               {customers.map((c) => (
                 <tr key={c.id} className="border-b border-line last:border-none">
-                  <td className="py-3 text-white">{c.full_name}</td>
+                  <td className="py-3 text-offwhite">{c.full_name}</td>
                   <td className="py-3">{c.phone ?? "—"}</td>
                   <td className="py-3">{c.city ?? "—"}</td>
                 </tr>

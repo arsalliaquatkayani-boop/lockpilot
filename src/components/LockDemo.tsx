@@ -20,7 +20,7 @@ export function LockDemo() {
   }, []);
 
   return (
-    <PhoneMockup screenClassName={locked ? "bg-navy-deep" : "bg-navy"}>
+    <PhoneMockup screenClassName={locked ? "bg-dark-navy" : "bg-dark"}>
       <div
         className={`flex flex-col items-center gap-3 text-white transition-opacity duration-200 ${
           fading ? "opacity-0" : "opacity-100"

@@ -49,7 +49,7 @@ export function PaymentsPanel({
 
   return (
     <div className="rounded-card border border-line bg-navy-secondary p-6">
-      <h2 className="mb-5 font-heading text-[17px] font-extrabold text-white">
+      <h2 className="mb-5 font-heading text-[17px] font-extrabold text-offwhite">
         Upcoming &amp; overdue payments
       </h2>
 
@@ -73,12 +73,12 @@ export function PaymentsPanel({
                 const overdue = p.due_date < today;
                 return (
                   <tr key={p.id} className="border-b border-line last:border-none">
-                    <td className={`py-3 font-mono ${overdue ? "text-danger" : "text-white"}`}>
+                    <td className={`py-3 font-mono ${overdue ? "text-danger" : "text-offwhite"}`}>
                       {p.due_date}
                     </td>
                     <td className="py-3">{customer}</td>
                     <td className="py-3">{device}</td>
-                    <td className="py-3 font-mono tabular-nums text-white">
+                    <td className="py-3 font-mono tabular-nums text-offwhite">
                       Rs {Number(p.amount).toLocaleString("en-PK")}
                     </td>
                     <td className="py-3 text-right">

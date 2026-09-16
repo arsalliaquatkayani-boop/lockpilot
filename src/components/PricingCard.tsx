@@ -10,7 +10,7 @@ export function PricingCard() {
             key={tier.id}
             className={`flex flex-col rounded-card border p-8 transition-all duration-300 ${
               tier.highlight
-                ? "border-emerald bg-navy-secondary shadow-[0_30px_60px_-25px_rgba(217,164,65,0.35)] md:-translate-y-3"
+                ? "border-emerald bg-navy-secondary shadow-[0_30px_60px_-25px_rgba(33,116,255,0.22)] md:-translate-y-3"
                 : "border-line bg-navy-secondary/40 hover:-translate-y-1 hover:border-emerald/40"
             }`}
           >

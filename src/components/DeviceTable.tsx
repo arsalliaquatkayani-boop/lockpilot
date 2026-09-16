@@ -26,11 +26,11 @@ const demoRows: DeviceRow[] = [
 ];
 
 const statusStyle: Record<Status, string> = {
-  Active: "bg-emerald/15 text-emerald",
-  "Due Soon": "bg-amber-500/15 text-amber-400",
+  Active: "bg-success-soft text-success",
+  "Due Soon": "bg-warning-soft text-warning",
   Overdue: "bg-danger-soft text-danger",
   Locked: "border border-danger text-danger",
-  Paid: "bg-white/10 text-slate",
+  Paid: "bg-line/60 text-slate",
 };
 
 const filters: Array<"All" | Status> = ["All", "Active", "Due Soon", "Overdue", "Locked", "Paid"];
@@ -58,15 +58,15 @@ export function DeviceTable() {
           value={query}
           onChange={(e) => setQuery(e.target.value)}
           placeholder="Search customer or device…"
-          className="rounded-sm border border-line-dark bg-white/5 px-3 py-2 text-[13.5px] text-white placeholder:text-slate-light focus:outline-none focus:border-emerald"
+          className="rounded-sm border border-line-dark bg-white px-3 py-2 text-[13.5px] text-offwhite placeholder:text-slate-light focus:outline-none focus:border-emerald"
         />
         <div className="flex flex-wrap gap-2">
           {filters.map((f) => (
             <button
               key={f}
               onClick={() => setFilter(f)}
-              className={`rounded-pill px-3 py-1.5 font-mono text-[11.5px] transition-colors ${
-                filter === f ? "bg-emerald text-white" : "bg-white/5 text-slate-light hover:text-white"
+              className={`rounded-pill px-3 py-1.5 text-[11.5px] transition-colors ${
+                filter === f ? "bg-emerald text-white" : "bg-navy text-slate-light hover:text-offwhite"
               }`}
             >
               {f}
@@ -92,7 +92,7 @@ export function DeviceTable() {
           <tbody>
             {rows.map((r) => (
               <tr key={r.customer} className="border-b border-line-dark last:border-none">
-                <td className="px-4 py-3 text-white">{r.customer}</td>
+                <td className="px-4 py-3 text-offwhite">{r.customer}</td>
                 <td className="px-4 py-3">{r.device}</td>
                 <td className="px-4 py-3 font-mono">Rs {r.salePrice.toLocaleString()}</td>
                 <td className="px-4 py-3 font-mono">Rs {r.paid.toLocaleString()}</td>
@@ -121,7 +121,7 @@ export function DeviceTable() {
         {rows.map((r) => (
           <div key={r.customer} className="p-4 text-[13.5px]">
             <div className="flex items-center justify-between mb-2">
-              <span className="font-medium text-white">{r.customer}</span>
+              <span className="font-medium text-offwhite">{r.customer}</span>
               <span className={`rounded-pill px-2.5 py-1 font-mono text-[11px] ${statusStyle[r.status]}`}>
                 {r.status}
               </span>

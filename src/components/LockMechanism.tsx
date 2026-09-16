@@ -31,17 +31,17 @@ export function LockMechanism() {
             transformOrigin: "right bottom",
           }}
         />
-        <div className="relative h-[108px] w-[128px] rounded-[14px] border border-line bg-gradient-to-br from-navy-secondary to-navy-deep shadow-[0_30px_60px_-20px_rgba(0,0,0,0.7)]">
-          <div className="absolute inset-x-0 top-0 h-px bg-white/5" />
+        <div className="relative h-[108px] w-[128px] rounded-[14px] border border-line bg-navy-secondary shadow-[0_20px_40px_-20px_rgba(19,33,58,0.25)]">
+          <div className="absolute inset-x-0 top-0 h-px bg-white/60" />
           <div className="flex h-full flex-col items-center justify-center gap-1.5">
             <div
               className="h-4 w-4 rounded-full transition-colors duration-500"
-              style={{ background: locked ? "#D9A441" : "#8A7C64" }}
+              style={{ background: locked ? "#2174FF" : "#8B98A9" }}
             />
             <div
               className="h-3.5 w-1.5 transition-colors duration-500"
               style={{
-                background: locked ? "#D9A441" : "#8A7C64",
+                background: locked ? "#2174FF" : "#8B98A9",
                 clipPath: "polygon(50% 0, 100% 100%, 0 100%)",
               }}
             />
@@ -49,8 +49,8 @@ export function LockMechanism() {
         </div>
 
         <div
-          className={`absolute -bottom-4 left-1/2 -translate-x-1/2 whitespace-nowrap rounded-pill px-4 py-1.5 font-mono text-[11px] tracking-[0.04em] transition-colors duration-500 ${
-            locked ? "bg-emerald-bright text-navy-deep" : "bg-navy-secondary text-emerald border border-emerald/40"
+          className={`absolute -bottom-4 left-1/2 -translate-x-1/2 whitespace-nowrap rounded-pill px-4 py-1.5 text-[11px] font-semibold tracking-[0.04em] transition-colors duration-500 ${
+            locked ? "bg-emerald text-white" : "bg-emerald-soft text-emerald border border-emerald/30"
           }`}
         >
           {locked ? "STATUS: LOCKED" : "STATUS: ACTIVE"}

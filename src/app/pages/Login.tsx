@@ -40,7 +40,7 @@ export function Login() {
               <rect x="61" y="80" width="6" height="13" rx="3" fill={brand.colors.emerald} />
             </svg>
           </span>
-          <div className="mb-1.5 font-heading text-[22px] font-extrabold text-white">LockPilot</div>
+          <div className="mb-1.5 font-heading text-[22px] font-extrabold text-offwhite">LockPilot</div>
           <div className="font-mono text-[12.5px] uppercase tracking-wide text-slate">
             Sign in to your dashboard
           </div>
@@ -48,7 +48,7 @@ export function Login() {
 
         <form
           onSubmit={handleSubmit}
-          className="rounded-card border border-line bg-navy-secondary p-6 shadow-[0_20px_60px_-30px_rgba(217,164,65,0.25)]"
+          className="rounded-card border border-line bg-navy-secondary p-6 shadow-[0_20px_60px_-30px_rgba(33,116,255,0.15)]"
         >
           <div className="mb-4">
             <label className={labelClass}>Email</label>

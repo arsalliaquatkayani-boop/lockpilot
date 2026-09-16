@@ -75,7 +75,7 @@ export function Home() {
 
       {/* SIGNATURE DEVICE STATE */}
       <section className="relative overflow-hidden border-b border-line bg-navy-secondary py-16 md:py-20">
-        <div className="pointer-events-none absolute inset-0 [background-image:radial-gradient(circle_at_1px_1px,rgba(217,164,65,0.12)_1px,transparent_0)] [background-size:24px_24px]" />
+        <div className="pointer-events-none absolute inset-0 [background-image:radial-gradient(circle_at_1px_1px,rgba(33,116,255,0.08)_1px,transparent_0)] [background-size:24px_24px]" />
         <div className="pointer-events-none absolute left-1/2 top-1/2 h-[420px] w-[420px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-emerald/10 blur-[100px]" />
         <Container className="relative flex flex-col items-center text-center">
           <Reveal>
@@ -138,7 +138,7 @@ export function Home() {
             />
           </Reveal>
           <Reveal delay={100}>
-            <div className="overflow-hidden rounded-card border border-line bg-navy-deep shadow-[0_40px_80px_-30px_rgba(0,0,0,0.6)]">
+            <div className="overflow-hidden rounded-card border border-line bg-navy-deep shadow-[0_30px_60px_-20px_rgba(19,33,58,0.15)]">
               <div className="grid grid-cols-2 gap-px border-b border-line bg-line md:grid-cols-4">
                 <DashboardCard label="Total Capital Invested" value="Rs 2,450,000" />
                 <DashboardCard label="Total Collected" value="Rs 1,780,000" tone="positive" />

@@ -45,7 +45,7 @@ export function StatsBar({ devices, payments }: { devices: Device[]; payments: P
           </div>
           <div
             className={`font-heading text-[20px] font-extrabold tabular-nums ${
-              s.tone === "positive" ? "text-emerald-bright" : s.tone === "danger" ? "text-danger" : "text-white"
+              s.tone === "positive" ? "text-emerald-bright" : s.tone === "danger" ? "text-danger" : "text-offwhite"
             }`}
           >
             {s.value}

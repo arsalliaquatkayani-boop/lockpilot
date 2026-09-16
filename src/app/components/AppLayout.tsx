@@ -20,7 +20,7 @@ export function AppLayout({ children }: { children: ReactNode }) {
               </svg>
             </span>
             <div>
-              <div className="font-heading text-[15px] font-extrabold text-white">
+              <div className="font-heading text-[15px] font-extrabold text-offwhite">
                 {shop?.name ?? "LockPilot"}
               </div>
               {staff?.full_name && (
