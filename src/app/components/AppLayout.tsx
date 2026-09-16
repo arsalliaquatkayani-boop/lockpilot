@@ -52,6 +52,51 @@ const navItems: NavItem[] = [
       </svg>
     ),
   },
+  {
+    label: "Installment Plans",
+    to: "/app/plans",
+    icon: (
+      <svg {...iconProps}>
+        <path d="M6 4h9l3 3v13H6V4z" stroke="currentColor" strokeWidth="1.6" strokeLinejoin="round" />
+        <path d="M15 4v3h3" stroke="currentColor" strokeWidth="1.6" strokeLinejoin="round" />
+        <path d="M9 12h6 M9 15h4" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" />
+      </svg>
+    ),
+  },
+  {
+    label: "Analytics",
+    to: "/app/analytics",
+    icon: (
+      <svg {...iconProps}>
+        <path d="M4 20V10 M11 20V4 M18 20v-7" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" />
+      </svg>
+    ),
+  },
+  {
+    label: "Event Logs",
+    to: "/app/events",
+    icon: (
+      <svg {...iconProps}>
+        <circle cx="12" cy="12" r="8.5" stroke="currentColor" strokeWidth="1.6" />
+        <path d="M12 7.5V12l3 2" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
+      </svg>
+    ),
+  },
+  {
+    label: "Settings",
+    to: "/app/settings",
+    icon: (
+      <svg {...iconProps}>
+        <circle cx="12" cy="12" r="2.8" stroke="currentColor" strokeWidth="1.6" />
+        <path
+          d="M12 4.2v1.6 M12 18.2v1.6 M19.8 12h-1.6 M5.8 12H4.2 M17.3 6.7l-1.1 1.1 M7.8 16.2l-1.1 1.1 M17.3 17.3l-1.1-1.1 M7.8 7.8 6.7 6.7"
+          stroke="currentColor"
+          strokeWidth="1.6"
+          strokeLinecap="round"
+        />
+      </svg>
+    ),
+  },
 ];
 
 export function AppLayout({ children }: { children: ReactNode }) {
@@ -115,7 +160,7 @@ export function AppLayout({ children }: { children: ReactNode }) {
                 <path d="M9.5 17.5a2.5 2.5 0 0 0 5 0" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" />
               </svg>
             </span>
-            <div className="flex items-center gap-2">
+            <NavLink to="/app/settings" className="flex items-center gap-2">
               <span className="flex h-8 w-8 items-center justify-center rounded-full bg-emerald text-[12px] font-bold text-white">
                 {initials}
               </span>
@@ -125,7 +170,7 @@ export function AppLayout({ children }: { children: ReactNode }) {
                 </div>
                 {staff?.full_name && <div className="text-[11.5px] text-slate">{staff.full_name}</div>}
               </div>
-            </div>
+            </NavLink>
           </div>
         </header>
 
