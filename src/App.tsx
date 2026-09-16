@@ -16,7 +16,9 @@ import { NotFound } from "./pages/NotFound";
 import { Login } from "./app/pages/Login";
 import { Overview } from "./app/pages/Overview";
 import { CustomersPage } from "./app/pages/CustomersPage";
+import { CustomerDetailPage } from "./app/pages/CustomerDetailPage";
 import { DevicesPage } from "./app/pages/DevicesPage";
+import { DeviceDetailPage } from "./app/pages/DeviceDetailPage";
 import { PaymentsPage } from "./app/pages/PaymentsPage";
 import { PlansPage } from "./app/pages/PlansPage";
 import { AnalyticsPage } from "./app/pages/AnalyticsPage";
@@ -70,10 +72,26 @@ export default function App() {
               }
             />
             <Route
+              path="/app/customers/:id"
+              element={
+                <ProtectedRoute>
+                  <CustomerDetailPage />
+                </ProtectedRoute>
+              }
+            />
+            <Route
               path="/app/devices"
               element={
                 <ProtectedRoute>
                   <DevicesPage />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/app/devices/:id"
+              element={
+                <ProtectedRoute>
+                  <DeviceDetailPage />
                 </ProtectedRoute>
               }
             />

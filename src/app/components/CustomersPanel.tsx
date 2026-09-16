@@ -1,4 +1,5 @@
 import { useState, type FormEvent } from "react";
+import { Link } from "react-router-dom";
 import { supabase } from "../../lib/supabase";
 import type { Customer } from "../../lib/types";
 import { useAuth } from "../../context/AuthContext";
@@ -242,7 +243,11 @@ export function CustomersPanel({
             <tbody>
               {customers.map((c) => (
                 <tr key={c.id} className="border-b border-line last:border-none">
-                  <td className="py-3 text-offwhite">{c.full_name}</td>
+                  <td className="py-3 text-offwhite">
+                    <Link to={`/app/customers/${c.id}`} className="font-medium hover:text-emerald hover:underline">
+                      {c.full_name}
+                    </Link>
+                  </td>
                   <td className="py-3">{c.phone ?? "—"}</td>
                   <td className="py-3">{c.city ?? "—"}</td>
                   <td className="py-3 font-mono">{c.cnic_number ?? "—"}</td>

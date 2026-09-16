@@ -1,4 +1,5 @@
 import { Fragment, useState, type FormEvent } from "react";
+import { Link } from "react-router-dom";
 import { supabase } from "../../lib/supabase";
 import type { Customer, Device } from "../../lib/types";
 import { useAuth } from "../../context/AuthContext";
@@ -338,7 +339,11 @@ export function DevicesPanel({
               {devices.map((d) => (
                 <Fragment key={d.id}>
                   <tr className="border-b border-line last:border-none">
-                    <td className="py-3 text-offwhite">{d.device_label ?? "—"}</td>
+                    <td className="py-3 text-offwhite">
+                      <Link to={`/app/devices/${d.id}`} className="font-medium hover:text-emerald hover:underline">
+                        {d.device_label ?? "—"}
+                      </Link>
+                    </td>
                     <td className="py-3">{customerName(d.customer_id)}</td>
                     <td className="py-3">
                       <span className={`rounded-pill px-2.5 py-1 font-mono text-[11px] ${statusPillStyles[d.status]}`}>
