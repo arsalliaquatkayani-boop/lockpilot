@@ -14,7 +14,10 @@ import { PrivacyPolicy } from "./pages/PrivacyPolicy";
 import { TermsOfService } from "./pages/TermsOfService";
 import { NotFound } from "./pages/NotFound";
 import { Login } from "./app/pages/Login";
-import { Dashboard as AppDashboard } from "./app/pages/Dashboard";
+import { Overview } from "./app/pages/Overview";
+import { CustomersPage } from "./app/pages/CustomersPage";
+import { DevicesPage } from "./app/pages/DevicesPage";
+import { PaymentsPage } from "./app/pages/PaymentsPage";
 import { ProtectedRoute } from "./app/components/ProtectedRoute";
 
 function ScrollToTop() {
@@ -50,7 +53,31 @@ export default function App() {
               path="/app"
               element={
                 <ProtectedRoute>
-                  <AppDashboard />
+                  <Overview />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/app/customers"
+              element={
+                <ProtectedRoute>
+                  <CustomersPage />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/app/devices"
+              element={
+                <ProtectedRoute>
+                  <DevicesPage />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/app/payments"
+              element={
+                <ProtectedRoute>
+                  <PaymentsPage />
                 </ProtectedRoute>
               }
             />

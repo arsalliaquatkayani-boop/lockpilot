@@ -11,8 +11,76 @@ import { DashboardChart } from "../components/DashboardChart";
 import { PricingCard } from "../components/PricingCard";
 import { ProductImage } from "../components/ProductImage";
 import { images } from "../config/images";
-import { featureItems } from "../config/features";
 import { faqItems } from "../config/faq";
+
+const icon = (path: string) => (
+  <svg viewBox="0 0 24 24" fill="none" className="h-4 w-4">
+    <path d={path} stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round" />
+  </svg>
+);
+
+const connectedSystemItems = [
+  {
+    title: "Installment Management",
+    description: "Create and manage flexible plans from one clear workspace.",
+    icon: icon("M6 4h9l3 3v13H6V4z M15 4v3h3"),
+  },
+  {
+    title: "Customer Management",
+    description: "Keep every financed customer organized and in context.",
+    icon: icon("M9 11a3 3 0 1 0 0-6 3 3 0 0 0 0 6z M3.5 19c0-3 2.5-5 5.5-5s5.5 2 5.5 5 M16 8.5a2.2 2.2 0 1 0 0-4.4 M15 13.2c2.2.2 3.8 1.9 3.8 4.3"),
+  },
+  {
+    title: "Smart Ledger",
+    description: "Track payments, balances and transaction history.",
+    icon: icon("M4 4h16v16H4V4z M8 9h8 M8 13h8 M8 17h5"),
+  },
+  {
+    title: "Payment Tracking",
+    description: "See paid, upcoming and overdue installments instantly.",
+    icon: icon("M12 3v18 M17 7.5c0-1.7-2.2-3-5-3s-5 1.3-5 3 2.2 3 5 3 5 1.3 5 3-2.2 3-5 3-5-1.3-5-3"),
+  },
+  {
+    title: "Device Management",
+    description: "Connect every financed device to its customer account.",
+    icon: icon("M7 3.5h10a1.5 1.5 0 0 1 1.5 1.5v14a1.5 1.5 0 0 1-1.5 1.5H7A1.5 1.5 0 0 1 5.5 19V5A1.5 1.5 0 0 1 7 3.5z M10.5 18h3"),
+  },
+  {
+    title: "Remote Lock & Unlock",
+    description: "Control enrolled devices from your central dashboard.",
+    icon: icon("M6 11V8a6 6 0 0 1 12 0v3 M5 11h14v9H5v-9z"),
+  },
+  {
+    title: "Automatic Protection",
+    description: "Configure protection after your chosen grace period.",
+    icon: icon("M12 3l7 3v6c0 4.5-3 7.5-7 9-4-1.5-7-4.5-7-9V6l7-3z"),
+  },
+  {
+    title: "QR Device Setup",
+    description: "Connect Android devices quickly with a simple scan.",
+    icon: icon("M4 4h6v6H4V4z M14 4h6v6h-6V4z M4 14h6v6H4v-6z M15 15h2v2h-2z M18 15h2v5h-5v-2"),
+  },
+  {
+    title: "Payment History",
+    description: "Keep a complete record of every payment received.",
+    icon: icon("M4 4h16v16H4V4z M8 9h8 M8 13h5"),
+  },
+  {
+    title: "Outstanding Balance",
+    description: "Know exactly what remains for every customer.",
+    icon: icon("M12 2 3 7v6c0 5 3.8 8.7 9 9 5.2-.3 9-4 9-9V7l-9-5z"),
+  },
+  {
+    title: "Analytics",
+    description: "Understand installment activity across the business.",
+    icon: icon("M4 20V10 M11 20V4 M18 20v-7"),
+  },
+  {
+    title: "Staff Access",
+    description: "Give authorized team members the access they need.",
+    icon: icon("M9 11a3 3 0 1 0 0-6 3 3 0 0 0 0 6z M3.5 19c0-3 2.5-5 5.5-5s5.5 2 5.5 5"),
+  },
+];
 
 export function Home() {
   return (
@@ -23,25 +91,34 @@ export function Home() {
         <Container className="relative">
           <div className="grid items-center gap-16 lg:grid-cols-[1.05fr_0.95fr]">
             <div>
-              <span className="mb-6 flex items-center gap-2.5 font-mono text-[12.5px] uppercase tracking-[0.08em] text-emerald">
-                <span className="h-px w-6 bg-emerald" />
-                Device Enforcement for Installment Retail
+              <span className="mb-6 inline-flex items-center gap-2 rounded-pill border border-line bg-navy-secondary px-3.5 py-1.5 text-[12px] font-medium text-slate">
+                <span className="h-1.5 w-1.5 rounded-full bg-emerald" />
+                The operating system for phone installments
               </span>
-              <h1 className="mb-6 font-heading text-[42px] font-black leading-[1.03] tracking-[-0.01em] text-offwhite md:text-[56px]">
-                Every installment, <span className="text-emerald-bright">secured</span> until it's paid.
+              <h1 className="mb-6 font-heading text-[42px] font-extrabold leading-[1.08] tracking-[-0.02em] text-offwhite md:text-[54px]">
+                Run your phone installment business with{" "}
+                <span className="text-emerald">total control</span>.
               </h1>
               <p className="mb-9 max-w-[480px] text-[17px] leading-relaxed text-slate">
-                LockPilot locks the device the moment a payment lapses, and releases it the instant
-                the shop records payment. No calls. No chasing. No exceptions.
+                Manage customers, payments, ledgers and financed devices from one powerful
+                platform — with built-in remote device control.
               </p>
-              <div className="mb-9 flex flex-wrap gap-3.5">
-                <Button to="/early-access" variant="primary">Request Early Access</Button>
-                <Button to="/features" variant="ghost">Explore the Platform</Button>
+              <div className="mb-9 flex flex-wrap items-center gap-3.5">
+                <Button to="/early-access" variant="primary">Get started</Button>
+                <Button to="/how-it-works" variant="ghost">See how it works</Button>
               </div>
-              <div className="flex flex-wrap gap-x-10 gap-y-4 border-t border-line pt-6">
-                <Stat value="Rs 2.45M" label="Capital protected" />
-                <Stat value="120" label="Devices / shop" />
-                <Stat value="15 min" label="Lock response" />
+              <div className="flex items-center gap-3 border-t border-line pt-6">
+                <div className="flex -space-x-2">
+                  {["AR", "BH", "SM", "UT"].map((initials) => (
+                    <span
+                      key={initials}
+                      className="flex h-8 w-8 items-center justify-center rounded-full border-2 border-navy-deep bg-emerald-soft text-[10.5px] font-bold text-emerald-deep"
+                    >
+                      {initials}
+                    </span>
+                  ))}
+                </div>
+                <span className="text-[13px] text-slate">Built for modern mobile retailers</span>
               </div>
             </div>
 
@@ -61,9 +138,9 @@ export function Home() {
         <Container>
           <Reveal>
             <SectionHeading
-              eyebrow="The problem"
-              title="Every unpaid installment ties up your capital."
-              description="Chasing overdue customers by phone doesn't scale, and a device with no enforcement mechanism leaves your investment exposed for as long as the customer decides."
+              eyebrow="The old way"
+              title="Installment sales shouldn't mean losing control."
+              description="When your business grows, a notebook and a few chat threads are not a system. LockPilot brings the moving parts of your retail operation into one source of truth."
               className="mb-14"
             />
           </Reveal>
@@ -94,28 +171,29 @@ export function Home() {
         </Container>
       </section>
 
-      {/* FEATURES PREVIEW */}
+      {/* ONE CONNECTED SYSTEM */}
       <section className="border-b border-line py-16 md:py-20">
         <Container>
           <Reveal>
             <SectionHeading
-              eyebrow="Built in"
-              title="Everything an installment retailer needs, in one system."
+              eyebrow="One connected system"
+              title="Everything your team needs to move with clarity."
+              description="Purpose-built tools for the day-to-day reality of mobile retail and installment sales."
               className="mb-14"
             />
           </Reveal>
-          <div className="grid gap-5 md:grid-cols-3">
-            {featureItems.slice(0, 6).map((f, i) => (
+          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+            {connectedSystemItems.map((item, i) => (
               <Reveal
-                key={f.id}
-                delay={i * 60}
-                className="group rounded-card border border-line bg-navy-secondary p-8 transition-all duration-300 hover:-translate-y-1 hover:border-emerald/50 hover:shadow-[0_20px_40px_-20px_rgba(0,0,0,0.5)]"
+                key={item.title}
+                delay={i * 40}
+                className="rounded-card border border-line bg-navy-secondary p-6 transition-all duration-300 hover:-translate-y-1 hover:border-emerald/50"
               >
-                <div className="mb-4 flex h-9 w-9 items-center justify-center rounded-sm border border-emerald/40 bg-emerald/10 font-mono text-[13px] text-emerald">
-                  {String(i + 1).padStart(2, "0")}
+                <div className="mb-4 flex h-9 w-9 items-center justify-center rounded-sm border border-emerald/30 bg-emerald-soft text-emerald">
+                  {item.icon}
                 </div>
-                <h3 className="mb-2.5 font-heading text-[16.5px] font-bold text-offwhite">{f.title}</h3>
-                <p className="text-[14.5px] leading-relaxed text-slate">{f.description}</p>
+                <h3 className="mb-2 font-heading text-[15px] font-bold text-offwhite">{item.title}</h3>
+                <p className="text-[13.5px] leading-relaxed text-slate">{item.description}</p>
               </Reveal>
             ))}
           </div>
@@ -228,14 +306,5 @@ export function Home() {
         </Container>
       </section>
     </>
-  );
-}
-
-function Stat({ value, label }: { value: string; label: string }) {
-  return (
-    <div className="flex flex-col gap-1">
-      <span className="font-mono text-[19px] font-semibold tabular-nums text-emerald-bright">{value}</span>
-      <span className="text-[11px] uppercase tracking-[0.04em] text-slate-light">{label}</span>
-    </div>
   );
 }
