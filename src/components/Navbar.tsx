@@ -3,7 +3,6 @@ import { Link, NavLink } from "react-router-dom";
 import { Container } from "./Container";
 import { Button } from "./Button";
 import { primaryNav, navCtas } from "../config/navigation";
-import { brand } from "../config/brand";
 
 export function Navbar() {
   const [scrolled, setScrolled] = useState(false);
@@ -26,14 +25,7 @@ export function Navbar() {
     >
       <Container className="flex items-center justify-between py-4">
         <Link to="/" className="flex items-center gap-2.5 font-heading font-extrabold text-[18px] text-offwhite">
-          <span className="flex h-7 w-7 items-center justify-center rounded-sm border border-emerald/60 bg-navy-secondary flex-shrink-0">
-            <svg viewBox="0 0 128 128" className="h-3.5 w-3.5">
-              <path d="M46 59V48a18 18 0 0 1 36 0v11" fill="none" stroke={brand.colors.offwhite} strokeWidth="7" strokeLinecap="round" />
-              <rect x="35" y="59" width="58" height="44" rx="9" fill={brand.colors.offwhite} />
-              <circle cx="64" cy="80" r="6" fill={brand.colors.emerald} />
-              <rect x="61" y="80" width="6" height="13" rx="3" fill={brand.colors.emerald} />
-            </svg>
-          </span>
+          <img src="/lockpilot-mark-square.png" alt="" className="h-8 w-8 flex-shrink-0" />
           LockPilot
         </Link>
 

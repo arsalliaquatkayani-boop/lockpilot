@@ -1,7 +1,6 @@
 import type { ReactNode } from "react";
 import { NavLink } from "react-router-dom";
 import { useAuth } from "../../context/AuthContext";
-import { brand } from "../../config/brand";
 
 type NavItem = { label: string; to: string; icon: ReactNode };
 
@@ -68,14 +67,7 @@ export function AppLayout({ children }: { children: ReactNode }) {
     <div className="flex min-h-screen bg-navy-deep">
       <aside className="hidden w-[220px] flex-shrink-0 flex-col gap-1 border-r border-line-dark bg-white p-4 md:flex">
         <NavLink to="/" className="mb-6 flex items-center gap-2.5 px-1">
-          <span className="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-sm border border-emerald/60 bg-emerald-soft">
-            <svg viewBox="0 0 128 128" className="h-4 w-4">
-              <path d="M46 59V48a18 18 0 0 1 36 0v11" fill="none" stroke={brand.colors.emeraldDeep} strokeWidth="7" strokeLinecap="round" />
-              <rect x="35" y="59" width="58" height="44" rx="9" fill={brand.colors.emeraldDeep} />
-              <circle cx="64" cy="80" r="6" fill={brand.colors.emeraldSoft} />
-              <rect x="61" y="80" width="6" height="13" rx="3" fill={brand.colors.emeraldSoft} />
-            </svg>
-          </span>
+          <img src="/lockpilot-mark-square.png" alt="" className="h-9 w-9 flex-shrink-0" />
           <span className="font-heading text-[15px] font-extrabold text-offwhite">LockPilot</span>
         </NavLink>
 

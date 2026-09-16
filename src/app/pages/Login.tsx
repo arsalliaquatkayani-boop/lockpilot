@@ -2,7 +2,6 @@ import { useState, type FormEvent } from "react";
 import { Navigate } from "react-router-dom";
 import { useAuth } from "../../context/AuthContext";
 import { Button } from "../../components/Button";
-import { brand } from "../../config/brand";
 
 const inputClass =
   "w-full rounded-sm border border-line bg-navy px-3 py-2.5 text-[14.5px] text-offwhite outline-none placeholder:text-slate-light focus:border-emerald";
@@ -32,14 +31,7 @@ export function Login() {
     <div className="flex min-h-screen items-center justify-center bg-navy-deep px-4">
       <div className="w-full max-w-[380px]">
         <div className="mb-8 flex flex-col items-center text-center">
-          <span className="mb-4 flex h-12 w-12 items-center justify-center rounded-sm border border-emerald/60 bg-navy-secondary">
-            <svg viewBox="0 0 128 128" className="h-6 w-6">
-              <path d="M46 59V48a18 18 0 0 1 36 0v11" fill="none" stroke={brand.colors.offwhite} strokeWidth="7" strokeLinecap="round" />
-              <rect x="35" y="59" width="58" height="44" rx="9" fill={brand.colors.offwhite} />
-              <circle cx="64" cy="80" r="6" fill={brand.colors.emerald} />
-              <rect x="61" y="80" width="6" height="13" rx="3" fill={brand.colors.emerald} />
-            </svg>
-          </span>
+          <img src="/lockpilot-mark-square.png" alt="" className="mb-4 h-14 w-14" />
           <div className="mb-1.5 font-heading text-[22px] font-extrabold text-offwhite">LockPilot</div>
           <div className="font-mono text-[12.5px] uppercase tracking-wide text-slate">
             Sign in to your dashboard
