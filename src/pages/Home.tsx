@@ -5,7 +5,7 @@ import { Reveal } from "../components/Reveal";
 import { CapabilityStrip } from "../components/CapabilityStrip";
 import { ComparisonFlow } from "../components/ComparisonFlow";
 import { DeviceStateAnimation } from "../components/DeviceStateAnimation";
-import { LockMechanism } from "../components/LockMechanism";
+import { DeviceControlVisual } from "../components/DeviceControlVisual";
 import { DashboardCard } from "../components/DashboardCard";
 import { DashboardChart } from "../components/DashboardChart";
 import { PricingCard } from "../components/PricingCard";
@@ -123,7 +123,7 @@ export function Home() {
             </div>
 
             <div className="flex justify-center">
-              <LockMechanism />
+              <DeviceControlVisual />
             </div>
           </div>
         </Container>
