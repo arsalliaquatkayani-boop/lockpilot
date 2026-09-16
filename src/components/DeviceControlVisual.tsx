@@ -1,9 +1,16 @@
 export function DeviceControlVisual() {
   return (
-    <div className="relative w-full max-w-[380px]">
-      {/* Phone */}
-      <div className="mx-auto w-[240px] rounded-[32px] border-[6px] border-dark bg-dark p-1.5 shadow-[0_30px_60px_-20px_rgba(19,33,58,0.35)]">
-        <div className="relative flex aspect-[9/18.5] flex-col items-center justify-center gap-3 overflow-hidden rounded-[24px] bg-dark-navy px-6 text-center">
+    <div className="relative w-full max-w-[420px] py-6">
+      <div className="pointer-events-none absolute left-1/2 top-1/2 h-[320px] w-[320px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-emerald/[0.12] blur-[90px]" />
+
+      {/* Phone, tilted like a product shot */}
+      <div
+        className="relative mx-auto w-[210px] rounded-[30px] bg-gradient-to-b from-[#1a2740] to-dark p-[3px] shadow-[0_40px_70px_-25px_rgba(19,33,58,0.45)]"
+        style={{ transform: "rotate(-7deg)" }}
+      >
+        <span className="absolute right-[-3px] top-16 h-8 w-[3px] rounded-full bg-[#0a1424]" />
+        <span className="absolute right-[-3px] top-28 h-12 w-[3px] rounded-full bg-[#0a1424]" />
+        <div className="relative flex aspect-[9/18.7] flex-col items-center justify-center gap-3 overflow-hidden rounded-[27px] border border-white/5 bg-dark-navy px-6 text-center">
           <span className="absolute top-3 h-1.5 w-14 rounded-full bg-white/15" />
 
           <div className="mb-1 flex items-center gap-1.5">
@@ -30,8 +37,8 @@ export function DeviceControlVisual() {
         </div>
       </div>
 
-      {/* Floating status card */}
-      <div className="absolute -right-2 bottom-8 w-[220px] rounded-card border border-line bg-navy-secondary p-4 shadow-[0_20px_45px_-20px_rgba(19,33,58,0.3)] sm:-right-8">
+      {/* Floating status card, offset beside the phone */}
+      <div className="absolute -right-2 bottom-2 w-[228px] rounded-card border border-line bg-navy-secondary p-4 shadow-[0_25px_50px_-20px_rgba(19,33,58,0.3)] sm:right-[-18px] sm:bottom-6">
         <div className="mb-3 flex items-center justify-between">
           <span className="text-[10px] font-semibold uppercase tracking-wide text-slate">Device status</span>
           <span className="flex items-center gap-1.5 text-[11px] font-bold text-success">
