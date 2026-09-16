@@ -34,13 +34,24 @@ export function DevicesPanel({
 
   const [customerId, setCustomerId] = useState("");
   const [deviceLabel, setDeviceLabel] = useState("");
-  const [imei, setImei] = useState("");
+  const [imeis, setImeis] = useState<string[]>([""]);
   const [totalAmount, setTotalAmount] = useState("");
   const [downPayment, setDownPayment] = useState("0");
   const [installmentAmount, setInstallmentAmount] = useState("");
   const [installmentCount, setInstallmentCount] = useState("");
   const [frequency, setFrequency] = useState<"weekly" | "monthly">("monthly");
   const [startDate, setStartDate] = useState(() => new Date().toISOString().slice(0, 10));
+  const [dueDayOfMonth, setDueDayOfMonth] = useState("");
+
+  function updateImei(index: number, value: string) {
+    setImeis((prev) => prev.map((v, i) => (i === index ? value : v)));
+  }
+  function addImeiField() {
+    setImeis((prev) => [...prev, ""]);
+  }
+  function removeImeiField(index: number) {
+    setImeis((prev) => prev.filter((_, i) => i !== index));
+  }
 
   const customerName = (id: string | null) =>
     customers.find((c) => c.id === id)?.full_name ?? "—";
@@ -77,13 +88,16 @@ export function DevicesPanel({
     setSubmitting(true);
     setError(null);
 
+    const cleanImeis = imeis.map((v) => v.trim()).filter(Boolean);
+
     const { data: newDevice, error: deviceError } = await supabase
       .from("devices")
       .insert({
         shop_id: shop.id,
         customer_id: customerId || null,
         device_label: deviceLabel,
-        imei: imei || null,
+        imei: cleanImeis[0] ?? null,
+        imeis: cleanImeis,
         sale_price: totalAmount ? Number(totalAmount) : null,
         status: "active",
         should_be_locked: false,
@@ -107,6 +121,7 @@ export function DevicesPanel({
       installment_count: Number(installmentCount),
       frequency,
       start_date: startDate,
+      due_day_of_month: frequency === "monthly" && dueDayOfMonth ? Number(dueDayOfMonth) : null,
       status: "active" as const,
     };
 
@@ -142,11 +157,12 @@ export function DevicesPanel({
     setShowForm(false);
     setCustomerId("");
     setDeviceLabel("");
-    setImei("");
+    setImeis([""]);
     setTotalAmount("");
     setDownPayment("0");
     setInstallmentAmount("");
     setInstallmentCount("");
+    setDueDayOfMonth("");
     onChanged();
   }
 
@@ -187,14 +203,31 @@ export function DevicesPanel({
               className={inputClass}
             />
           </div>
-          <div>
-            <label className={labelClass}>IMEI</label>
-            <input
-              placeholder="Optional"
-              value={imei}
-              onChange={(e) => setImei(e.target.value)}
-              className={inputClass}
-            />
+          <div className="md:col-span-3">
+            <label className={labelClass}>IMEI(s)</label>
+            <div className="flex flex-col gap-2">
+              {imeis.map((value, i) => (
+                <div key={i} className="flex gap-2">
+                  <input
+                    placeholder={i === 0 ? "IMEI 1 (optional)" : `IMEI ${i + 1}`}
+                    value={value}
+                    onChange={(e) => updateImei(i, e.target.value)}
+                    className={inputClass}
+                  />
+                  {imeis.length > 1 && (
+                    <Button type="button" variant="ghost-dark" size="sm" onClick={() => removeImeiField(i)}>
+                      Remove
+                    </Button>
+                  )}
+                </div>
+              ))}
+              <Button type="button" variant="ghost-dark" size="sm" className="w-fit" onClick={addImeiField}>
+                + Add another IMEI
+              </Button>
+            </div>
+            <p className="mt-1.5 text-[12px] text-slate">
+              Dual-SIM phones usually have two IMEI numbers — add both if known.
+            </p>
           </div>
           <div>
             <label className={labelClass}>Total Amount (Rs)</label>
@@ -260,6 +293,23 @@ export function DevicesPanel({
               className={inputClass}
             />
           </div>
+          {frequency === "monthly" && (
+            <div>
+              <label className={labelClass}>Due Day of Month</label>
+              <input
+                type="number"
+                min="1"
+                max="31"
+                placeholder="e.g. 5"
+                value={dueDayOfMonth}
+                onChange={(e) => setDueDayOfMonth(e.target.value)}
+                className={inputClass}
+              />
+              <p className="mt-1.5 text-[12px] text-slate">
+                Leave blank to use the start date's day each month.
+              </p>
+            </div>
+          )}
 
           {error && <div className="text-[13px] text-danger md:col-span-3">{error}</div>}
           <div className="md:col-span-3">
@@ -331,6 +381,9 @@ export function DevicesPanel({
                         <div className="mt-2 grid gap-1 font-mono text-[12.5px] text-offwhite">
                           <div>Device ID: {d.id}</div>
                           <div>Pairing code: {d.device_secret ?? "—"}</div>
+                          {d.imeis && d.imeis.length > 0 && (
+                            <div>IMEI{d.imeis.length > 1 ? "s" : ""}: {d.imeis.join(", ")}</div>
+                          )}
                         </div>
                       </td>
                     </tr>

@@ -41,6 +41,7 @@ export type Device = {
   customer_id: string | null;
   device_label: string | null;
   imei: string | null;
+  imeis: string[] | null;
   android_device_id: string | null;
   device_secret: string | null;
   cost_price: number | null;
@@ -63,6 +64,7 @@ export type InstallmentPlan = {
   installment_count: number;
   frequency: "weekly" | "monthly";
   start_date: string;
+  due_day_of_month: number | null;
   status: "active" | "completed" | "defaulted";
   created_at: string;
 };
