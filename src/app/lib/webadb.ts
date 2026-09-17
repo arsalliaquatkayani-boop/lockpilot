@@ -1,6 +1,7 @@
 import { Adb, AdbDaemonTransport } from "@yume-chan/adb";
 import { AdbDaemonWebUsbDeviceManager } from "@yume-chan/adb-daemon-webusb";
 import AdbWebCredentialStore from "@yume-chan/adb-credential-web";
+import { ReadableStream } from "@yume-chan/stream-extra";
 
 const ADMIN_COMPONENT = "com.mylockpilot.app/.LockPilotDeviceAdminReceiver";
 const APK_URL = "/downloads/lockpilot.apk";
