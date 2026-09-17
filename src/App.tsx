@@ -14,7 +14,7 @@ import { PrivacyPolicy } from "./pages/PrivacyPolicy";
 import { TermsOfService } from "./pages/TermsOfService";
 import { NotFound } from "./pages/NotFound";
 import { Login } from "./app/pages/Login";
-import { Register } from "./app/pages/Register";
+import { VerifyDevice } from "./app/pages/VerifyDevice";
 import { Overview } from "./app/pages/Overview";
 import { CustomersPage } from "./app/pages/CustomersPage";
 import { CustomerDetailPage } from "./app/pages/CustomerDetailPage";
@@ -25,7 +25,11 @@ import { PlansPage } from "./app/pages/PlansPage";
 import { AnalyticsPage } from "./app/pages/AnalyticsPage";
 import { EventLogsPage } from "./app/pages/EventLogsPage";
 import { SettingsPage } from "./app/pages/SettingsPage";
-import { ProtectedRoute } from "./app/components/ProtectedRoute";
+import { ProtectedRoute, AdminProtectedRoute } from "./app/components/ProtectedRoute";
+import { AdminOverview } from "./admin/pages/AdminOverview";
+import { AdminShops } from "./admin/pages/AdminShops";
+import { AdminShopDetail } from "./admin/pages/AdminShopDetail";
+import { AdminAddShop } from "./admin/pages/AdminAddShop";
 
 function ScrollToTop() {
   const { pathname } = useLocation();
@@ -37,7 +41,7 @@ function ScrollToTop() {
 
 export default function App() {
   const { pathname } = useLocation();
-  const isAppRoute = pathname.startsWith("/app");
+  const isAppRoute = pathname.startsWith("/app") || pathname.startsWith("/admin");
 
   return (
     <AuthProvider>
@@ -56,7 +60,7 @@ export default function App() {
             <Route path="/legal/privacy" element={<PrivacyPolicy />} />
             <Route path="/legal/terms" element={<TermsOfService />} />
             <Route path="/app/login" element={<Login />} />
-            <Route path="/app/register" element={<Register />} />
+            <Route path="/app/verify-device" element={<VerifyDevice />} />
             <Route
               path="/app"
               element={
@@ -135,6 +139,38 @@ export default function App() {
                 <ProtectedRoute>
                   <SettingsPage />
                 </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/admin"
+              element={
+                <AdminProtectedRoute>
+                  <AdminOverview />
+                </AdminProtectedRoute>
+              }
+            />
+            <Route
+              path="/admin/shops"
+              element={
+                <AdminProtectedRoute>
+                  <AdminShops />
+                </AdminProtectedRoute>
+              }
+            />
+            <Route
+              path="/admin/shops/new"
+              element={
+                <AdminProtectedRoute>
+                  <AdminAddShop />
+                </AdminProtectedRoute>
+              }
+            />
+            <Route
+              path="/admin/shops/:id"
+              element={
+                <AdminProtectedRoute>
+                  <AdminShopDetail />
+                </AdminProtectedRoute>
               }
             />
             <Route path="*" element={<NotFound />} />

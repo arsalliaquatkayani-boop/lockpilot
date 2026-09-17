@@ -1,5 +1,5 @@
 import { useState, type FormEvent } from "react";
-import { Link, Navigate } from "react-router-dom";
+import { Navigate } from "react-router-dom";
 import { useAuth } from "../../context/AuthContext";
 import { Button } from "../../components/Button";
 
@@ -8,14 +8,15 @@ const inputClass =
 const labelClass = "mb-1.5 block font-mono text-[11.5px] uppercase tracking-wide text-slate";
 
 export function Login() {
-  const { session, loading, signIn } = useAuth();
+  const { session, loading, deviceVerified, isPlatformAdmin, signIn } = useAuth();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [submitting, setSubmitting] = useState(false);
   const [formError, setFormError] = useState<string | null>(null);
 
   if (!loading && session) {
-    return <Navigate to="/app" replace />;
+    if (deviceVerified === false) return <Navigate to="/app/verify-device" replace />;
+    if (deviceVerified === true) return <Navigate to={isPlatformAdmin ? "/admin" : "/app"} replace />;
   }
 
   async function handleSubmit(e: FormEvent) {
@@ -74,13 +75,6 @@ export function Login() {
           <Button type="submit" variant="primary" disabled={submitting} className="w-full">
             {submitting ? "Signing in…" : "Sign in"}
           </Button>
-
-          <div className="mt-4 text-center text-[13px] text-slate">
-            New shop?{" "}
-            <Link to="/app/register" className="text-emerald">
-              Create an account
-            </Link>
-          </div>
         </form>
       </div>
     </div>

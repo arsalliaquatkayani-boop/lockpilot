@@ -9,21 +9,29 @@ import type { Session } from "@supabase/supabase-js";
 import { supabase } from "../lib/supabase";
 import type { Shop, Staff } from "../lib/types";
 
+const DEVICE_TOKEN_KEY = "lp_device_token";
+
+function getDeviceToken(): string {
+  let token = localStorage.getItem(DEVICE_TOKEN_KEY);
+  if (!token) {
+    token = crypto.randomUUID();
+    localStorage.setItem(DEVICE_TOKEN_KEY, token);
+  }
+  return token;
+}
+
 type AuthContextValue = {
   session: Session | null;
   staff: Staff | null;
   shop: Shop | null;
+  isPlatformAdmin: boolean;
   loading: boolean;
+  deviceVerified: boolean | null;
   error: string | null;
   signIn: (email: string, password: string) => Promise<{ error: string | null }>;
-  signUp: (params: {
-    email: string;
-    password: string;
-    shopName: string;
-    shopPhone: string;
-    fullName: string;
-  }) => Promise<{ error: string | null; needsEmailConfirmation: boolean }>;
   signOut: () => Promise<void>;
+  sendDeviceCode: () => Promise<{ error: string | null }>;
+  verifyDeviceCode: (code: string) => Promise<{ error: string | null }>;
 };
 
 const AuthContext = createContext<AuthContextValue | null>(null);
@@ -32,10 +40,26 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   const [session, setSession] = useState<Session | null>(null);
   const [staff, setStaff] = useState<Staff | null>(null);
   const [shop, setShop] = useState<Shop | null>(null);
+  const [isPlatformAdmin, setIsPlatformAdmin] = useState(false);
   const [loading, setLoading] = useState(true);
+  const [deviceVerified, setDeviceVerified] = useState<boolean | null>(null);
   const [error, setError] = useState<string | null>(null);
 
-  async function loadStaffAndShop(userId: string) {
+  async function loadUserContext(userId: string) {
+    const { data: adminRow } = await supabase
+      .from("platform_admins")
+      .select("id")
+      .eq("id", userId)
+      .maybeSingle();
+
+    if (adminRow) {
+      setIsPlatformAdmin(true);
+      setStaff(null);
+      setShop(null);
+      return;
+    }
+    setIsPlatformAdmin(false);
+
     const { data: staffRow, error: staffError } = await supabase
       .from("staff")
       .select("*")
@@ -44,7 +68,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
     if (staffError || !staffRow) {
       setError(
-        "Logged in, but no shop is linked to this account yet — ask an admin to add a row to the staff table.",
+        "Logged in, but no shop is linked to this account yet — contact LockPilot support.",
       );
       setStaff(null);
       setShop(null);
@@ -62,24 +86,52 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     setShop(shopRow ?? null);
   }
 
+  async function checkDeviceTrust(userId: string): Promise<boolean> {
+    const token = getDeviceToken();
+    const { data } = await supabase
+      .from("trusted_devices")
+      .select("id")
+      .eq("user_id", userId)
+      .eq("device_token", token)
+      .maybeSingle();
+
+    if (data) {
+      supabase
+        .from("trusted_devices")
+        .update({ last_used_at: new Date().toISOString() })
+        .eq("id", data.id)
+        .then();
+      setDeviceVerified(true);
+      return true;
+    }
+
+    setDeviceVerified(false);
+    return false;
+  }
+
+  async function handleSession(newSession: Session | null) {
+    setSession(newSession);
+    if (!newSession) {
+      setStaff(null);
+      setShop(null);
+      setIsPlatformAdmin(false);
+      setDeviceVerified(null);
+      return;
+    }
+
+    const trusted = await checkDeviceTrust(newSession.user.id);
+    if (trusted) {
+      await loadUserContext(newSession.user.id);
+    }
+  }
+
   useEffect(() => {
     supabase.auth.getSession().then(({ data }) => {
-      setSession(data.session);
-      if (data.session) {
-        loadStaffAndShop(data.session.user.id).finally(() => setLoading(false));
-      } else {
-        setLoading(false);
-      }
+      handleSession(data.session).finally(() => setLoading(false));
     });
 
     const { data: listener } = supabase.auth.onAuthStateChange((_event, newSession) => {
-      setSession(newSession);
-      if (newSession) {
-        loadStaffAndShop(newSession.user.id);
-      } else {
-        setStaff(null);
-        setShop(null);
-      }
+      handleSession(newSession);
     });
 
     return () => listener.subscription.unsubscribe();
@@ -98,39 +150,55 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     return { error: null };
   }
 
-  async function signUp(params: {
-    email: string;
-    password: string;
-    shopName: string;
-    shopPhone: string;
-    fullName: string;
-  }) {
-    setError(null);
-    const { data, error: signUpError } = await supabase.auth.signUp({
-      email: params.email,
-      password: params.password,
-      options: {
-        data: {
-          shop_name: params.shopName,
-          shop_phone: params.shopPhone,
-          full_name: params.fullName,
-        },
-      },
-    });
-    if (signUpError) {
-      setError(signUpError.message);
-      return { error: signUpError.message, needsEmailConfirmation: false };
-    }
-    return { error: null, needsEmailConfirmation: !data.session };
-  }
-
   async function signOut() {
     await supabase.auth.signOut();
   }
 
+  async function sendDeviceCode() {
+    if (!session?.user.email) return { error: "No active session." };
+    const { error: otpError } = await supabase.auth.signInWithOtp({
+      email: session.user.email,
+      options: { shouldCreateUser: false },
+    });
+    if (otpError) return { error: otpError.message };
+    return { error: null };
+  }
+
+  async function verifyDeviceCode(code: string) {
+    if (!session?.user.email) return { error: "No active session." };
+    const { error: verifyError } = await supabase.auth.verifyOtp({
+      email: session.user.email,
+      token: code,
+      type: "email",
+    });
+    if (verifyError) return { error: verifyError.message };
+
+    const token = getDeviceToken();
+    await supabase.from("trusted_devices").insert({
+      user_id: session.user.id,
+      device_token: token,
+      user_agent: navigator.userAgent,
+    });
+    setDeviceVerified(true);
+    await loadUserContext(session.user.id);
+    return { error: null };
+  }
+
   return (
     <AuthContext.Provider
-      value={{ session, staff, shop, loading, error, signIn, signUp, signOut }}
+      value={{
+        session,
+        staff,
+        shop,
+        isPlatformAdmin,
+        loading,
+        deviceVerified,
+        error,
+        signIn,
+        signOut,
+        sendDeviceCode,
+        verifyDeviceCode,
+      }}
     >
       {children}
     </AuthContext.Provider>

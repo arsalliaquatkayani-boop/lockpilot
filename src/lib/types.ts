@@ -7,6 +7,10 @@ export type Shop = {
   phone: string | null;
   address: string | null;
   grace_period_days: number;
+  plan: "trial" | "basic" | "pro";
+  billing_status: "active" | "overdue" | "suspended";
+  next_payment_due: string | null;
+  last_payment_date: string | null;
   created_at: string;
 };
 
@@ -14,8 +18,16 @@ export type Staff = {
   id: string;
   shop_id: string;
   full_name: string | null;
+  email: string | null;
   role: "owner" | "staff";
   created_at: string;
+};
+
+export type AdminShopStats = {
+  customers_count: number;
+  devices_count: number;
+  active_plans_count: number;
+  locked_devices_count: number;
 };
 
 export type Customer = {
