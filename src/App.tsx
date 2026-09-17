@@ -14,6 +14,7 @@ import { PrivacyPolicy } from "./pages/PrivacyPolicy";
 import { TermsOfService } from "./pages/TermsOfService";
 import { NotFound } from "./pages/NotFound";
 import { Login } from "./app/pages/Login";
+import { Register } from "./app/pages/Register";
 import { Overview } from "./app/pages/Overview";
 import { CustomersPage } from "./app/pages/CustomersPage";
 import { CustomerDetailPage } from "./app/pages/CustomerDetailPage";
@@ -55,6 +56,7 @@ export default function App() {
             <Route path="/legal/privacy" element={<PrivacyPolicy />} />
             <Route path="/legal/terms" element={<TermsOfService />} />
             <Route path="/app/login" element={<Login />} />
+            <Route path="/app/register" element={<Register />} />
             <Route
               path="/app"
               element={

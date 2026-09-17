@@ -16,6 +16,13 @@ type AuthContextValue = {
   loading: boolean;
   error: string | null;
   signIn: (email: string, password: string) => Promise<{ error: string | null }>;
+  signUp: (params: {
+    email: string;
+    password: string;
+    shopName: string;
+    shopPhone: string;
+    fullName: string;
+  }) => Promise<{ error: string | null; needsEmailConfirmation: boolean }>;
   signOut: () => Promise<void>;
 };
 
@@ -91,12 +98,40 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     return { error: null };
   }
 
+  async function signUp(params: {
+    email: string;
+    password: string;
+    shopName: string;
+    shopPhone: string;
+    fullName: string;
+  }) {
+    setError(null);
+    const { data, error: signUpError } = await supabase.auth.signUp({
+      email: params.email,
+      password: params.password,
+      options: {
+        data: {
+          shop_name: params.shopName,
+          shop_phone: params.shopPhone,
+          full_name: params.fullName,
+        },
+      },
+    });
+    if (signUpError) {
+      setError(signUpError.message);
+      return { error: signUpError.message, needsEmailConfirmation: false };
+    }
+    return { error: null, needsEmailConfirmation: !data.session };
+  }
+
   async function signOut() {
     await supabase.auth.signOut();
   }
 
   return (
-    <AuthContext.Provider value={{ session, staff, shop, loading, error, signIn, signOut }}>
+    <AuthContext.Provider
+      value={{ session, staff, shop, loading, error, signIn, signUp, signOut }}
+    >
       {children}
     </AuthContext.Provider>
   );

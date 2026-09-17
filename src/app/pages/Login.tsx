@@ -1,5 +1,5 @@
 import { useState, type FormEvent } from "react";
-import { Navigate } from "react-router-dom";
+import { Link, Navigate } from "react-router-dom";
 import { useAuth } from "../../context/AuthContext";
 import { Button } from "../../components/Button";
 
@@ -74,6 +74,13 @@ export function Login() {
           <Button type="submit" variant="primary" disabled={submitting} className="w-full">
             {submitting ? "Signing in…" : "Sign in"}
           </Button>
+
+          <div className="mt-4 text-center text-[13px] text-slate">
+            New shop?{" "}
+            <Link to="/app/register" className="text-emerald">
+              Create an account
+            </Link>
+          </div>
         </form>
       </div>
     </div>
