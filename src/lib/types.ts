@@ -11,6 +11,7 @@ export type Shop = {
   billing_status: "active" | "overdue" | "suspended";
   next_payment_due: string | null;
   last_payment_date: string | null;
+  frp_recovery_email: string | null;
   created_at: string;
 };
 

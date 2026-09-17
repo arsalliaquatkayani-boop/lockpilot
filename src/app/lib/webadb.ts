@@ -89,14 +89,10 @@ export async function runUsbSetup(
       throw new WebAdbSetupError(`Install failed: ${installOutput.trim()}`);
     }
 
-    onStep("setting-device-owner");
-    const ownerOutput = await runShell(adb, ["dpm", "set-device-owner", ADMIN_COMPONENT]);
-    if (!ownerOutput.includes("Success")) {
-      throw new WebAdbSetupError(
-        `Could not set Device Owner: ${ownerOutput.trim()}. The phone likely already has a Google account signed in or was set up before — factory reset it and try again before any account is added.`,
-      );
-    }
-
+    // Pair before granting Device Owner, not after: one of the baseline
+    // policies applied the instant Device Owner is granted blocks USB
+    // debugging from being used further, which would cut this very ADB
+    // session off mid-flow if pairing ran afterward instead.
     onStep("pairing");
     await runShell(adb, [
       "am",
@@ -110,6 +106,14 @@ export async function runUsbSetup(
       "pairing_code",
       pairingCode,
     ]);
+
+    onStep("setting-device-owner");
+    const ownerOutput = await runShell(adb, ["dpm", "set-device-owner", ADMIN_COMPONENT]);
+    if (!ownerOutput.includes("Success")) {
+      throw new WebAdbSetupError(
+        `Could not set Device Owner: ${ownerOutput.trim()}. The phone likely already has a Google account signed in or was set up before — factory reset it and try again before any account is added.`,
+      );
+    }
 
     onStep("done");
   } finally {

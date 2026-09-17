@@ -21,14 +21,40 @@ export function SettingsPage() {
   const [saved, setSaved] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
+  const [frpEmail, setFrpEmail] = useState("");
+  const [frpSaving, setFrpSaving] = useState(false);
+  const [frpSaved, setFrpSaved] = useState(false);
+  const [frpError, setFrpError] = useState<string | null>(null);
+
   useEffect(() => {
     if (shop) {
       setName(shop.name ?? "");
       setPhone(shop.phone ?? "");
       setAddress(shop.address ?? "");
       setGracePeriod(String(shop.grace_period_days ?? 3));
+      setFrpEmail(shop.frp_recovery_email ?? "");
     }
   }, [shop]);
+
+  async function handleFrpSubmit(e: FormEvent) {
+    e.preventDefault();
+    if (!shop) return;
+    setFrpSaving(true);
+    setFrpError(null);
+    setFrpSaved(false);
+
+    const { error: updateError } = await supabase
+      .from("shops")
+      .update({ frp_recovery_email: frpEmail || null })
+      .eq("id", shop.id);
+
+    setFrpSaving(false);
+    if (updateError) {
+      setFrpError(updateError.message);
+      return;
+    }
+    setFrpSaved(true);
+  }
 
   async function handleSubmit(e: FormEvent) {
     e.preventDefault();
@@ -94,6 +120,40 @@ export function SettingsPage() {
           <div className="md:col-span-2">
             <Button type="submit" variant="primary" size="sm" disabled={saving}>
               {saving ? "Saving…" : "Save changes"}
+            </Button>
+          </div>
+        </form>
+      </div>
+
+      <div className="mb-6 rounded-card border border-line p-6">
+        <h2 className="mb-2 font-heading text-[16px] font-bold text-offwhite">Anti-theft recovery account</h2>
+        <p className="mb-5 max-w-[560px] text-[13px] text-slate">
+          If a customer tries to escape a lock by wiping their phone (a factory reset), this Google
+          account is what stops them from using it afterward — the phone will demand this account's
+          password before it works again. Create a{" "}
+          <span className="text-offwhite">brand-new, dedicated Gmail account just for this</span> (never
+          your personal one), turn on 2-Step Verification on it, and enter its email below. It's never
+          signed into any customer's phone — nothing to see, nothing for them to tamper with. Keep its
+          password written down somewhere safe; you'll only need it if a phone actually gets wiped.
+        </p>
+        <form onSubmit={handleFrpSubmit} className="grid gap-4 md:grid-cols-2">
+          <div>
+            <label className={labelClass}>Recovery Gmail address</label>
+            <input
+              type="email"
+              placeholder="yourshopname.recovery@gmail.com"
+              value={frpEmail}
+              onChange={(e) => setFrpEmail(e.target.value)}
+              className={inputClass}
+            />
+          </div>
+
+          {frpError && <div className="text-[13px] text-danger md:col-span-2">{frpError}</div>}
+          {frpSaved && !frpError && <div className="text-[13px] text-success md:col-span-2">Saved.</div>}
+
+          <div className="md:col-span-2">
+            <Button type="submit" variant="primary" size="sm" disabled={frpSaving}>
+              {frpSaving ? "Saving…" : "Save changes"}
             </Button>
           </div>
         </form>
