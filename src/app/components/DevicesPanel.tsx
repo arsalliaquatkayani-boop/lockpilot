@@ -5,6 +5,7 @@ import type { Customer, Device } from "../../lib/types";
 import { useAuth } from "../../context/AuthContext";
 import { buildPaymentSchedule } from "../lib/schedule";
 import { Button } from "../../components/Button";
+import { DeviceSetupModal } from "./DeviceSetupModal";
 
 const statusPillStyles: Record<Device["status"], string> = {
   active: "bg-emerald/15 text-emerald-bright",
@@ -31,7 +32,7 @@ export function DevicesPanel({
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [togglingId, setTogglingId] = useState<string | null>(null);
-  const [pairingRevealId, setPairingRevealId] = useState<string | null>(null);
+  const [setupDevice, setSetupDevice] = useState<Device | null>(null);
 
   const [customerId, setCustomerId] = useState("");
   const [deviceLabel, setDeviceLabel] = useState("");
@@ -367,38 +368,19 @@ export function DevicesPanel({
                       )}
                     </td>
                     <td className="py-3 text-right">
-                      <Button
-                        variant="ghost-dark"
-                        size="sm"
-                        onClick={() => setPairingRevealId(pairingRevealId === d.id ? null : d.id)}
-                      >
-                        {pairingRevealId === d.id ? "Hide" : "Pair phone"}
+                      <Button variant="ghost-dark" size="sm" onClick={() => setSetupDevice(d)}>
+                        Set up phone
                       </Button>
                     </td>
                   </tr>
-                  {pairingRevealId === d.id && (
-                    <tr className="border-b border-line last:border-none">
-                      <td colSpan={5} className="bg-navy py-3 px-3 rounded-sm">
-                        <div className="text-[12.5px] text-slate">
-                          Enter these two values into the "Pair this device" screen on the
-                          customer's phone, once, during setup:
-                        </div>
-                        <div className="mt-2 grid gap-1 font-mono text-[12.5px] text-offwhite">
-                          <div>Device ID: {d.id}</div>
-                          <div>Pairing code: {d.device_secret ?? "—"}</div>
-                          {d.imeis && d.imeis.length > 0 && (
-                            <div>IMEI{d.imeis.length > 1 ? "s" : ""}: {d.imeis.join(", ")}</div>
-                          )}
-                        </div>
-                      </td>
-                    </tr>
-                  )}
                 </Fragment>
               ))}
             </tbody>
           </table>
         </div>
       )}
+
+      {setupDevice && <DeviceSetupModal device={setupDevice} onClose={() => setSetupDevice(null)} />}
     </div>
   );
 }
