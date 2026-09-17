@@ -1,5 +1,5 @@
 import { Adb, AdbDaemonTransport } from "@yume-chan/adb";
-import { AdbDaemonWebUsbDeviceManager } from "@yume-chan/adb-daemon-webusb";
+import { AdbDaemonWebUsbDevice, AdbDaemonWebUsbDeviceManager } from "@yume-chan/adb-daemon-webusb";
 import AdbWebCredentialStore from "@yume-chan/adb-credential-web";
 import { ReadableStream } from "@yume-chan/stream-extra";
 
@@ -52,7 +52,17 @@ export async function runUsbSetup(
     throw new WebAdbSetupError("No device was selected.");
   }
 
-  const connection = await device.connect();
+  let connection;
+  try {
+    connection = await device.connect();
+  } catch (err) {
+    if (err instanceof AdbDaemonWebUsbDevice.DeviceBusyError) {
+      throw new WebAdbSetupError(
+        "This phone is already connected to another program on this computer (like Android Studio, a phone manager app, or a command-line adb session). Close that program, unplug and replug the USB cable, then try again.",
+      );
+    }
+    throw err;
+  }
   const credentialStore = new AdbWebCredentialStore("LockPilot");
 
   onStep("waiting-for-phone-approval");
