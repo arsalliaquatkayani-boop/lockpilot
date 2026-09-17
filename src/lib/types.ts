@@ -57,6 +57,7 @@ export type Device = {
   imeis: string[] | null;
   android_device_id: string | null;
   device_secret: string | null;
+  frp_applied_at: string | null;
   cost_price: number | null;
   sale_price: number | null;
   status: DeviceStatus;

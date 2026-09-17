@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import QRCode from "qrcode";
+import { supabase } from "../../lib/supabase";
 import type { Device } from "../../lib/types";
 import { Button } from "../../components/Button";
 import { buildProvisioningPayload } from "../lib/provisioning";
@@ -20,6 +21,19 @@ export function DeviceSetupModal({ device, onClose }: { device: Device; onClose:
   const [usbStep, setUsbStep] = useState<SetupStep | null>(null);
   const [usbError, setUsbError] = useState<string | null>(null);
   const [usbRunning, setUsbRunning] = useState(false);
+  const [frpAppliedAt, setFrpAppliedAt] = useState(device.frp_applied_at);
+  const [checkingFrp, setCheckingFrp] = useState(false);
+
+  async function refreshFrpStatus() {
+    setCheckingFrp(true);
+    const { data } = await supabase
+      .from("devices")
+      .select("frp_applied_at")
+      .eq("id", device.id)
+      .single();
+    setFrpAppliedAt(data?.frp_applied_at ?? null);
+    setCheckingFrp(false);
+  }
 
   useEffect(() => {
     if (tab !== "qr" || !device.device_secret) return;
@@ -33,6 +47,10 @@ export function DeviceSetupModal({ device, onClose }: { device: Device; onClose:
     setUsbError(null);
     try {
       await runUsbSetup(device.id, device.device_secret, setUsbStep);
+      // The phone confirms FRP protection asynchronously (a few seconds
+      // after setup, sometimes longer on slower networks) — check once
+      // right away, staff can hit "Check again" below if it's not there yet.
+      await refreshFrpStatus();
     } catch (err) {
       console.error("USB setup failed:", err);
       setUsbError(
@@ -53,6 +71,28 @@ export function DeviceSetupModal({ device, onClose }: { device: Device; onClose:
           </h2>
           <button type="button" onClick={onClose} className="text-slate hover:text-offwhite">
             ✕
+          </button>
+        </div>
+
+        <div
+          className={`mb-5 flex items-center justify-between rounded-sm border px-3 py-2.5 text-[12.5px] ${
+            frpAppliedAt
+              ? "border-emerald/30 bg-emerald-soft text-emerald-deep"
+              : "border-warning/30 bg-warning-soft text-warning"
+          }`}
+        >
+          <span>
+            {frpAppliedAt
+              ? "✓ Anti-theft protection (FRP) confirmed active on this phone"
+              : "⚠ Anti-theft protection (FRP) not yet confirmed — don't hand over the phone until this shows active"}
+          </span>
+          <button
+            type="button"
+            onClick={refreshFrpStatus}
+            disabled={checkingFrp}
+            className="flex-shrink-0 font-medium underline"
+          >
+            {checkingFrp ? "Checking…" : "Check again"}
           </button>
         </div>
 
