@@ -34,7 +34,12 @@ export function DeviceSetupModal({ device, onClose }: { device: Device; onClose:
     try {
       await runUsbSetup(device.id, device.device_secret, setUsbStep);
     } catch (err) {
-      setUsbError(err instanceof WebAdbSetupError ? err.message : "Something went wrong. Try again.");
+      console.error("USB setup failed:", err);
+      setUsbError(
+        err instanceof WebAdbSetupError
+          ? err.message
+          : `Unexpected error: ${err instanceof Error ? err.message : String(err)}`,
+      );
     }
     setUsbRunning(false);
   }
